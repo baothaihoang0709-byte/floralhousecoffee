@@ -21,6 +21,7 @@
             --white: #FFFFFF;
             --text-gray: #555555;
             --accent-gold: #D4AF37;
+            --error-red: #e74c3c;
             color-scheme: light;
         }
 
@@ -35,7 +36,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #ffffff !important; 
+            overflow-x: hidden; 
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -64,7 +65,7 @@
         }
         .logo span { color: var(--primary-mint); }
 
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-menu { display: flex; gap: 15px; align-items: center; } /* Giảm gap một chút để vừa menu mới */
         
         .nav-link { 
             font-weight: 700; 
@@ -86,78 +87,96 @@
         
         .nav-link:hover::after, .nav-link.active-link::after { width: 100%; }
 
-        /* --- DROPDOWN MENU STYLE (GÓC THƠ) --- */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* --- DROPDOWN MENU STYLE --- */
+        .dropdown { position: relative; display: inline-block; }
         .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            min-width: 180px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-            z-index: 1001;
-            border-radius: 10px;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px 0;
-            border: 1px solid #eee;
+            display: none; position: absolute; background-color: #ffffff;
+            min-width: 180px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1001; border-radius: 10px; top: 100%; left: 50%;
+            transform: translateX(-50%); padding: 10px 0; border: 1px solid #eee;
         }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-            animation: fadeInDropdown 0.3s;
-        }
-
-        @keyframes fadeInDropdown {
-            from { opacity: 0; transform: translate(-50%, 10px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-
+        .dropdown:hover .dropdown-content { display: block; animation: fadeInDropdown 0.3s; }
+        @keyframes fadeInDropdown { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
         .sub-link {
-            color: var(--dark-green);
-            padding: 10px 20px;
-            text-decoration: none;
-            display: block;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.2s;
+            color: var(--dark-green); padding: 10px 20px; text-decoration: none;
+            display: block; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
         }
-
-        .sub-link:hover {
-            background-color: var(--light-mint);
-            color: var(--dark-green);
-        }
+        .sub-link:hover { background-color: var(--light-mint); color: var(--dark-green); }
 
         .hamburger { display: none; cursor: pointer; }
         .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--dark-green); transition: 0.3s; }
 
-        /* --- 4. PAGE SECTIONS LOGIC --- */
+        /* --- 4. PAGE SECTIONS & BACKGROUNDS --- */
         .page-section {
             display: none;
             padding-top: 100px;
             padding-bottom: 60px;
-            min-height: 80vh;
+            min-height: 100vh; /* Full height để thấy background */
             animation: fadeIn 0.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Tạo hiệu ứng Parallax nhẹ */
         }
 
-        .page-section.active {
-            display: block;
-        }
+        .page-section.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- 5. HERO SECTION --- */
+        /* --- BACKGROUND IMAGES FOR EACH PAGE --- */
+        
+        /* Home: Giữ nguyên (đã có class .hero riêng) */
         #home.page-section { padding-top: 0; display: none; }
         #home.page-section.active { display: flex; }
 
+        /* Menu: Nền hạt cà phê/lá trà nhẹ nhàng */
+        #menu {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
+            url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Cảnh Sắc: Nền không gian xanh mướt */
+        #venue {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Khoảnh Khắc: Nền ánh sáng ấm cúng */
+        #customer {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Hân Hoan: Nền tươi vui, nhiều màu sắc nhẹ */
+        #promotions {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)),
+            url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Sự Kiện: Nền sân khấu/nhạc cụ */
+        #events {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Kết Nối: Nền giấy viết thư/bàn làm việc */
+        #contact {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Nhắn Nhủ: Nền yên tĩnh, suy tư */
+        #feedback {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* Đánh Giá (MỚI): Nền ngôi sao/ánh sáng */
+        #reviews {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url('https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+
+        /* --- 5. HERO SECTION STYLES --- */
         .hero {
             height: 100vh; width: 100%;
             background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)), 
@@ -172,8 +191,7 @@
         .btn-main {
             padding: 12px 30px; background-color: var(--primary-mint); color: var(--dark-green);
             border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint);
-            display: inline-block; cursor: pointer;
-            transition: all 0.3s ease;
+            display: inline-block; cursor: pointer; transition: all 0.3s ease;
         }
         .btn-main:hover { background-color: transparent; color: var(--white); border-color: var(--white); }
 
@@ -191,171 +209,101 @@
         .menu-info h3 { color: var(--dark-green); margin-bottom: 10px; font-size: 1.3rem; }
         .price { color: var(--accent-gold); font-weight: bold; font-size: 1.2rem; }
 
-        /* --- GALLERY GRID (Used in Venue & Customer Pages) --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .gallery-item {
-            position: relative;
-            height: 300px;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-caption {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            background: rgba(46, 90, 72, 0.8);
-            color: var(--white);
-            padding: 10px;
-            text-align: center;
-            opacity: 0;
-            transition: 0.3s;
-        }
+        /* GALLERY GRID */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .gallery-item { position: relative; height: 300px; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(46, 90, 72, 0.8); color: var(--white); padding: 10px; text-align: center; opacity: 0; transition: 0.3s; }
         .gallery-item:hover .gallery-caption { opacity: 1; }
+        .gallery-divider { text-align: center; margin: 40px 0 30px 0; position: relative; }
+        .gallery-divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background-color: #ddd; z-index: 0; }
+        .gallery-divider span { background-color: rgba(255,255,255,0.9); padding: 0 20px; position: relative; z-index: 1; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--dark-green); font-weight: bold; }
 
-        /* --- PROMOTIONS SECTION --- */
+        /* PROMOTIONS */
         .promo-card {
-            background-color: var(--light-mint); border: 2px dashed var(--primary-mint);
-            border-radius: 15px; padding: 30px; text-align: center; position: relative;
-            margin-bottom: 30px; transition: 0.3s;
+            background-color: rgba(255, 255, 255, 0.95); /* Tăng độ mờ nền card */
+            border: 2px dashed var(--primary-mint); border-radius: 15px; padding: 30px; 
+            text-align: center; position: relative; margin-bottom: 30px; transition: 0.3s;
         }
-        .promo-card:hover { transform: scale(1.02); background-color: #dcedde; }
-        .promo-badge {
-            position: absolute; top: -15px; right: -15px; background-color: #ff6b6b;
-            color: white; padding: 10px 15px; border-radius: 20px; font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        .promo-card:hover { transform: scale(1.02); background-color: #f0fdf4; }
+        .promo-badge { position: absolute; top: -15px; right: -15px; background-color: #ff6b6b; color: white; padding: 10px 15px; border-radius: 20px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .promo-title { font-size: 1.8rem; color: var(--dark-green); margin-bottom: 10px; font-family: 'Dancing Script', cursive; }
-        .promo-code {
-            background-color: var(--white); padding: 10px 20px; border-radius: 5px;
-            font-weight: bold; color: var(--dark-green); display: inline-block;
-            margin-top: 15px; border: 1px solid var(--dark-green); cursor: pointer;
-        }
+        .promo-code { background-color: var(--white); padding: 10px 20px; border-radius: 5px; font-weight: bold; color: var(--dark-green); display: inline-block; margin-top: 15px; border: 1px solid var(--dark-green); cursor: pointer; }
 
-        /* --- EVENTS PAGE --- */
+        /* EVENTS */
         .event-card {
             display: flex; background-color: var(--white); border: none; margin-bottom: 40px;
             border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(46, 90, 72, 0.08);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(46, 90, 72, 0.15); }
-        .event-img {
-            flex: 1; min-height: 350px; background-size: contain; background-repeat: no-repeat;
-            background-position: center; background-color: var(--light-mint); position: relative;
-        }
+        .event-img { flex: 1; min-height: 350px; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: var(--light-mint); position: relative; }
         .event-content { flex: 1.2; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .event-date-badge {
-            display: inline-block; background-color: var(--primary-mint); color: var(--dark-green);
-            padding: 8px 16px; border-radius: 50px; font-weight: 800; font-size: 0.9rem;
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
-            align-self: flex-start; box-shadow: 0 4px 10px rgba(160, 214, 180, 0.4);
-        }
+        .event-date-badge { display: inline-block; background-color: var(--primary-mint); color: var(--dark-green); padding: 8px 16px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; align-self: flex-start; box-shadow: 0 4px 10px rgba(160, 214, 180, 0.4); }
         .event-content h3 { font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 20px; color: var(--dark-green); line-height: 1.2; }
         .event-content p { color: var(--text-gray); font-size: 1.05rem; margin-bottom: 25px; }
-        .btn-disabled {
-            background-color: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; cursor: not-allowed;
-            padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 0.9rem; display: inline-block; width: fit-content;
-        }
+        .btn-disabled { background-color: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; cursor: not-allowed; padding: 12px 25px; border-radius: 30px; font-weight: bold; font-size: 0.9rem; display: inline-block; width: fit-content; }
 
-        /* --- CONTACT PAGE --- */
+        /* CONTACT & FEEDBACK FORMS */
         .contact-wrapper {
-            background-color: var(--white); padding: 40px; border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.95); /* Nền trắng mờ để nổi bật trên ảnh */
+            padding: 40px; border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;
         }
-        .form-group { margin-bottom: 20px; }
-        input, textarea, select {
-            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem;
-        }
+        .form-group { margin-bottom: 20px; position: relative; }
+        input, textarea, select { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s; }
         input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary-mint); }
+        input.invalid, textarea.invalid { border-color: var(--error-red); }
+        .char-count { display: block; text-align: right; font-size: 0.8rem; color: #888; margin-top: 5px; }
+        .error-message { color: var(--error-red); font-size: 0.85rem; display: none; margin-top: 2px; }
+        .required-star { color: var(--error-red); }
 
-        /* --- MODAL (POPUP) STYLES - Chỉ cho Nhắn Nhủ --- */
-        .modal {
-            display: none; /* Mặc định ẩn */
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6); /* Nền tối mờ */
-            align-items: center;
-            justify-content: center;
-            overflow-y: auto; /* Cho phép cuộn nếu modal dài */
-        }
-        
-        .modal.active { display: flex; animation: fadeInModal 0.3s; }
-
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
+        /* --- REVIEW SECTION STYLES (MỚI) --- */
+        .rating-container {
+            text-align: center;
             background-color: var(--white);
-            margin: auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             max-width: 600px;
-            position: relative;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-            animation: slideDown 0.4s;
+            margin: 0 auto;
         }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #aaa;
-            font-size: 28px;
+        .rating-score {
+            font-size: 4rem;
             font-weight: bold;
+            color: var(--dark-green);
+            font-family: 'Dancing Script', cursive;
+        }
+        .rating-stars {
+            font-size: 2rem;
+            color: #ddd;
+            margin: 10px 0 30px 0;
             cursor: pointer;
-            transition: 0.3s;
-            z-index: 10;
         }
+        .rating-stars i { transition: 0.2s; padding: 0 5px; }
+        .rating-stars i:hover, .rating-stars i.active { color: var(--accent-gold); }
+        .rating-text { margin-bottom: 20px; font-size: 1.1rem; }
 
-        .close-btn:hover { color: var(--dark-green); }
+        /* NOTIFICATIONS */
+        #notification-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(46, 90, 72, 0.9); z-index: 9999; align-items: center; justify-content: center; flex-direction: column; text-align: center; animation: fadeIn 0.5s; }
+        .notification-content { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; z-index: 10000; max-width: 400px; width: 80%; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .notification-content h3 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--dark-green); margin-bottom: 10px; }
+        .notification-content p { font-size: 1.1rem; color: var(--text-gray); margin-bottom: 20px; }
+        .close-notif-btn { background-color: var(--primary-mint); color: var(--dark-green); border: none; padding: 10px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .close-notif-btn:hover { background-color: var(--dark-green); color: white; }
+        .particle { position: absolute; width: 15px; height: 15px; background-size: contain; background-repeat: no-repeat; pointer-events: none; opacity: 0; }
+        @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--footer-bg); color: #ecf0f1; padding-top: 60px;
-            font-size: 0.95rem; margin-top: auto;
-        }
-        .footer-container {
-            display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px;
-            padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        /* FOOTER */
+        footer { background-color: var(--footer-bg); color: #ecf0f1; padding-top: 60px; font-size: 0.95rem; margin-top: auto; }
+        .footer-container { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .footer-col h3 { color: var(--primary-mint); font-family: 'Dancing Script', cursive; font-size: 1.8rem; margin-bottom: 15px; }
-        .footer-col h4 {
-            color: var(--white); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase;
-            letter-spacing: 1px; border-left: 3px solid var(--primary-mint); padding-left: 10px;
-        }
+        .footer-col h4 { color: var(--white); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; border-left: 3px solid var(--primary-mint); padding-left: 10px; }
         .footer-col p { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
         .footer-col i { color: var(--primary-mint); margin-top: 5px; }
         .social-links { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icon {
-            width: 40px; height: 40px; background-color: rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; transition: 0.3s; color: var(--white); font-size: 1.2rem;
-        }
+        .social-icon { width: 40px; height: 40px; background-color: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s; color: var(--white); font-size: 1.2rem; }
         .social-icon:hover { transform: translateY(-3px); color: var(--white); }
         .social-icon.fb:hover { background-color: #1877F2; }
         .social-icon.ins:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -370,22 +318,15 @@
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-            .nav-menu {
-                position: fixed; left: -100%; top: 70px; gap: 0; flex-direction: column;
-                background-color: var(--white); width: 100%; text-align: center; transition: 0.3s;
-                box-shadow: 0 5px 5px rgba(0,0,0,0.1); padding: 20px 0;
-            }
+            .nav-menu { position: fixed; left: -100%; top: 70px; gap: 0; flex-direction: column; background-color: var(--white); width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 5px 5px rgba(0,0,0,0.1); padding: 20px 0; }
             .nav-menu.active { left: 0; }
             .nav-item { margin: 16px 0; }
             .dropdown-content { position: relative; width: 100%; box-shadow: none; border: none; background-color: #f9f9f9; top: 0; left: 0; transform: none; display: none; }
             .dropdown.active .dropdown-content { display: block; }
-            
             .hero-content h1 { font-size: 3rem; }
             .event-card { flex-direction: column; }
             .event-img { min-height: 250px; }
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
-            .modal-content { width: 95%; margin: 10% auto; }
         }
     </style>
 </head>
@@ -394,29 +335,22 @@
     <!-- Header -->
     <header>
         <div class="container nav-container">
-            <!-- Logo bấm vào sẽ về trang chủ -->
             <div class="logo" onclick="switchPage('home')">Floral <span>House</span></div>
             
             <ul class="nav-menu">
                 <li class="nav-item">
                     <div class="nav-link active-link" onclick="switchPage('home')">Trang chủ</div>
                 </li>
-                <!-- Đã đổi tên thành Nhâm Nhi -->
                 <li class="nav-item">
                     <div class="nav-link" onclick="switchPage('menu')">Nhâm Nhi</div>
                 </li>
-                
-                <!-- GÓC THƠ DROPDOWN -->
                 <li class="nav-item dropdown">
                     <div class="nav-link">Góc Thơ <i class="fas fa-caret-down"></i></div>
                     <div class="dropdown-content">
-                        <!-- Đã sửa: Chuyển trang (switchPage) thay vì popup (openModal) -->
                         <div class="sub-link" onclick="switchPage('venue')">Cảnh Sắc</div>
-                        <!-- Đã đổi tên thành Khoảnh Khắc -->
                         <div class="sub-link" onclick="switchPage('customer')">Khoảnh Khắc</div>
                     </div>
                 </li>
-
                 <li class="nav-item">
                     <div class="nav-link" onclick="switchPage('promotions')">Hân Hoan</div>
                 </li>
@@ -427,8 +361,11 @@
                     <div class="nav-link" onclick="switchPage('contact')">Kết Nối</div>
                 </li>
                 <li class="nav-item">
-                    <!-- Đã sửa: Chuyển trang thay vì mở modal -->
                     <div class="nav-link" onclick="switchPage('feedback')">Nhắn Nhủ</div>
+                </li>
+                <!-- Mục mới: Đánh Giá -->
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('reviews')">Đánh Giá</div>
                 </li>
             </ul>
 
@@ -438,22 +375,20 @@
         </div>
     </header>
 
-    <!-- 1. TRANG CHỦ (HERO ONLY) -->
+    <!-- 1. TRANG CHỦ -->
     <section id="home" class="page-section active">
         <div class="hero">
             <div class="hero-content">
                 <h1>Floral House</h1>
                 <p>Nhẹ nhàng chill cùng hương vị thiên nhiên trong làn không khí mát lành.</p>
                 <button class="btn-main" onclick="switchPage('menu')">
-                    <i class="fas fa-leaf" style="margin-right: 5px;"></i> 
-                    Chill cùng hương vị tự nhiên 
-                    <i class="fas fa-leaf" style="margin-left: 5px;"></i>
+                    <i class="fas fa-leaf" style="margin-right: 5px;"></i> Chill cùng hương vị tự nhiên <i class="fas fa-leaf" style="margin-left: 5px;"></i>
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- 2. TRANG THỨC UỐNG -->
+    <!-- 2. TRANG NHÂM NHI (MENU) -->
     <section id="menu" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -497,7 +432,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION 3: GÓC CỦA QUÁN (VENUE) -->
+    <!-- 3. CẢNH SẮC (VENUE) -->
     <section id="venue" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -525,11 +460,10 @@
         </div>
     </section>
 
-    <!-- NEW SECTION 4: ẢNH TỪ KHÁCH (CUSTOMER) -->
+    <!-- 4. KHOẢNH KHẮC (CUSTOMER) -->
     <section id="customer" class="page-section">
         <div class="container">
             <div class="section-title">
-                <!-- Đã đổi tiêu đề thành Khoảnh Khắc -->
                 <h2>Khoảnh Khắc</h2>
                 <p>Những khoảnh khắc đáng yêu được lưu giữ tại Floral House</p>
             </div>
@@ -550,7 +484,7 @@
         </div>
     </section>
 
-    <!-- SECTION KHUYẾN MÃI (PROMOTIONS) -->
+    <!-- 5. HÂN HOAN (PROMOTIONS) -->
     <section id="promotions" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -559,7 +493,6 @@
             </div>
             
             <div class="menu-grid">
-                <!-- Promo 2 -->
                 <div class="promo-card">
                     <div class="promo-badge">HOT</div>
                     <div class="promo-title">Mua 1 Tặng 1</div>
@@ -568,7 +501,6 @@
                     <div class="promo-code" onclick="alert('Đã lưu mã: WEEKEND')">Mã: WEEKEND</div>
                 </div>
                 
-                <!-- Promo 3 -->
                 <div class="promo-card">
                     <div class="promo-badge">NEW</div>
                     <div class="promo-title">Check-in Giảm Giá</div>
@@ -577,7 +509,6 @@
                     <div class="promo-code" onclick="alert('Vui lòng đưa màn hình check-in cho nhân viên')">Tại Quầy</div>
                 </div>
 
-                <!-- Promo 4 -->
                 <div class="promo-card">
                     <div class="promo-badge">-20%</div>
                     <div class="promo-title">Sale Ngọt Ngào</div>
@@ -594,7 +525,7 @@
         </div>
     </section>
 
-    <!-- TRANG SỰ KIỆN -->
+    <!-- 6. SỰ KIỆN -->
     <section id="events" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -602,7 +533,6 @@
                 <p>Kết nối cộng đồng yêu coffee và nghệ thuật</p>
             </div>
             
-            <!-- SỰ KIỆN 1: TRUNG THU -->
             <div class="event-card">
                 <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/557585908_1386138526853268_3343668527332078795_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vWlUWpeP5QkQ7kNvwFSh5LY&_nc_oc=Adnqz_-7dqjuxuJv2VExVrdzNzkV7j7bJ_GzT_4hssHSz5ihGt2vEXQqSOzPpwXspR5sHkY31b_TdsQLEc50lYPG&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfiXNph0Q9RbGpbpNF4RSXfuMdwkM_ODFCpIcg2mnQ2dVg&oe=692F88A7');"></div>
                 <div class="event-content">
@@ -615,7 +545,6 @@
                 </div>
             </div>
 
-            <!-- SỰ KIỆN 2: SHOW NHẠC -->
             <div class="event-card">
                 <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/534934363_1344849017648886_4726413088316607027_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=U9SzAh6LRzoQ7kNvwGOULSH&_nc_oc=Adm3SY6fnLDdgINtEgGUztbI1SKGFVBsa5RumyZdPXkvLiBJoz6nhFtmNl302WP2LpZcqhTWYOvjahS0sK7F9ANS&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfjLhEEk_TpSqh4tWNccQB2rFZFdWbN3hvvlrLrDJCSzfQ&oe=692F6D89');"></div>
                 <div class="event-content">
@@ -639,7 +568,7 @@
         </div>
     </section>
 
-    <!-- 4. TRANG KẾT NỐI -->
+    <!-- 7. KẾT NỐI -->
     <section id="contact" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -648,18 +577,24 @@
             </div>
             
             <div class="contact-wrapper">
-                <form action="https://formspree.io/f/mqavwlvy" method="POST">
+                <form id="contact-form" action="https://formspree.io/f/mqavwlvy" method="POST" onsubmit="handleFormSubmit(event, 'contact-form')">
                     <div class="form-group">
-                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên</label>
-                        <input type="text" name="name" placeholder="Nhập tên của bạn...">
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên <span class="required-star">*</span></label>
+                        <input type="text" id="c-name" name="name" placeholder="Nhập tên của bạn..." maxlength="20" required>
+                        <span class="char-count" id="c-name-count">0/20</span>
+                        <span class="error-message" id="c-name-error">Vui lòng nhập từ 3 đến 20 ký tự.</span>
                     </div>
                     <div class="form-group">
-                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại</label>
-                        <input type="text" name="contact" placeholder="Nhập thông tin liên hệ...">
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại <span class="required-star">*</span></label>
+                        <input type="text" id="c-contact" name="contact" placeholder="Nhập thông tin liên hệ..." required>
+                        <span class="char-count" id="c-contact-count">0/30</span>
+                        <span class="error-message" id="c-contact-error">Vui lòng nhập từ 10 đến 30 ký tự (không tính dấu cách).</span>
                     </div>
                     <div class="form-group">
-                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn</label>
-                        <textarea name="message" rows="5" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?"></textarea>
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn <span class="required-star">*</span></label>
+                        <textarea id="c-message" name="message" rows="5" maxlength="250" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?" required></textarea>
+                        <span class="char-count" id="c-message-count">0/250</span>
+                        <span class="error-message" id="c-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span>
                     </div>
                     <button type="submit" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button>
                 </form>
@@ -667,7 +602,7 @@
         </div>
     </section>
 
-    <!-- NEW SECTION: NHẮN NHỦ (FEEDBACK) - ĐÃ CHUYỂN THÀNH TRANG RIÊNG -->
+    <!-- 8. NHẮN NHỦ -->
     <section id="feedback" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -676,16 +611,13 @@
             </div>
             
             <div class="contact-wrapper">
-                <!-- Đã thêm action Formspree và method POST -->
-                <form action="https://formspree.io/f/mblvqkoa" method="POST">
+                <form id="feedback-form" action="https://formspree.io/f/mblvqkoa" method="POST" onsubmit="handleFormSubmit(event, 'feedback-form')">
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên (Không bắt buộc)</label>
-                        <!-- Đã thêm name="name" -->
                         <input type="text" name="name" placeholder="Bạn có thể ẩn danh nếu muốn...">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Vấn đề bạn muốn góp ý</label>
-                        <!-- Đã thêm name="topic" -->
                         <select name="topic" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);">
                             <option value="Chất lượng đồ uống">Chất lượng đồ uống</option>
                             <option value="Thái độ nhân viên">Thái độ nhân viên</option>
@@ -695,14 +627,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh</label>
-                        <!-- Đã thêm name="message" -->
-                        <textarea name="message" rows="5" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..."></textarea>
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh <span class="required-star">*</span></label>
+                        <textarea id="f-message" name="message" rows="5" maxlength="250" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..." required></textarea>
+                        <span class="char-count" id="f-message-count">0/250</span>
+                        <span class="error-message" id="f-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span>
                     </div>
-                    <!-- Đổi type="button" thành type="submit" để gửi form -->
                     <button type="submit" class="btn-main" style="width: 100%;">Gửi Góp Ý</button>
-                    
-                    <!-- Đã cập nhật dòng gợi ý mới -->
                     <p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic; text-align: center; border-top: 1px dashed #ddd; padding-top: 15px;">
                         <i class="fas fa-lightbulb" style="color: var(--accent-gold);"></i> Mách nhỏ: Để không phải chờ đợi lâu, bạn cứ gọi liền Hotline hoặc nhắn tin trực tiếp cho quán nhé.
                     </p>
@@ -711,37 +641,62 @@
         </div>
     </section>
 
-    <!-- FOOTER (Luôn hiển thị) -->
+    <!-- 9. MỤC MỚI: ĐÁNH GIÁ (REVIEWS) -->
+    <section id="reviews" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Góc Yêu Thương</h2>
+                <p>Cảm ơn bạn đã ghé thăm. Hãy để lại đánh giá để Floral House phục vụ tốt hơn nhé!</p>
+            </div>
+            
+            <div class="rating-container">
+                <div class="rating-score">4.9/5</div>
+                <p style="color: #888;">(Dựa trên 158 đánh giá)</p>
+                
+                <div class="rating-stars" id="star-container">
+                    <i class="fas fa-star" data-value="1"></i>
+                    <i class="fas fa-star" data-value="2"></i>
+                    <i class="fas fa-star" data-value="3"></i>
+                    <i class="fas fa-star" data-value="4"></i>
+                    <i class="fas fa-star" data-value="5"></i>
+                </div>
+                
+                <div class="form-group">
+                    <textarea id="review-text" rows="3" placeholder="Chia sẻ cảm nhận ngắn của bạn..." style="margin-bottom: 15px;"></textarea>
+                </div>
+                
+                <button class="btn-main" onclick="submitReview()">Gửi Đánh Giá</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIREWORKS NOTIFICATION -->
+    <div id="notification-overlay">
+        <div class="notification-content">
+            <h3>Cảm ơn bạn!</h3>
+            <p id="notification-message">Floral House đã nhận được tin nhắn của bạn.</p>
+            <button class="close-notif-btn" onclick="closeNotification()">Đóng</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
         <div class="container footer-container">
-            
-            <!-- Cột 1 -->
             <div class="footer-col">
                 <div class="logo" style="font-size: 2.2rem; color: var(--white);" onclick="switchPage('home')">Floral <span>House</span></div>
                 <p style="margin-top: 15px;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p>
                 <p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p>
             </div>
-
-            <!-- Cột 2 -->
             <div class="footer-col">
                 <h4>Kết nối với Floral House</h4>
-                <p>
-                    <i class="fas fa-phone-alt"></i> 
-                    Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a>
-                </p>
-                <p>
-                    <i class="fas fa-envelope"></i> 
-                    Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a>
-                </p>
-                
+                <p><i class="fas fa-phone-alt"></i> Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a></p>
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a></p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
-
-            <!-- Cột 3 -->
             <div class="footer-col dev-info">
                 <h4>Thiết kế & Phát triển</h4>
                 <ul>
@@ -752,82 +707,213 @@
                 </ul>
             </div>
         </div>
-
-        <div class="copyright">
-            &copy; 2025 Floral House. Developed by <strong>Thái Hoàng Bảo</strong>.
-        </div>
+        <div class="copyright">&copy; 2025 Floral House. Developed by <strong>Thái Hoàng Bảo</strong>.</div>
     </footer>
 
-    <!-- JAVASCRIPT XỬ LÝ CHUYỂN TRANG & POPUP -->
+    <!-- JAVASCRIPT -->
     <script>
-        // --- 1. HÀM CHUYỂN TRANG (CHO MENU CHÍNH) ---
+        // CHUYỂN TRANG
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active'));
-
             const targetPage = document.getElementById(pageId);
             if (targetPage) targetPage.classList.add('active');
-
-            // Đóng menu mobile nếu đang mở
+            
+            // Xử lý menu mobile
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-menu");
             if (navMenu.classList.contains('active')) {
                 hamburger.classList.remove("active");
                 navMenu.classList.remove("active");
             }
-
             window.scrollTo(0, 0);
         }
 
-        // --- 2. HÀM XỬ LÝ MODAL (POPUP) ---
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('active');
-                // Khóa cuộn trang chính khi mở modal
-                document.body.style.overflow = 'hidden';
-            }
-        }
+        // XỬ LÝ ĐÁNH GIÁ SAO
+        const stars = document.querySelectorAll('.rating-stars i');
+        let currentRating = 0;
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.remove('active');
-                // Mở lại cuộn trang chính
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // Đóng modal khi click ra ngoài vùng nội dung
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // --- 3. XỬ LÝ MENU MOBILE ---
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() {
+                const val = this.getAttribute('data-value');
+                highlightStars(val);
+            });
+            star.addEventListener('mouseout', function() {
+                highlightStars(currentRating);
+            });
+            star.addEventListener('click', function() {
+                currentRating = this.getAttribute('data-value');
+                highlightStars(currentRating);
+            });
         });
 
-        // Xử lý Dropdown trên Mobile (Click để mở)
-        const dropdown = document.querySelector('.dropdown');
-        if(dropdown) {
-            dropdown.addEventListener('click', function() {
-                this.classList.toggle('active');
+        function highlightStars(val) {
+            stars.forEach(star => {
+                if (star.getAttribute('data-value') <= val) {
+                    star.classList.add('active');
+                    star.style.color = 'var(--accent-gold)';
+                } else {
+                    star.classList.remove('active');
+                    star.style.color = '#ddd';
+                }
             });
         }
 
-        // Header Shadow
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            header.style.boxShadow = window.scrollY > 50 ? "0 2px 10px rgba(0,0,0,0.1)" : "none";
+        function submitReview() {
+            if(currentRating == 0) {
+                alert("Bạn hãy chọn số sao muốn đánh giá nhé!");
+                return;
+            }
+            // Giả lập gửi đánh giá thành công
+            document.getElementById('review-text').value = "";
+            currentRating = 0;
+            highlightStars(0);
+            showFloralFireworks("Cảm ơn bạn đã dành tặng những ngôi sao lấp lánh cho Floral House! ❤️");
+        }
+
+        // VALIDATION LOGIC
+        function validateName(value) { return value.length >= 3 && value.length <= 20; }
+        function validateContact(value) { const cleanLength = value.replace(/\s/g, '').length; return cleanLength >= 10 && cleanLength <= 30; }
+        function validateMessage(value) { return value.length >= 5 && value.length <= 250; }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('c-name');
+            const contactInput = document.getElementById('c-contact');
+            const messageInput = document.getElementById('c-message');
+            const feedbackMessageInput = document.getElementById('f-message');
+
+            if(nameInput) {
+                nameInput.addEventListener('input', function() {
+                    const len = this.value.length;
+                    document.getElementById('c-name-count').textContent = `${len}/20`;
+                    const isValid = validateName(this.value);
+                    const errorEl = document.getElementById('c-name-error');
+                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
+                });
+            }
+
+            if(contactInput) {
+                contactInput.addEventListener('input', function() {
+                    const val = this.value;
+                    const cleanLen = val.replace(/\s/g, '').length;
+                    if (cleanLen > 30) {
+                         let count = 0; let cutIndex = 0;
+                         for(let i=0; i<val.length; i++) { if(val[i] !== ' ') count++; if(count > 30) { cutIndex = i; break; } }
+                         if(count > 30) { this.value = val.substring(0, cutIndex); }
+                    }
+                    const currentCleanLen = this.value.replace(/\s/g, '').length;
+                    document.getElementById('c-contact-count').textContent = `${currentCleanLen}/30`;
+                    const isValid = validateContact(this.value);
+                    const errorEl = document.getElementById('c-contact-error');
+                    if (!isValid && this.value.length > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
+                });
+            }
+
+            if(messageInput) {
+                messageInput.addEventListener('input', function() {
+                    const len = this.value.length;
+                    document.getElementById('c-message-count').textContent = `${len}/250`;
+                    const isValid = validateMessage(this.value);
+                    const errorEl = document.getElementById('c-message-error');
+                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
+                });
+            }
+
+            if(feedbackMessageInput) {
+                feedbackMessageInput.addEventListener('input', function() {
+                    const len = this.value.length;
+                    document.getElementById('f-message-count').textContent = `${len}/250`;
+                    const isValid = validateMessage(this.value);
+                    const errorEl = document.getElementById('f-message-error');
+                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
+                });
+            }
         });
+
+        // FORM SUBMIT
+        async function handleFormSubmit(event, formId) {
+            event.preventDefault();
+            if (formId === 'contact-form') {
+                const name = document.getElementById('c-name').value;
+                const contact = document.getElementById('c-contact').value;
+                const message = document.getElementById('c-message').value;
+                let isValid = true;
+                if (!validateName(name)) { document.getElementById('c-name').classList.add('invalid'); document.getElementById('c-name-error').style.display = 'block'; isValid = false; }
+                if (!validateContact(contact)) { document.getElementById('c-contact').classList.add('invalid'); document.getElementById('c-contact-error').style.display = 'block'; isValid = false; }
+                if (!validateMessage(message)) { document.getElementById('c-message').classList.add('invalid'); document.getElementById('c-message-error').style.display = 'block'; isValid = false; }
+                if (!isValid) { alert("Vui lòng kiểm tra lại thông tin nhập liệu!"); return; }
+            }
+            if (formId === 'feedback-form') {
+                const message = document.getElementById('f-message').value;
+                let isValid = true;
+                if (!validateMessage(message)) { document.getElementById('f-message').classList.add('invalid'); document.getElementById('f-message-error').style.display = 'block'; isValid = false; }
+                if (!isValid) { alert("Vui lòng nhập nội dung phản ánh hợp lệ!"); return; }
+            }
+
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const action = form.getAttribute('action');
+
+            try {
+                const response = await fetch(action, { method: form.method, body: formData, headers: { 'Accept': 'application/json' } });
+                if (response.ok) {
+                    form.reset();
+                    if (formId === 'contact-form') {
+                        document.getElementById('c-name-count').textContent = '0/20';
+                        document.getElementById('c-contact-count').textContent = '0/30';
+                        document.getElementById('c-message-count').textContent = '0/250';
+                    }
+                    if (formId === 'feedback-form') { document.getElementById('f-message-count').textContent = '0/250'; }
+
+                    let message = "";
+                    if (formId === 'contact-form') { message = "Cảm ơn bạn đã gõ cửa Floral House. Tụi mình đã nhận tin và sẽ kết nối lại ngay."; } 
+                    else if (formId === 'feedback-form') { message = "Floral House đã ghi nhận thông tin và sẽ hỗ trợ bạn sớm nhất về vấn đề này"; }
+                    showFloralFireworks(message);
+                } else { alert("Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại sau!"); }
+            } catch (error) { alert("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng!"); }
+        }
+
+        // FIREWORKS
+        function showFloralFireworks(customMessage) {
+            const overlay = document.getElementById('notification-overlay');
+            const messageElement = document.getElementById('notification-message');
+            if (customMessage) messageElement.textContent = customMessage;
+            overlay.style.display = 'flex';
+            for(let i=0; i<30; i++) { createParticle(overlay); }
+        }
+
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const icons = ['fa-leaf', 'fa-seedling', 'fa-spa', 'fa-lemon', 'fa-tree'];
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            particle.innerHTML = `<i class="fas ${randomIcon}"></i>`;
+            const colors = ['#A0D6B4', '#D4AF37', '#ffffff', '#90EE90'];
+            particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+            const startX = window.innerWidth / 2;
+            const startY = window.innerHeight / 2;
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+            container.appendChild(particle);
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 5 + Math.random() * 5;
+            const tx = Math.cos(angle) * (200 + Math.random() * 200);
+            const ty = Math.sin(angle) * (200 + Math.random() * 200);
+            particle.animate([ { transform: 'translate(0, 0) scale(0)', opacity: 1 }, { transform: `translate(${tx}px, ${ty}px) scale(1.5) rotate(${Math.random()*360}deg)`, opacity: 0 } ], { duration: 1000 + Math.random() * 1000, easing: 'cubic-bezier(0, .9, .57, 1)', fill: 'forwards' });
+            setTimeout(() => { particle.remove(); }, 2000);
+        }
+
+        function closeNotification() {
+            document.getElementById('notification-overlay').style.display = 'none';
+        }
+
+        // MOBILE MENU
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+        hamburger.addEventListener("click", () => { hamburger.classList.toggle("active"); navMenu.classList.toggle("active"); });
+        const dropdown = document.querySelector('.dropdown');
+        if(dropdown) { dropdown.addEventListener('click', function() { this.classList.toggle('active'); }); }
+        window.addEventListener('scroll', () => { const header = document.querySelector('header'); header.style.boxShadow = window.scrollY > 50 ? "0 2px 10px rgba(0,0,0,0.1)" : "none"; });
     </script>
 </body>
 </html>
