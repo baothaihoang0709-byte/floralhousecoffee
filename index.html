@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floral House - Coffee & Tea</title>
     
+    <!-- Import Font chữ (Google Fonts) -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     
+    <!-- Import Icon (FontAwesome) để hiển thị logo FB, Tiktok, Phone... -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. BIẾN MÀU SẮC --- */
+        /* --- 1. BIẾN MÀU SẮC (Color Palette) --- */
         :root {
-            --primary-mint: #A0D6B4;
-            --light-mint: #E8F5E9;
-            --dark-green: #2E5A48;
-            --darker-green: #1a3c30; /* Màu nền footer */
+            --primary-mint: #A0D6B4; /* Xanh mint chủ đạo */
+            --light-mint: #E8F5E9;   /* Nền xanh nhạt */
+            --dark-green: #2E5A48;   /* Xanh đậm cho chữ */
+            --footer-bg: #1a3c30;    /* Màu nền footer tối */
             --white: #FFFFFF;
             --text-gray: #555555;
             --accent-gold: #D4AF37;
@@ -34,9 +36,14 @@
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
 
-        /* --- 3. HEADER --- */
+        /* --- 3. HEADER & MENU --- */
         header {
             background-color: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -58,7 +65,7 @@
         .logo span { color: var(--primary-mint); }
 
         .nav-menu { display: flex; gap: 30px; }
-        .nav-link { font-weight: 700; color: var(--dark-green); position: relative; }
+        .nav-link { font-weight: 700; color: var(--dark-green); position: relative; font-size: 1rem; }
         .nav-link:hover { color: var(--primary-mint); }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
@@ -69,7 +76,7 @@
         .hamburger { display: none; cursor: pointer; }
         .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--dark-green); transition: 0.3s; }
 
-        /* --- 4. HERO --- */
+        /* --- 4. HERO SECTION --- */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)), 
@@ -79,15 +86,20 @@
             text-align: center; color: var(--white);
             margin-top: 60px;
         }
-        .hero-content h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        .hero-content p { font-size: 1.5rem; margin-bottom: 30px; }
+        .hero-content h1 { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 4rem; 
+            margin-bottom: 20px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+        }
+        .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300;}
         .btn-main {
             padding: 12px 30px; background-color: var(--primary-mint); color: var(--dark-green);
             border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint);
         }
         .btn-main:hover { background-color: transparent; color: var(--white); border-color: var(--white); }
 
-        /* --- 5. SECTIONS --- */
+        /* --- 5. SECTIONS CHUNG --- */
         section { padding: 80px 0; }
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.5rem; color: var(--dark-green); position: relative; display: inline-block; margin-bottom: 10px;}
@@ -100,11 +112,21 @@
         .menu-item:hover { transform: translateY(-10px); }
         .menu-img { width: 100%; height: 200px; object-fit: cover; }
         .menu-info { padding: 20px; }
+        .menu-info h3 { color: var(--dark-green); margin-bottom: 5px; }
         .price { color: var(--accent-gold); font-weight: bold; font-size: 1.1rem; }
 
-        /* --- 7. FOOTER (Updated) --- */
+        /* --- 7. SỰ KIỆN --- */
+        .event-card {
+            display: flex; background-color: var(--white); border: 1px solid #eee;
+            margin-bottom: 30px; border-radius: 10px; overflow: hidden;
+        }
+        .event-img { flex: 1; min-height: 250px; background-size: cover; background-position: center; }
+        .event-content { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .event-date { color: var(--primary-mint); font-weight: bold; margin-bottom: 10px; }
+
+        /* --- 8. FOOTER (Updated Layout) --- */
         footer {
-            background-color: var(--darker-green);
+            background-color: var(--footer-bg);
             color: #ecf0f1;
             padding-top: 60px;
             font-size: 0.95rem;
@@ -112,7 +134,7 @@
 
         .footer-container {
             display: grid;
-            grid-template-columns: 1fr 1fr 1.2fr; /* Chia 3 cột */
+            grid-template-columns: 1fr 1.2fr 1fr; /* Chia 3 cột: Brand - Shop Info - Dev Info */
             gap: 40px;
             padding-bottom: 40px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -122,7 +144,7 @@
             color: var(--primary-mint);
             font-family: 'Dancing Script', cursive;
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .footer-col h4 {
@@ -131,56 +153,37 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border-left: 3px solid var(--primary-mint);
+            padding-left: 10px;
         }
 
-        .footer-col p, .footer-col li {
+        .footer-col p { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
+        .footer-col i { color: var(--primary-mint); margin-top: 5px; }
+
+        /* Social Icons Styles */
+        .social-links { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icon {
+            width: 40px; height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; transition: 0.3s; color: var(--white); font-size: 1.2rem;
+        }
+        /* Màu riêng cho từng mạng xã hội khi hover */
+        .social-icon:hover { transform: translateY(-3px); color: var(--white); }
+        .social-icon.fb:hover { background-color: #1877F2; }
+        .social-icon.ins:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-icon.tik:hover { background-color: #000000; border: 1px solid #333; }
+
+        /* Developer Info Styles */
+        .dev-info ul li {
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .footer-col a:hover {
-            color: var(--primary-mint);
-            padding-left: 5px; /* Hiệu ứng trượt nhẹ */
-        }
-
-        /* Social Icons */
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: 0.3s;
-            color: var(--white);
-            font-size: 1.2rem;
-        }
-
-        .social-icon:hover {
-            background-color: var(--primary-mint);
-            color: var(--dark-green);
-            transform: translateY(-3px);
-            padding-left: 0; /* Reset padding hover chung */
-        }
-
-        .creator-info li {
             font-size: 0.9rem;
             opacity: 0.9;
         }
-        
-        .creator-info i {
-            color: var(--primary-mint);
-            width: 20px;
-        }
+        .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
 
         .copyright {
             text-align: center;
@@ -190,7 +193,7 @@
             color: rgba(255,255,255,0.5);
         }
 
-        /* --- 8. RESPONSIVE --- */
+        /* --- 9. RESPONSIVE --- */
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
@@ -207,30 +210,24 @@
             
             .hero-content h1 { font-size: 3rem; }
             
+            .event-card { flex-direction: column; }
+            
             /* Footer mobile: 1 cột */
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .footer-col p, .footer-col li {
-                justify-content: center;
-            }
-            .social-links {
-                justify-content: center;
-            }
+            .footer-container { grid-template-columns: 1fr; gap: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">Floral <span>House</span></a>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#home" class="nav-link">Trang chủ</a></li>
-                <li class="nav-item"><a href="#menu" class="nav-link">Thức uống</a></li>
-                <li class="nav-item"><a href="#events" class="nav-link">Sự kiện</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Liên hệ</a></li>
+                <li class="nav-item"><a href="#menu" class="nav-link">Thức uống thượng hạng</a></li>
+                <li class="nav-item"><a href="#events" class="nav-link">Sự kiện & Hoạt động</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Thông tin kết nối</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -238,14 +235,16 @@
         </div>
     </header>
 
+    <!-- Trang chủ -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Floral House</h1>
-            <p>Thưởng thức hương vị thiên nhiên trong không gian xanh mát</p>
+            <p>Thưởng thức hương vị thiên nhiên trong không gian xanh mint dịu mát</p>
             <a href="#menu" class="btn-main">Xem Thực Đơn</a>
         </div>
     </section>
 
+    <!-- Thức uống -->
     <section id="menu">
         <div class="container">
             <div class="section-title">
@@ -278,64 +277,81 @@
         </div>
     </section>
 
+    <!-- Sự kiện -->
     <section id="events">
         <div class="container">
             <div class="section-title">
                 <h2>Sự Kiện & Hoạt Động</h2>
+                <p>Kết nối cộng đồng yêu coffee và nghệ thuật</p>
             </div>
-            <p style="text-align: center;">Đang cập nhật các sự kiện hấp dẫn...</p>
+            <div class="event-card">
+                <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="event-content">
+                    <div class="event-date">Chủ Nhật, 15/10/2023</div>
+                    <h3>Workshop: Nghệ Thuật Cắm Hoa</h3>
+                    <p>Học cách tạo nên những bình hoa mang phong cách Floral House.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Thông tin kết nối (Form) -->
     <section id="contact" style="background-color: var(--white);">
         <div class="container">
             <div class="section-title">
-                <h2>Gửi lời nhắn cho chúng tôi</h2>
+                <h2>Liên Hệ Đặt Bàn</h2>
             </div>
             <form style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
                 <input type="text" placeholder="Tên của bạn" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                <input type="email" placeholder="Email liên hệ" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                <textarea rows="4" placeholder="Nội dung lời nhắn..." style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                <input type="email" placeholder="Email của bạn" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                <textarea rows="4" placeholder="Lời nhắn..." style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
                 <button type="submit" class="btn-main" style="cursor: pointer;">Gửi đi</button>
             </form>
         </div>
     </section>
 
+    <!-- FOOTER (Updated with User & Shop Info) -->
     <footer>
         <div class="container footer-container">
             
+            <!-- Cột 1: Giới thiệu ngắn -->
             <div class="footer-col">
                 <a href="#" class="logo" style="font-size: 2.2rem; color: var(--white);">Floral <span>House</span></a>
-                <p style="margin-top: 15px;">Nơi hội tụ những tâm hồn yêu thiên nhiên, thưởng thức cà phê và tìm kiếm sự bình yên giữa phố thị.</p>
-                <p><i class="fas fa-map-marker-alt" style="color: var(--primary-mint);"></i> 123 Đường Hoa Lan, Quận 1, TP.HCM</p>
+                <p style="margin-top: 15px;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p>
+                <p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p>
             </div>
 
+            <!-- Cột 2: Thông tin QUÁN (Quan trọng) -->
             <div class="footer-col">
                 <h4>Kết nối với Floral House</h4>
                 <p>
-                    <i class="fas fa-phone-alt" style="color: var(--primary-mint);"></i> 
-                    Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint);">098 419 30 38</a>
+                    <i class="fas fa-phone-alt"></i> 
+                    Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a>
                 </p>
                 
                 <div class="social-links">
-                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon" title="Facebook">
+                    <!-- Facebook Quán -->
+                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb" title="Facebook Manhouse Coffee">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon" title="Instagram">
+                    <!-- Instagram Quán -->
+                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins" title="Instagram Floral Coffee">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon" title="TikTok">
+                    <!-- TikTok Quán -->
+                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik" title="TikTok Floral House">
                         <i class="fab fa-tiktok"></i>
                     </a>
                 </div>
             </div>
 
-            <div class="footer-col creator-info">
+            <!-- Cột 3: Thông tin DEVELOPER (Người tạo web) -->
+            <div class="footer-col dev-info">
                 <h4>Thiết kế & Phát triển</h4>
                 <ul>
                     <li>
                         <i class="fas fa-user-circle"></i> 
-                        <span>Dev: Thái Hoàng Bảo</span>
+                        <span style="font-weight: bold;">Thái Hoàng Bảo</span>
                     </li>
                     <li>
                         <i class="fas fa-envelope"></i> 
@@ -347,17 +363,18 @@
                     </li>
                     <li>
                         <i class="fab fa-facebook-square"></i> 
-                        <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Hoàng Bảo (Facebook)</a>
+                        <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a>
                     </li>
                 </ul>
             </div>
         </div>
 
         <div class="copyright">
-            &copy; 2025 Floral House. All Rights Reserved.
+            &copy; 2025 Floral House. Developed by <strong>Thái Hoàng Bảo</strong>.
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
         const hamburger = document.querySelector(".hamburger");
         const navMenu = document.querySelector(".nav-menu");
