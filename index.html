@@ -21,6 +21,8 @@
             --white: #FFFFFF;
             --text-gray: #555555;
             --accent-gold: #D4AF37;
+            /* Ép buộc trình duyệt hiểu đây là giao diện sáng */
+            color-scheme: light;
         }
 
         /* --- 2. CẤU TRÚC CHUNG --- */
@@ -34,6 +36,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            /* Đảm bảo nền luôn trắng bất kể chế độ của máy */
+            background-color: #ffffff !important; 
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -62,14 +66,15 @@
         }
         .logo span { color: var(--primary-mint); }
 
-        .nav-menu { display: flex; gap: 30px; }
+        .nav-menu { display: flex; gap: 20px; } /* Giảm gap một chút để đủ chỗ cho menu mới */
         
         .nav-link { 
             font-weight: 700; 
             color: var(--dark-green); 
             position: relative; 
-            font-size: 1rem; 
+            font-size: 0.95rem; /* Giảm size chữ chút xíu cho gọn */
             cursor: pointer;
+            white-space: nowrap;
         }
         
         .nav-link:hover, .nav-link.active-link { 
@@ -87,16 +92,14 @@
         .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--dark-green); transition: 0.3s; }
 
         /* --- 4. PAGE SECTIONS LOGIC --- */
-        /* Ẩn tất cả các section mặc định */
         .page-section {
             display: none;
-            padding-top: 100px; /* Tránh bị header che mất */
+            padding-top: 100px;
             padding-bottom: 60px;
-            min-height: 80vh; /* Đảm bảo trang có độ dài tối thiểu */
+            min-height: 80vh;
             animation: fadeIn 0.5s ease-in-out;
         }
 
-        /* Class để hiện section đang chọn */
         .page-section.active {
             display: block;
         }
@@ -106,20 +109,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 5. HERO SECTION (Trang chủ) --- */
-        /* Hero cần full màn hình nên style riêng */
-        #home.page-section {
-            padding-top: 0;
-            display: none; /* Mặc định ẩn, JS sẽ bật */
-        }
-        
-        #home.page-section.active {
-            display: flex; /* Flex để căn giữa nội dung */
-        }
+        /* --- 5. HERO SECTION --- */
+        #home.page-section { padding-top: 0; display: none; }
+        #home.page-section.active { display: flex; }
 
         .hero {
-            height: 100vh;
-            width: 100%;
+            height: 100vh; width: 100%;
             background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)), 
                         url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center;
@@ -136,12 +131,12 @@
         }
         .btn-main:hover { background-color: transparent; color: var(--white); border-color: var(--white); }
 
-        /* --- 6. MENU PAGE --- */
-        #menu { background-color: var(--light-mint); }
+        /* --- 6. COMMON STYLES --- */
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.5rem; color: var(--dark-green); position: relative; display: inline-block; margin-bottom: 10px;}
         .section-title h2::after { content: ''; width: 50px; height: 3px; background-color: var(--primary-mint); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
-        
+
+        /* MENU GRID */
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .menu-item { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; text-align: center; }
         .menu-item:hover { transform: translateY(-10px); }
@@ -150,7 +145,85 @@
         .menu-info h3 { color: var(--dark-green); margin-bottom: 10px; font-size: 1.3rem; }
         .price { color: var(--accent-gold); font-weight: bold; font-size: 1.2rem; }
 
-        /* --- 7. EVENTS PAGE --- */
+        /* --- GALLERY SECTION (NEW) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(46, 90, 72, 0.8);
+            color: var(--white);
+            padding: 10px;
+            text-align: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .gallery-item:hover .gallery-caption { opacity: 1; }
+
+        /* --- PROMOTIONS SECTION (NEW) --- */
+        .promo-card {
+            background-color: var(--light-mint);
+            border: 2px dashed var(--primary-mint);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 30px;
+            transition: 0.3s;
+        }
+        .promo-card:hover {
+            transform: scale(1.02);
+            background-color: #dcedde;
+        }
+        .promo-badge {
+            position: absolute;
+            top: -15px; right: -15px;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .promo-title {
+            font-size: 1.8rem;
+            color: var(--dark-green);
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+        }
+        .promo-code {
+            background-color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: var(--dark-green);
+            display: inline-block;
+            margin-top: 15px;
+            border: 1px solid var(--dark-green);
+            cursor: pointer;
+        }
+
+        /* --- EVENTS PAGE --- */
         .event-card {
             display: flex; background-color: var(--white); border: 1px solid #eee;
             margin-bottom: 30px; border-radius: 10px; overflow: hidden;
@@ -161,14 +234,10 @@
         .event-date { color: var(--primary-mint); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem; }
         .event-content h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--dark-green); }
 
-        /* --- 8. CONTACT PAGE --- */
+        /* --- CONTACT PAGE --- */
         .contact-wrapper {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            max-width: 800px;
-            margin: 0 auto;
+            background-color: var(--white); padding: 40px; border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;
         }
         .form-group { margin-bottom: 20px; }
         input, textarea {
@@ -176,23 +245,15 @@
         }
         input:focus, textarea:focus { outline: none; border-color: var(--primary-mint); }
 
-        /* --- 9. FOOTER --- */
+        /* --- FOOTER --- */
         footer {
-            background-color: var(--footer-bg);
-            color: #ecf0f1;
-            padding-top: 60px;
-            font-size: 0.95rem;
-            margin-top: auto; /* Đẩy footer xuống đáy */
+            background-color: var(--footer-bg); color: #ecf0f1; padding-top: 60px;
+            font-size: 0.95rem; margin-top: auto;
         }
-
         .footer-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
-            gap: 40px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px;
+            padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
         .footer-col h3 { color: var(--primary-mint); font-family: 'Dancing Script', cursive; font-size: 1.8rem; margin-bottom: 15px; }
         .footer-col h4 {
             color: var(--white); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase;
@@ -200,7 +261,6 @@
         }
         .footer-col p { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
         .footer-col i { color: var(--primary-mint); margin-top: 5px; }
-
         .social-links { display: flex; gap: 15px; margin-top: 20px; }
         .social-icon {
             width: 40px; height: 40px; background-color: rgba(255,255,255,0.1);
@@ -211,10 +271,8 @@
         .social-icon.fb:hover { background-color: #1877F2; }
         .social-icon.ins:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .social-icon.tik:hover { background-color: #000000; border: 1px solid #333; }
-
         .dev-info ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; opacity: 0.9; }
         .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
-
         .copyright { text-align: center; padding: 20px 0; font-size: 0.85rem; background-color: #153026; color: rgba(255,255,255,0.5); }
 
         /* RESPONSIVE */
@@ -251,13 +309,21 @@
                     <div class="nav-link active-link" onclick="switchPage('home')">Trang chủ</div>
                 </li>
                 <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('menu')">Thức uống thượng hạng</div>
+                    <div class="nav-link" onclick="switchPage('menu')">Thức uống</div>
+                </li>
+                <!-- Mục mới 1: Đã đổi tên thành Góc Thơ -->
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('gallery')">Góc Thơ</div>
+                </li>
+                <!-- Mục mới 2: Đã đổi tên thành Hân Hoan -->
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('promotions')">Hân Hoan</div>
                 </li>
                 <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('events')">Sự kiện & Hoạt động</div>
+                    <div class="nav-link" onclick="switchPage('events')">Sự kiện</div>
                 </li>
                 <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('contact')">Thông tin kết nối</div>
+                    <div class="nav-link" onclick="switchPage('contact')">Liên hệ</div>
                 </li>
             </ul>
 
@@ -272,8 +338,12 @@
         <div class="hero">
             <div class="hero-content">
                 <h1>Floral House</h1>
-                <p>Thưởng thức hương vị thiên nhiên trong không gian xanh mint dịu mát</p>
-                <button class="btn-main" onclick="switchPage('menu')">Xem Thực Đơn</button>
+                <p>Nhẹ nhàng chill cùng hương vị thiên nhiên trong làn không khí mát lành.</p>
+                <button class="btn-main" onclick="switchPage('menu')">
+                    <i class="fas fa-leaf" style="margin-right: 5px;"></i> 
+                    Chill cùng hương vị tự nhiên 
+                    <i class="fas fa-leaf" style="margin-left: 5px;"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -322,6 +392,80 @@
         </div>
     </section>
 
+    <!-- NEW SECTION: VIEW CẢNH QUÁN (GALLERY) -->
+    <section id="gallery" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <!-- Đã cập nhật tiêu đề section cho đồng bộ -->
+                <h2>Góc Thơ</h2>
+                <p>Một góc nhỏ bình yên, xanh mát giữa lòng thành phố náo nhiệt</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Ảnh 1: Không gian chung -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Không gian quán">
+                    <div class="gallery-caption">Không gian ngập tràn ánh sáng và cây xanh</div>
+                </div>
+                <!-- Ảnh 2: Góc đọc sách -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Góc chill">
+                    <div class="gallery-caption">Góc nhỏ yên tĩnh để đọc sách và làm việc</div>
+                </div>
+                <!-- Ảnh 3: Ngoài trời -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1497215842964-222b430dc0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Sân vườn">
+                    <div class="gallery-caption">Khu vườn nhỏ thoáng đãng</div>
+                </div>
+                <!-- Ảnh 4: Decor -->
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Decor">
+                    <div class="gallery-caption">Từng chi tiết decor tinh tế</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: KHUYẾN MÃI (PROMOTIONS) -->
+    <section id="promotions" class="page-section">
+        <div class="container">
+            <div class="section-title">
+                <!-- Đã cập nhật tiêu đề section cho đồng bộ -->
+                <h2>Hân Hoan</h2>
+                <p>Săn deal hời - Thảnh thơi uống nước</p>
+            </div>
+            
+            <div class="menu-grid"> <!-- Sử dụng lại layout grid -->
+                <!-- Promo 1 -->
+                <div class="promo-card">
+                    <div class="promo-badge">-20%</div>
+                    <div class="promo-title">Happy Hour</div>
+                    <p>Giảm giá 20% cho tất cả các loại trà và cà phê trong khung giờ vàng.</p>
+                    <p><strong>Thời gian:</strong> 08:00 - 10:00 (Thứ 2 - Thứ 6)</p>
+                    <div class="promo-code" onclick="alert('Đã lưu mã: HAPPY20')">Mã: HAPPY20</div>
+                </div>
+
+                <!-- Promo 2 -->
+                <div class="promo-card">
+                    <div class="promo-badge">HOT</div>
+                    <div class="promo-title">Mua 1 Tặng 1</div>
+                    <p>Mua 1 ly Mint Matcha Latte tặng ngay 1 bánh Cookies hạnh nhân.</p>
+                    <p><strong>Áp dụng:</strong> Cuối tuần (T7 & CN)</p>
+                    <div class="promo-code" onclick="alert('Đã lưu mã: WEEKEND')">Mã: WEEKEND</div>
+                </div>
+                
+                <!-- Promo 3 -->
+                <div class="promo-card">
+                    <div class="promo-badge">NEW</div>
+                    <div class="promo-title">Check-in Giảm Giá</div>
+                    <p>Giảm ngay 10% tổng hóa đơn khi check-in tại Floral House trên Facebook.</p>
+                    <p><strong>Áp dụng:</strong> Mọi khung giờ</p>
+                    <div class="promo-code" onclick="alert('Vui lòng đưa màn hình check-in cho nhân viên')">Tại Quầy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 3. TRANG SỰ KIỆN -->
     <section id="events" class="page-section">
         <div class="container">
@@ -330,22 +474,34 @@
                 <p>Kết nối cộng đồng yêu coffee và nghệ thuật</p>
             </div>
             
+            <!-- SỰ KIỆN MỚI: TRUNG THU -->
             <div class="event-card">
-                <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/557585908_1386138526853268_3343668527332078795_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vWlUWpeP5QkQ7kNvwFSh5LY&_nc_oc=Adnqz_-7dqjuxuJv2VExVrdzNzkV7j7bJ_GzT_4hssHSz5ihGt2vEXQqSOzPpwXspR5sHkY31b_TdsQLEc50lYPG&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfiXNph0Q9RbGpbpNF4RSXfuMdwkM_ODFCpIcg2mnQ2dVg&oe=692F88A7'); background-size: contain; background-repeat: no-repeat; background-color: #ffffff;"></div>
                 <div class="event-content">
-                    <div class="event-date">Chủ Nhật, 15/10/2023</div>
-                    <h3>Workshop: Nghệ Thuật Cắm Hoa</h3>
-                    <p>Học cách tạo nên những bình hoa mang phong cách Floral House. Thư giãn, uống trà và sáng tạo trong không gian yên tĩnh.</p>
-                    <button class="btn-main" style="margin-top: 15px; width: fit-content;" onclick="switchPage('contact')">Đăng ký ngay</button>
+                    <div class="event-date">Thứ 7, 04/10/2025</div>
+                    <h3><i class="fas fa-moon"></i> MID AUTUMN FESTIVAL <i class="fas fa-star"></i></h3>
+                    <p>Cả nhà cùng vui Trung Thu – đừng bỏ lỡ màn múa lân đặc sắc!</p>
+                    <button class="btn-main" style="margin-top: 15px; width: fit-content; background-color: #9ca3af; border-color: #9ca3af; cursor: not-allowed;">Hẹn gặp lại bạn mùa trăng sau</button>
                 </div>
             </div>
 
-            <div class="event-card" style="flex-direction: row-reverse;">
-                <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1445985543470-4102eb966c61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+            <!-- SỰ KIỆN CŨ: SHOW NHẠC -->
+            <div class="event-card">
+                <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/534934363_1344849017648886_4726413088316607027_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=U9SzAh6LRzoQ7kNvwGOULSH&_nc_oc=Adm3SY6fnLDdgINtEgGUztbI1SKGFVBsa5RumyZdPXkvLiBJoz6nhFtmNl302WP2LpZcqhTWYOvjahS0sK7F9ANS&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfjLhEEk_TpSqh4tWNccQB2rFZFdWbN3hvvlrLrDJCSzfQ&oe=692F6D89'); background-size: contain; background-repeat: no-repeat; background-color: #ffffff;"></div>
                 <div class="event-content">
-                    <div class="event-date">Thứ 7 Hàng Tuần</div>
-                    <h3>Acoustic Night: Giai Điệu Xanh</h3>
-                    <p>Đêm nhạc Acoustic nhẹ nhàng. Không gian để bạn thả hồn vào âm nhạc và thưởng thức những ly cocktail đặc biệt.</p>
+                    <div class="event-date">Thứ 3, 19/8/2025</div>
+                    <h3><i class="fas fa-music"></i> SHOW NHẠC TẠI FLORAL HOUSE <i class="fas fa-music"></i></h3>
+                    <p>
+                        Với không gian ấm cúng, lãng mạn, đêm 19/8 sẽ mang đến những giai điệu ngọt ngào và đầy nội lực qua phần trình diễn của:<br>
+                        <strong>The LD Band</strong><br>
+                        <strong>Mây Band</strong><br>
+                        Cùng sự góp mặt của 3 ca sĩ khách mời:<br>
+                        <strong>Minh Châu</strong><br>
+                        <strong>Khánh Băng</strong><br>
+                        <strong>Nam Nguyên</strong><br>
+                        Họ sẽ đưa bạn đi qua đủ cung bậc cảm xúc – từ sâu lắng, ngọt ngào cho đến bùng nổ, đầy năng lượng.
+                    </p>
+                    <button class="btn-main" style="margin-top: 15px; width: fit-content; background-color: #9ca3af; border-color: #9ca3af; cursor: not-allowed;">Đợt đăng ký đã kết thúc</button>
                 </div>
             </div>
         </div>
@@ -446,8 +602,6 @@
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.classList.remove('active-link');
-                // Kiểm tra xem link này có phải là link vừa click không
-                // (Cách đơn giản: so sánh text hoặc dùng attribute, ở đây ta reset tất cả và set lại based on onclick)
             });
 
             // Tìm link tương ứng để active (dựa vào onclick attribute)
