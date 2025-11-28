@@ -676,26 +676,31 @@
             </div>
             
             <div class="contact-wrapper">
-                <form>
+                <!-- Đã thêm action Formspree và method POST -->
+                <form action="https://formspree.io/f/mblvqkoa" method="POST">
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên (Không bắt buộc)</label>
-                        <input type="text" placeholder="Bạn có thể ẩn danh nếu muốn...">
+                        <!-- Đã thêm name="name" -->
+                        <input type="text" name="name" placeholder="Bạn có thể ẩn danh nếu muốn...">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Vấn đề bạn muốn góp ý</label>
-                        <select style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);">
-                            <option>Chất lượng đồ uống</option>
-                            <option>Thái độ nhân viên</option>
-                            <option>Không gian / Vệ sinh</option>
-                            <option>Đề xuất món mới</option>
-                            <option>Khác</option>
+                        <!-- Đã thêm name="topic" -->
+                        <select name="topic" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);">
+                            <option value="Chất lượng đồ uống">Chất lượng đồ uống</option>
+                            <option value="Thái độ nhân viên">Thái độ nhân viên</option>
+                            <option value="Không gian / Vệ sinh">Không gian / Vệ sinh</option>
+                            <option value="Đề xuất món mới">Đề xuất món mới</option>
+                            <option value="Khác">Khác</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh</label>
-                        <textarea rows="5" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..."></textarea>
+                        <!-- Đã thêm name="message" -->
+                        <textarea name="message" rows="5" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..."></textarea>
                     </div>
-                    <button type="button" class="btn-main" style="width: 100%;">Gửi Góp Ý</button>
+                    <!-- Đổi type="button" thành type="submit" để gửi form -->
+                    <button type="submit" class="btn-main" style="width: 100%;">Gửi Góp Ý</button>
                     
                     <!-- Đã cập nhật dòng gợi ý mới -->
                     <p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic; text-align: center; border-top: 1px dashed #ddd; padding-top: 15px;">
