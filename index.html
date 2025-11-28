@@ -8,16 +8,16 @@
     <!-- Import Font chữ (Google Fonts) -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- Import Icon (FontAwesome) để hiển thị logo FB, Tiktok, Phone... -->
+    <!-- Import Icon (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. BIẾN MÀU SẮC (Color Palette) --- */
+        /* --- 1. BIẾN MÀU SẮC --- */
         :root {
-            --primary-mint: #A0D6B4; /* Xanh mint chủ đạo */
-            --light-mint: #E8F5E9;   /* Nền xanh nhạt */
-            --dark-green: #2E5A48;   /* Xanh đậm cho chữ */
-            --footer-bg: #1a3c30;    /* Màu nền footer tối */
+            --primary-mint: #A0D6B4;
+            --light-mint: #E8F5E9;
+            --dark-green: #2E5A48;
+            --footer-bg: #1a3c30;
             --white: #FFFFFF;
             --text-gray: #555555;
             --accent-gold: #D4AF37;
@@ -31,17 +31,14 @@
             color: var(--text-gray);
             background-color: var(--white);
             line-height: 1.6;
-            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
-        
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* --- 3. HEADER & MENU --- */
         header {
@@ -61,139 +58,166 @@
             font-size: 2rem;
             color: var(--dark-green);
             font-weight: bold;
+            cursor: pointer;
         }
         .logo span { color: var(--primary-mint); }
 
         .nav-menu { display: flex; gap: 30px; }
-        .nav-link { font-weight: 700; color: var(--dark-green); position: relative; font-size: 1rem; }
-        .nav-link:hover { color: var(--primary-mint); }
+        
+        .nav-link { 
+            font-weight: 700; 
+            color: var(--dark-green); 
+            position: relative; 
+            font-size: 1rem; 
+            cursor: pointer;
+        }
+        
+        .nav-link:hover, .nav-link.active-link { 
+            color: var(--primary-mint); 
+        }
+        
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
             background-color: var(--primary-mint); transition: width 0.3s;
         }
-        .nav-link:hover::after { width: 100%; }
+        
+        .nav-link:hover::after, .nav-link.active-link::after { width: 100%; }
 
         .hamburger { display: none; cursor: pointer; }
         .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--dark-green); transition: 0.3s; }
 
-        /* --- 4. HERO SECTION --- */
+        /* --- 4. PAGE SECTIONS LOGIC --- */
+        /* Ẩn tất cả các section mặc định */
+        .page-section {
+            display: none;
+            padding-top: 100px; /* Tránh bị header che mất */
+            padding-bottom: 60px;
+            min-height: 80vh; /* Đảm bảo trang có độ dài tối thiểu */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Class để hiện section đang chọn */
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 5. HERO SECTION (Trang chủ) --- */
+        /* Hero cần full màn hình nên style riêng */
+        #home.page-section {
+            padding-top: 0;
+            display: none; /* Mặc định ẩn, JS sẽ bật */
+        }
+        
+        #home.page-section.active {
+            display: flex; /* Flex để căn giữa nội dung */
+        }
+
         .hero {
             height: 100vh;
+            width: 100%;
             background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)), 
                         url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center;
             display: flex; align-items: center; justify-content: center;
             text-align: center; color: var(--white);
-            margin-top: 60px;
         }
-        .hero-content h1 { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 4rem; 
-            margin-bottom: 20px; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
-        }
-        .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300;}
+        .hero-content h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; }
+        
         .btn-main {
             padding: 12px 30px; background-color: var(--primary-mint); color: var(--dark-green);
             border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint);
+            display: inline-block; cursor: pointer;
         }
         .btn-main:hover { background-color: transparent; color: var(--white); border-color: var(--white); }
 
-        /* --- 5. SECTIONS CHUNG --- */
-        section { padding: 80px 0; }
+        /* --- 6. MENU PAGE --- */
+        #menu { background-color: var(--light-mint); }
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.5rem; color: var(--dark-green); position: relative; display: inline-block; margin-bottom: 10px;}
         .section-title h2::after { content: ''; width: 50px; height: 3px; background-color: var(--primary-mint); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
-
-        /* --- 6. MENU GRID --- */
-        #menu { background-color: var(--light-mint); }
+        
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .menu-item { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; text-align: center; }
         .menu-item:hover { transform: translateY(-10px); }
-        .menu-img { width: 100%; height: 200px; object-fit: cover; }
-        .menu-info { padding: 20px; }
-        .menu-info h3 { color: var(--dark-green); margin-bottom: 5px; }
-        .price { color: var(--accent-gold); font-weight: bold; font-size: 1.1rem; }
+        .menu-img { width: 100%; height: 250px; object-fit: cover; }
+        .menu-info { padding: 25px; }
+        .menu-info h3 { color: var(--dark-green); margin-bottom: 10px; font-size: 1.3rem; }
+        .price { color: var(--accent-gold); font-weight: bold; font-size: 1.2rem; }
 
-        /* --- 7. SỰ KIỆN --- */
+        /* --- 7. EVENTS PAGE --- */
         .event-card {
             display: flex; background-color: var(--white); border: 1px solid #eee;
             margin-bottom: 30px; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .event-img { flex: 1; min-height: 250px; background-size: cover; background-position: center; }
+        .event-img { flex: 1; min-height: 300px; background-size: cover; background-position: center; }
         .event-content { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .event-date { color: var(--primary-mint); font-weight: bold; margin-bottom: 10px; }
+        .event-date { color: var(--primary-mint); font-weight: bold; margin-bottom: 10px; font-size: 1.1rem; }
+        .event-content h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--dark-green); }
 
-        /* --- 8. FOOTER (Updated Layout) --- */
+        /* --- 8. CONTACT PAGE --- */
+        .contact-wrapper {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary-mint); }
+
+        /* --- 9. FOOTER --- */
         footer {
             background-color: var(--footer-bg);
             color: #ecf0f1;
             padding-top: 60px;
             font-size: 0.95rem;
+            margin-top: auto; /* Đẩy footer xuống đáy */
         }
 
         .footer-container {
             display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr; /* Chia 3 cột: Brand - Shop Info - Dev Info */
+            grid-template-columns: 1fr 1.2fr 1fr;
             gap: 40px;
             padding-bottom: 40px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .footer-col h3 {
-            color: var(--primary-mint);
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        
+        .footer-col h3 { color: var(--primary-mint); font-family: 'Dancing Script', cursive; font-size: 1.8rem; margin-bottom: 15px; }
         .footer-col h4 {
-            color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 3px solid var(--primary-mint);
-            padding-left: 10px;
+            color: var(--white); margin-bottom: 20px; font-size: 1.1rem; text-transform: uppercase;
+            letter-spacing: 1px; border-left: 3px solid var(--primary-mint); padding-left: 10px;
         }
-
         .footer-col p { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; }
         .footer-col i { color: var(--primary-mint); margin-top: 5px; }
 
-        /* Social Icons Styles */
         .social-links { display: flex; gap: 15px; margin-top: 20px; }
         .social-icon {
-            width: 40px; height: 40px;
-            background-color: rgba(255,255,255,0.1);
+            width: 40px; height: 40px; background-color: rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%; transition: 0.3s; color: var(--white); font-size: 1.2rem;
         }
-        /* Màu riêng cho từng mạng xã hội khi hover */
         .social-icon:hover { transform: translateY(-3px); color: var(--white); }
         .social-icon.fb:hover { background-color: #1877F2; }
         .social-icon.ins:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .social-icon.tik:hover { background-color: #000000; border: 1px solid #333; }
 
-        /* Developer Info Styles */
-        .dev-info ul li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
+        .dev-info ul li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; opacity: 0.9; }
         .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
 
-        .copyright {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.85rem;
-            background-color: #153026;
-            color: rgba(255,255,255,0.5);
-        }
+        .copyright { text-align: center; padding: 20px 0; font-size: 0.85rem; background-color: #153026; color: rgba(255,255,255,0.5); }
 
-        /* --- 9. RESPONSIVE --- */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
@@ -203,16 +227,13 @@
             .nav-menu {
                 position: fixed; left: -100%; top: 70px; gap: 0; flex-direction: column;
                 background-color: var(--white); width: 100%; text-align: center; transition: 0.3s;
-                box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+                box-shadow: 0 5px 5px rgba(0,0,0,0.1); padding: 20px 0;
             }
             .nav-menu.active { left: 0; }
             .nav-item { margin: 16px 0; }
             
             .hero-content h1 { font-size: 3rem; }
-            
             .event-card { flex-direction: column; }
-            
-            /* Footer mobile: 1 cột */
             .footer-container { grid-template-columns: 1fr; gap: 30px; }
         }
     </style>
@@ -222,33 +243,46 @@
     <!-- Header -->
     <header>
         <div class="container nav-container">
-            <a href="#" class="logo">Floral <span>House</span></a>
+            <!-- Logo bấm vào sẽ về trang chủ -->
+            <div class="logo" onclick="switchPage('home')">Floral <span>House</span></div>
+            
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#home" class="nav-link">Trang chủ</a></li>
-                <li class="nav-item"><a href="#menu" class="nav-link">Thức uống thượng hạng</a></li>
-                <li class="nav-item"><a href="#events" class="nav-link">Sự kiện & Hoạt động</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Thông tin kết nối</a></li>
+                <li class="nav-item">
+                    <div class="nav-link active-link" onclick="switchPage('home')">Trang chủ</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('menu')">Thức uống thượng hạng</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('events')">Sự kiện & Hoạt động</div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link" onclick="switchPage('contact')">Thông tin kết nối</div>
+                </li>
             </ul>
+
             <div class="hamburger">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span>
             </div>
         </div>
     </header>
 
-    <!-- Trang chủ -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Floral House</h1>
-            <p>Thưởng thức hương vị thiên nhiên trong không gian xanh mint dịu mát</p>
-            <a href="#menu" class="btn-main">Xem Thực Đơn</a>
+    <!-- 1. TRANG CHỦ (HERO ONLY) -->
+    <section id="home" class="page-section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Floral House</h1>
+                <p>Thưởng thức hương vị thiên nhiên trong không gian xanh mint dịu mát</p>
+                <button class="btn-main" onclick="switchPage('menu')">Xem Thực Đơn</button>
+            </div>
         </div>
     </section>
 
-    <!-- Thức uống -->
-    <section id="menu">
+    <!-- 2. TRANG THỨC UỐNG -->
+    <section id="menu" class="page-section">
         <div class="container">
             <div class="section-title">
-                <h2>Thức Uống Thượng Hạng</h2>
+                <h2>Thực Đơn Floral</h2>
                 <p>Tuyển tập những hương vị trà và cà phê tinh tế nhất</p>
             </div>
             <div class="menu-grid">
@@ -256,6 +290,7 @@
                     <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Latte" class="menu-img">
                     <div class="menu-info">
                         <h3>Mint Matcha Latte</h3>
+                        <p>Trà xanh Nhật Bản kết hợp bạc hà mát lạnh.</p>
                         <p class="price">55.000 VNĐ</p>
                     </div>
                 </div>
@@ -263,6 +298,7 @@
                     <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Coffee" class="menu-img">
                     <div class="menu-info">
                         <h3>Floral Cold Brew</h3>
+                        <p>Cà phê ủ lạnh hương hoa nhài và cam thảo.</p>
                         <p class="price">65.000 VNĐ</p>
                     </div>
                 </div>
@@ -270,101 +306,117 @@
                     <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Tea" class="menu-img">
                     <div class="menu-info">
                         <h3>Trà Hoa Hồng Thảo Mộc</h3>
+                        <p>Thanh lọc cơ thể với trà hoa hồng, kỷ tử.</p>
                         <p class="price">45.000 VNĐ</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1461023058943-48dbf1399f98?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Smoothie" class="menu-img">
+                    <div class="menu-info">
+                        <h3>Bơ Sữa Dừa Đá Xay</h3>
+                        <p>Vị béo ngậy của bơ sáp Dak Lak và cốt dừa.</p>
+                        <p class="price">50.000 VNĐ</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sự kiện -->
-    <section id="events">
+    <!-- 3. TRANG SỰ KIỆN -->
+    <section id="events" class="page-section">
         <div class="container">
             <div class="section-title">
                 <h2>Sự Kiện & Hoạt Động</h2>
                 <p>Kết nối cộng đồng yêu coffee và nghệ thuật</p>
             </div>
+            
             <div class="event-card">
                 <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
                 <div class="event-content">
                     <div class="event-date">Chủ Nhật, 15/10/2023</div>
                     <h3>Workshop: Nghệ Thuật Cắm Hoa</h3>
-                    <p>Học cách tạo nên những bình hoa mang phong cách Floral House.</p>
+                    <p>Học cách tạo nên những bình hoa mang phong cách Floral House. Thư giãn, uống trà và sáng tạo trong không gian yên tĩnh.</p>
+                    <button class="btn-main" style="margin-top: 15px; width: fit-content;" onclick="switchPage('contact')">Đăng ký ngay</button>
+                </div>
+            </div>
+
+            <div class="event-card" style="flex-direction: row-reverse;">
+                <div class="event-img" style="background-image: url('https://images.unsplash.com/photo-1445985543470-4102eb966c61?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="event-content">
+                    <div class="event-date">Thứ 7 Hàng Tuần</div>
+                    <h3>Acoustic Night: Giai Điệu Xanh</h3>
+                    <p>Đêm nhạc Acoustic nhẹ nhàng. Không gian để bạn thả hồn vào âm nhạc và thưởng thức những ly cocktail đặc biệt.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Thông tin kết nối (Form) -->
-    <section id="contact" style="background-color: var(--white);">
+    <!-- 4. TRANG LIÊN HỆ -->
+    <section id="contact" class="page-section">
         <div class="container">
             <div class="section-title">
                 <h2>Liên Hệ Đặt Bàn</h2>
+                <p>Gửi tin nhắn cho chúng tôi để được hỗ trợ tốt nhất</p>
             </div>
-            <form style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" placeholder="Tên của bạn" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                <input type="email" placeholder="Email của bạn" style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                <textarea rows="4" placeholder="Lời nhắn..." style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
-                <button type="submit" class="btn-main" style="cursor: pointer;">Gửi đi</button>
-            </form>
+            
+            <div class="contact-wrapper">
+                <form>
+                    <div class="form-group">
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên</label>
+                        <input type="text" placeholder="Nhập tên của bạn...">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại</label>
+                        <input type="text" placeholder="Nhập thông tin liên hệ...">
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn</label>
+                        <textarea rows="5" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?"></textarea>
+                    </div>
+                    <button type="button" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button>
+                </form>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER (Updated with User & Shop Info) -->
+    <!-- FOOTER (Luôn hiển thị) -->
     <footer>
         <div class="container footer-container">
             
-            <!-- Cột 1: Giới thiệu ngắn -->
+            <!-- Cột 1 -->
             <div class="footer-col">
-                <a href="#" class="logo" style="font-size: 2.2rem; color: var(--white);">Floral <span>House</span></a>
+                <div class="logo" style="font-size: 2.2rem; color: var(--white);" onclick="switchPage('home')">Floral <span>House</span></div>
                 <p style="margin-top: 15px;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p>
                 <p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p>
             </div>
 
-            <!-- Cột 2: Thông tin QUÁN (Quan trọng) -->
+            <!-- Cột 2 -->
             <div class="footer-col">
                 <h4>Kết nối với Floral House</h4>
                 <p>
                     <i class="fas fa-phone-alt"></i> 
                     Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a>
                 </p>
+                <p>
+                    <i class="fas fa-envelope"></i> 
+                    Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a>
+                </p>
                 
                 <div class="social-links">
-                    <!-- Facebook Quán -->
-                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb" title="Facebook Manhouse Coffee">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <!-- Instagram Quán -->
-                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins" title="Instagram Floral Coffee">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <!-- TikTok Quán -->
-                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik" title="TikTok Floral House">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
+                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
 
-            <!-- Cột 3: Thông tin DEVELOPER (Người tạo web) -->
+            <!-- Cột 3 -->
             <div class="footer-col dev-info">
                 <h4>Thiết kế & Phát triển</h4>
                 <ul>
-                    <li>
-                        <i class="fas fa-user-circle"></i> 
-                        <span style="font-weight: bold;">Thái Hoàng Bảo</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope"></i> 
-                        <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-phone"></i> 
-                        <a href="tel:0935956884">0935956884</a>
-                    </li>
-                    <li>
-                        <i class="fab fa-facebook-square"></i> 
-                        <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a>
-                    </li>
+                    <li><i class="fas fa-user-circle"></i> <span style="font-weight: bold;">Thái Hoàng Bảo</span></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a></li>
+                    <li><i class="fas fa-phone"></i> <a href="tel:0935956884">0935956884</a></li>
+                    <li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a></li>
                 </ul>
             </div>
         </div>
@@ -374,8 +426,49 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JAVASCRIPT XỬ LÝ CHUYỂN TRANG -->
     <script>
+        // Hàm chuyển trang
+        function switchPage(pageId) {
+            // 1. Ẩn tất cả các trang
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 2. Hiện trang được chọn
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 3. Cập nhật menu active
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                // Kiểm tra xem link này có phải là link vừa click không
+                // (Cách đơn giản: so sánh text hoặc dùng attribute, ở đây ta reset tất cả và set lại based on onclick)
+            });
+
+            // Tìm link tương ứng để active (dựa vào onclick attribute)
+            const activeLink = document.querySelector(`.nav-link[onclick="switchPage('${pageId}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active-link');
+            }
+
+            // 4. Cuộn lên đầu trang
+            window.scrollTo(0, 0);
+
+            // 5. Đóng menu mobile nếu đang mở
+            const hamburger = document.querySelector(".hamburger");
+            const navMenu = document.querySelector(".nav-menu");
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            }
+        }
+
+        // Xử lý menu mobile hamburger
         const hamburger = document.querySelector(".hamburger");
         const navMenu = document.querySelector(".nav-menu");
 
@@ -384,11 +477,7 @@
             navMenu.classList.toggle("active");
         });
 
-        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
-        }));
-
+        // Hiệu ứng bóng đổ header khi cuộn
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             header.style.boxShadow = window.scrollY > 50 ? "0 2px 10px rgba(0,0,0,0.1)" : "none";
