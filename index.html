@@ -648,20 +648,20 @@
             </div>
             
             <div class="contact-wrapper">
-                <form>
+                <form action="https://formspree.io/f/mqavwlvy" method="POST">
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên</label>
-                        <input type="text" placeholder="Nhập tên của bạn...">
+                        <input type="text" name="name" placeholder="Nhập tên của bạn...">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại</label>
-                        <input type="text" placeholder="Nhập thông tin liên hệ...">
+                        <input type="text" name="contact" placeholder="Nhập thông tin liên hệ...">
                     </div>
                     <div class="form-group">
                         <label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn</label>
-                        <textarea rows="5" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?"></textarea>
+                        <textarea name="message" rows="5" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?"></textarea>
                     </div>
-                    <button type="button" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button>
+                    <button type="submit" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button>
                 </form>
             </div>
         </div>
