@@ -34,8 +34,9 @@
             --header-bg: rgba(255, 255, 255, 0.98);
             --header-text: #2E5A48;
             
-            /* Mobile Menu Background (Transparent for Blur) */
-            --mobile-menu-bg: rgba(255, 255, 255, 0.85);
+            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
+            --mobile-menu-bg: rgba(255, 255, 255, 0.65);
+            --mobile-menu-border: rgba(255, 255, 255, 0.3);
             
             /* Input form */
             --input-bg: #FFFFFF;
@@ -63,8 +64,9 @@
             --header-bg: rgba(30, 30, 30, 0.98);
             --header-text: #e8f5e9;
             
-            /* Mobile Menu Background (Transparent for Blur) */
-            --mobile-menu-bg: rgba(30, 30, 30, 0.85);
+            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
+            --mobile-menu-bg: rgba(20, 20, 20, 0.7);
+            --mobile-menu-border: rgba(255, 255, 255, 0.1);
             
             /* Input form */
             --input-bg: #2c2c2c;
@@ -350,7 +352,7 @@
         .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
         .copyright { text-align: center; padding: 20px 0; font-size: 0.85rem; background-color: #153026; color: rgba(255,255,255,0.5); }
 
-        /* RESPONSIVE (MOBILE) */
+        /* RESPONSIVE (MOBILE) - UPDATED FOR SIDE MENU */
         @media (max-width: 768px) {
             .hamburger { 
                 display: block; 
@@ -366,35 +368,43 @@
                 top: 0; 
                 right: -100%; /* Ẩn sang bên phải */
                 left: auto; 
-                width: 50%; /* Chỉ chiếm 50% màn hình */
-                max-width: 300px;
+                width: 50%; /* Menu chỉ chiếm 50% màn hình */
+                max-width: 300px; /* Giới hạn độ rộng tối đa */
                 height: 100vh; /* Full chiều cao */
                 
                 flex-direction: column; 
-                background-color: var(--mobile-menu-bg); /* Sử dụng biến màu nền trong suốt */
-                backdrop-filter: blur(15px); /* Hiệu ứng làm mờ nền sau */
-                text-align: center; 
+                background-color: var(--mobile-menu-bg); /* Nền kính mờ */
+                backdrop-filter: blur(25px); /* Hiệu ứng mờ mạnh hơn */
+                -webkit-backdrop-filter: blur(25px);
+                
+                align-items: flex-end; /* Căn lề phải */
+                justify-content: flex-start; /* Bắt đầu từ trên xuống */
+                
                 transition: right 0.4s ease-in-out; /* Hiệu ứng trượt mượt mà */
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1); /* Bóng đổ sang trái */
-                padding: 80px 0 40px 0; 
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15); /* Bóng đổ sang trái */
+                padding: 80px 25px 40px 0; /* Padding phải để nội dung cách lề 1 chút */
                 gap: 20px;
                 
                 overflow-y: auto;
-                justify-content: flex-start;
+                border-left: 1px solid var(--mobile-menu-border); /* Viền mờ tinh tế */
             }
             
             .nav-menu.active { 
                 right: 0; /* Trượt ra sát mép phải */
             }
             
-            .nav-item { margin: 10px 0; width: 100%; }
+            .nav-item { 
+                margin: 10px 0; 
+                width: 100%; 
+                text-align: right; /* Chữ căn phải */
+            }
             
             /* --- SỬA LỖI DROPDOWN MOBILE --- */
             .dropdown {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-end; /* Căn phải cho dropdown */
             }
             
             .dropdown-content { 
@@ -408,6 +418,7 @@
                 transform: none; 
                 display: none; /* Mặc định ẩn */
                 padding: 0;
+                text-align: right; /* Nội dung con cũng căn phải */
             }
             
             /* Class active để mở dropdown */
@@ -422,7 +433,7 @@
             }
 
             .dropdown-content .sub-link {
-                padding: 15px;
+                padding: 10px 0; /* Bỏ padding ngang, chỉ giữ dọc */
                 border-bottom: 1px solid rgba(0,0,0,0.05);
             }
 
@@ -430,6 +441,12 @@
             .dropdown.active .nav-link i {
                 transform: rotate(180deg);
                 transition: transform 0.3s;
+            }
+
+            /* Nút theme toggle cũng căn phải */
+            .theme-toggle-btn {
+                margin-left: 0;
+                margin-top: 10px;
             }
 
             .hero-content h1 { font-size: 3rem; }
