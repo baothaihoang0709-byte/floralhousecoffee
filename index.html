@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floral House - Coffee & Tea</title>
     
-    <!-- Đã thêm: Favicon (Logo trên tab trình duyệt) -->
-    <link rel="icon" href="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" type="image/jpg">
-
     <!-- Import Font chữ (Google Fonts) -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     
     <!-- Import Icon (FontAwesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" type="image/jpg">
 
     <style>
         /* --- 1. BIẾN MÀU SẮC & THEME --- */
@@ -37,8 +37,8 @@
             --header-bg: rgba(255, 255, 255, 0.98);
             --header-text: #2E5A48;
             
-            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
-            --mobile-menu-bg: rgba(255, 255, 255, 0.75); /* Tăng độ trong suốt */
+            /* Mobile Menu Background */
+            --mobile-menu-bg: rgba(255, 255, 255, 0.85);
             --mobile-menu-border: rgba(255, 255, 255, 0.3);
             
             /* Input form */
@@ -70,8 +70,8 @@
             --header-bg: rgba(30, 30, 30, 0.98);
             --header-text: #e8f5e9;
             
-            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
-            --mobile-menu-bg: rgba(20, 20, 20, 0.8);
+            /* Mobile Menu */
+            --mobile-menu-bg: rgba(20, 20, 20, 0.9);
             --mobile-menu-border: rgba(255, 255, 255, 0.1);
             
             /* Input form */
@@ -95,13 +95,11 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden; 
-            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu mượt */
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Khi menu mở, body sẽ bị khóa cuộn */
-        body.menu-open {
-            overflow: hidden !important;
-        }
+        body.menu-open { overflow: hidden !important; }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
@@ -124,98 +122,87 @@
         .logo {
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
-            color: var(--header-text); /* Sử dụng biến màu header */
+            color: var(--header-text);
             font-weight: bold;
             cursor: pointer;
-            /* Căn chỉnh logo ảnh và chữ */
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; align-items: center; gap: 10px;
         }
         .logo span span { color: var(--primary-mint); }
+        .logo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-mint); }
 
-        /* Style cho ảnh logo trong header */
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary-mint);
+        /* NAVIGATION WRAPPER */
+        .nav-wrapper {
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-between;
+            align-items: center;
+            margin-left: 30px;
         }
 
-        .nav-menu { display: flex; gap: 15px; align-items: center; }
+        /* Left Menu (Main) */
+        .nav-main { display: flex; gap: 15px; align-items: center; }
+
+        /* Right Controls Container (Auth + Theme) */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto; /* Đẩy sang phải */
+        }
+
+        /* Auth Box - Ô riêng biệt cho đăng nhập/đăng ký */
+        .nav-auth { 
+            display: flex; 
+            gap: 15px; 
+            align-items: center; 
+            background-color: rgba(160, 214, 180, 0.15); /* Nền nhẹ */
+            padding: 5px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--primary-mint);
+        }
         
         .nav-link { 
             font-weight: 700; 
-            color: var(--header-text); /* Sử dụng biến màu header */
+            color: var(--header-text);
             position: relative; 
             font-size: 0.95rem; 
             cursor: pointer;
             white-space: nowrap;
         }
         
-        .nav-link:hover, .nav-link.active-link { 
-            color: var(--primary-mint); 
-        }
-        
+        .nav-link:hover, .nav-link.active-link { color: var(--primary-mint); }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
             background-color: var(--primary-mint); transition: width 0.3s;
         }
-        
         .nav-link:hover::after, .nav-link.active-link::after { width: 100%; }
 
-        /* --- THEME TOGGLE BUTTON --- */
+        /* Theme Toggle - Nằm ngoài ô Auth */
         .theme-toggle-btn {
-            background: none;
-            border: 2px solid var(--header-text);
+            background: none; 
+            border: 2px solid var(--header-text); 
             color: var(--header-text);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            margin-left: 10px;
+            width: 36px; height: 36px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-size: 1.1rem; transition: all 0.3s ease;
         }
-        .theme-toggle-btn:hover {
-            background-color: var(--primary-mint);
-            border-color: var(--primary-mint);
-            color: #fff;
-            transform: rotate(30deg);
+        .theme-toggle-btn:hover { 
+            background-color: var(--primary-mint); 
+            border-color: var(--primary-mint); 
+            color: #fff; 
+            transform: rotate(30deg); 
         }
 
-        /* --- DROPDOWN MENU STYLE --- */
+        /* Dropdown */
         .dropdown { position: relative; display: inline-block; }
-        
         .dropdown-content {
-            display: none; 
-            position: absolute; 
-            background-color: var(--white); /* Nền theo theme */
-            min-width: 180px; 
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
-            z-index: 1001; 
-            border-radius: 10px; 
-            top: 100%; 
-            left: 50%;
-            transform: translateX(-50%); 
-            padding: 10px 0; 
-            border: 1px solid rgba(0,0,0,0.05);
+            display: none; position: absolute; background-color: var(--white);
+            min-width: 180px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+            z-index: 1001; border-radius: 10px; top: 100%; left: 50%;
+            transform: translateX(-50%); padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
         }
-
-        /* Chỉ hover trên desktop */
-        @media (min-width: 769px) {
-            .dropdown:hover .dropdown-content { 
-                display: block; 
-                animation: fadeInDropdown 0.3s; 
-            }
-        }
-
+        @media (min-width: 769px) { .dropdown:hover .dropdown-content { display: block; animation: fadeInDropdown 0.3s; } }
         @keyframes fadeInDropdown { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
-        
         .sub-link {
             color: var(--text-gray); padding: 10px 20px; text-decoration: none;
             display: block; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
@@ -227,25 +214,17 @@
 
         /* --- 4. PAGE SECTIONS & BACKGROUNDS --- */
         .page-section {
-            display: none;
-            padding-top: 100px;
-            padding-bottom: 60px;
-            min-height: 100vh;
-            animation: fadeIn 0.5s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: background-image 0.3s;
+            display: none; padding-top: 100px; padding-bottom: 60px; min-height: 100vh;
+            animation: fadeIn 0.5s ease-in-out; background-size: cover; background-position: center;
+            background-attachment: fixed; transition: background-image 0.3s;
         }
-
         .page-section.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- BACKGROUND IMAGES --- */
         #home.page-section { padding-top: 0; display: none; background: none; }
         #home.page-section.active { display: block; }
 
+        /* Backgrounds */
         #menu { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #venue { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #customer { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
@@ -255,60 +234,32 @@
         #feedback { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #reviews, #all-reviews { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
 
-        /* --- 5. HERO SECTION --- */
-        .hero {
-            height: 100vh; width: 100%; position: relative;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; color: #FFFFFF; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4));
-            z-index: 1; pointer-events: none;
-        }
+        /* Styles: Hero, Buttons, etc. */
+        .hero { height: 100vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: #FFFFFF; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)); z-index: 1; pointer-events: none; }
         .hero-content { position: relative; z-index: 2; }
         #hero-slideshow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .hero-slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center; opacity: 0; 
-            transition: opacity 2.5s ease-in-out;
-        }
+        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2.5s ease-in-out; }
         .hero-slide.active { opacity: 1; }
-        .scroll-down {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            color: #FFFFFF; font-size: 2rem; animation: bounce 2s infinite;
-            cursor: pointer; z-index: 10; text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
-            40% {transform: translateX(-50%) translateY(-10px);}
-            60% {transform: translateX(-50%) translateY(-5px);}
-        }
+        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #FFFFFF; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; z-index: 10; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
         .hero-content h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; }
-        .btn-main {
-            padding: 12px 30px; background-color: var(--primary-mint); color: #2E5A48;
-            border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint);
-            display: inline-block; cursor: pointer; transition: all 0.3s ease;
-        }
+        .btn-main { padding: 12px 30px; background-color: var(--primary-mint); color: #2E5A48; border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint); display: inline-block; cursor: pointer; transition: all 0.3s ease; }
         .btn-main:hover { background-color: transparent; color: inherit; border-color: inherit; }
         .page-section:not(#home) .btn-main:hover { color: var(--dark-green); border-color: var(--dark-green); }
         #home .btn-main:hover { color: #fff; border-color: #fff; }
 
-        /* --- TÂM THƯ --- */
+        /* Letter */
         .letter-section { background-color: var(--paper-bg); padding: 80px 20px; text-align: center; position: relative; transition: background-color 0.3s;}
-        .letter-container {
-            max-width: 800px; margin: 0 auto; border: 1px solid rgba(160, 214, 180, 0.3);
-            padding: 40px; position: relative; background-color: var(--white);
-            box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: background-color 0.3s;
-        }
+        .letter-container { max-width: 800px; margin: 0 auto; border: 1px solid rgba(160, 214, 180, 0.3); padding: 40px; position: relative; background-color: var(--white); box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: background-color 0.3s; }
         .letter-icon { font-size: 2rem; color: var(--primary-mint); margin-bottom: 20px; }
         .letter-title { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--dark-green); margin-bottom: 30px; }
         .letter-content { font-size: 1.1rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 30px; font-style: italic; text-align: justify; }
         .letter-content p { margin-bottom: 15px; }
         .letter-signature { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--accent-gold); text-align: right; margin-top: 20px; }
 
-        /* --- STYLES KHÁC --- */
+        /* Section Common */
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.5rem; color: var(--dark-green); position: relative; display: inline-block; margin-bottom: 10px;}
         .section-title h2::after { content: ''; width: 50px; height: 3px; background-color: var(--primary-mint); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
@@ -350,7 +301,7 @@
         .error-message { color: var(--error-red); font-size: 0.85rem; display: none; margin-top: 2px; }
         .required-star { color: var(--error-red); }
         
-        /* --- REVIEW SECTION STYLES --- */
+        /* Reviews Styles */
         .rating-container { text-align: center; background-color: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; }
         .rating-score { font-size: 4rem; font-weight: bold; color: var(--dark-green); font-family: 'Dancing Script', cursive; }
         .rating-stars { font-size: 2rem; color: #ddd; margin: 10px 0 30px 0; cursor: pointer; }
@@ -399,6 +350,18 @@
         .particle { position: absolute; width: 15px; height: 15px; background-size: contain; background-repeat: no-repeat; pointer-events: none; opacity: 0; }
         @keyframes popIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+        /* Modal Login/Register */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); align-items: center; justify-content: center; overflow-y: auto; }
+        .modal.active { display: flex; animation: fadeInModal 0.3s; }
+        .modal-content { background-color: var(--white); margin: auto; padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 5px 30px rgba(0,0,0,0.3); animation: slideDown 0.4s; }
+        .auth-title { text-align: center; margin-bottom: 20px; color: var(--dark-green); font-family: 'Dancing Script', cursive; font-size: 2.5rem; }
+        .auth-switch { text-align: center; margin-top: 15px; font-size: 0.95rem; color: var(--text-gray); }
+        .auth-switch a { color: var(--primary-mint); font-weight: bold; cursor: pointer; text-decoration: underline; }
+        .close-btn { position: absolute; top: 15px; right: 20px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.3s; z-index: 10; }
+        .close-btn:hover { color: var(--dark-green); }
+        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         /* Footer */
         footer { background-color: var(--footer-bg); color: #ecf0f1; padding-top: 60px; font-size: 0.95rem; margin-top: auto; }
         .footer-container { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -416,22 +379,38 @@
         .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
         .copyright { text-align: center; padding: 20px 0; font-size: 0.85rem; background-color: #153026; color: rgba(255,255,255,0.5); }
 
-        /* Responsive Mobile */
+        /* Mobile CSS */
         @media (max-width: 768px) {
             .hamburger { display: block; z-index: 1003; position: relative; }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-            .nav-menu { position: fixed; top: 0; right: -100%; left: auto; width: 45%; min-width: 200px; max-width: 300px; height: 100vh; flex-direction: column; background-color: var(--mobile-menu-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); align-items: center; justify-content: flex-start; transition: right 0.4s ease-in-out; box-shadow: -5px 0 20px rgba(0,0,0,0.15); padding: 80px 0 40px 0; gap: 20px; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--mobile-menu-border); }
+            
+            .nav-menu { 
+                position: fixed; top: 0; right: -100%; left: auto; width: 45%; min-width: 200px; max-width: 300px; height: 100vh; 
+                flex-direction: column; background-color: var(--mobile-menu-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+                align-items: center; justify-content: flex-start; transition: right 0.4s ease-in-out; 
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15); padding: 80px 0 40px 0; gap: 20px; 
+                overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--mobile-menu-border); 
+            }
             .nav-menu.active { right: 0; }
+            
+            .nav-wrapper { flex-direction: column; width: 100%; margin-left: 0; }
+            .nav-main, .nav-controls { flex-direction: column; width: 100%; gap: 5px; margin-left: 0; }
+            
+            .nav-controls { margin-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px; }
+            .nav-auth { flex-direction: column; width: 80%; background-color: transparent; border: none; padding: 0; gap: 5px; }
+
             .nav-item { margin: 5px 0; width: 100%; text-align: center; }
-            .nav-item:last-child { display: flex; justify-content: flex-end; padding-right: 20px; width: 100%; box-sizing: border-box; }
+            
+            /* Dropdown Mobile */
             .dropdown { width: 100%; display: flex; flex-direction: column; align-items: center; }
             .dropdown-content { position: relative; width: 100%; box-shadow: inset 0 5px 10px rgba(0,0,0,0.05); border: none; background-color: transparent; top: auto; left: auto; transform: none; display: none; padding: 0; text-align: center; }
             .dropdown.active .dropdown-content { display: block; animation: slideDownMobile 0.3s ease-out; }
             @keyframes slideDownMobile { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
             .dropdown-content .sub-link { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
             .dropdown.active .nav-link i { transform: rotate(180deg); transition: transform 0.3s; }
+            
             .theme-toggle-btn { margin-left: 0; margin-top: 10px; }
             .hero-content h1 { font-size: 3rem; }
             .event-card { flex-direction: column; }
@@ -443,50 +422,53 @@
     </style>
 </head>
 <body>
-
     <!-- Header -->
     <header>
         <div class="container nav-container">
             <div class="logo" onclick="switchPage('home')" style="display: flex; align-items: center; gap: 10px;">
-                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-mint);">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" class="logo-img" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-mint);">
                 <span>Floral <span>House</span></span>
             </div>
             
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <div class="nav-link active-link" onclick="switchPage('home')">Trang chủ</div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('menu')">Nhâm Nhi</div>
-                </li>
-                <li class="nav-item dropdown" id="dropdown-mobile">
-                    <div class="nav-link">Góc Thơ <i class="fas fa-caret-down"></i></div>
-                    <div class="dropdown-content">
-                        <div class="sub-link" onclick="switchPage('venue')">Cảnh Sắc</div>
-                        <div class="sub-link" onclick="switchPage('customer')">Khoảnh Khắc</div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('promotions')">Hân Hoan</div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('events')">Sự kiện</div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('contact')">Kết Nối</div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('feedback')">Nhắn Nhủ</div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link" onclick="switchPage('reviews')">Đánh Giá</div>
-                </li>
-                <li class="nav-item">
+            <!-- Menu Wrapper -->
+            <div class="nav-menu nav-wrapper">
+                <!-- Main Navigation (Left) -->
+                <ul class="nav-main">
+                    <li class="nav-item"><div class="nav-link active-link" onclick="switchPage('home')">Trang chủ</div></li>
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('menu')">Nhâm Nhi</div></li>
+                    
+                    <!-- GÓC THƠ DROPDOWN -->
+                    <li class="nav-item dropdown" id="dropdown-mobile">
+                        <div class="nav-link">Góc Thơ <i class="fas fa-caret-down"></i></div>
+                        <div class="dropdown-content">
+                            <div class="sub-link" onclick="switchPage('venue')">Cảnh Sắc</div>
+                            <div class="sub-link" onclick="switchPage('customer')">Khoảnh Khắc</div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('promotions')">Hân Hoan</div></li>
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('events')">Sự kiện</div></li>
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('contact')">Kết Nối</div></li>
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('feedback')">Nhắn Nhủ</div></li>
+                    <li class="nav-item"><div class="nav-link" onclick="switchPage('reviews')">Đánh Giá</div></li>
+                </ul>
+
+                <!-- Right Controls (Auth + Theme) -->
+                <div class="nav-controls">
+                    <!-- Auth Box -->
+                    <ul class="nav-auth">
+                        <li class="nav-item" id="nav-login"><div class="nav-link" onclick="openModal('modal-login')" style="color: var(--dark-green);">Đăng nhập</div></li>
+                        <li class="nav-item" id="nav-register"><div class="nav-link" onclick="openModal('modal-register')">Đăng ký</div></li>
+                        <li class="nav-item" id="nav-user" style="display: none;"><div class="nav-link">Chào, <span id="user-name-display" style="color: var(--accent-gold);">Bạn</span></div></li>
+                        <li class="nav-item" id="nav-logout" style="display: none;"><div class="nav-link" onclick="logoutUser()">Đăng xuất</div></li>
+                    </ul>
+
+                    <!-- Theme Toggle (Outside Auth Box) -->
                     <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()" title="Chuyển chế độ Sáng/Tối">
                         <i class="fas fa-moon"></i>
                     </button>
-                </li>
-            </ul>
+                </div>
+            </div>
 
             <div class="hamburger">
                 <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -494,20 +476,40 @@
         </div>
     </header>
 
-    <!-- 1. TRANG CHỦ -->
+    <!-- Modals -->
+    <div id="modal-login" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-login')">&times;</span>
+            <h2 class="auth-title">Đăng Nhập</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group"><label>Tên đăng nhập</label><input type="text" id="login-username" required></div>
+                <div class="form-group"><label>Mật khẩu</label><input type="password" required></div>
+                <button type="submit" class="btn-main" style="width: 100%;">Đăng Nhập Ngay</button>
+            </form>
+            <div class="auth-switch">Chưa có tài khoản? <a onclick="switchAuthModal('modal-login', 'modal-register')">Đăng ký tại đây</a></div>
+        </div>
+    </div>
+
+    <div id="modal-register" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-register')">&times;</span>
+            <h2 class="auth-title">Đăng Ký</h2>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group"><label>Tên hiển thị</label><input type="text" id="reg-username" required></div>
+                <div class="form-group"><label>Email</label><input type="email" required></div>
+                <div class="form-group"><label>Mật khẩu</label><input type="password" required></div>
+                <button type="submit" class="btn-main" style="width: 100%;">Tạo Tài Khoản</button>
+            </form>
+            <div class="auth-switch">Đã có tài khoản? <a onclick="switchAuthModal('modal-register', 'modal-login')">Đăng nhập ngay</a></div>
+        </div>
+    </div>
+
+    <!-- Content Sections -->
     <section id="home" class="page-section active">
         <div class="hero">
             <div id="hero-slideshow"></div>
-            <div class="hero-content">
-                <h1>Floral House</h1>
-                <p>Nhẹ nhàng chill cùng hương vị thiên nhiên trong làn không khí mát lành.</p>
-                <button class="btn-main" onclick="switchPage('menu')">
-                    <i class="fas fa-leaf" style="margin-right: 5px;"></i> Chill cùng hương vị tự nhiên <i class="fas fa-leaf" style="margin-left: 5px;"></i>
-                </button>
-            </div>
-            <div class="scroll-down" onclick="scrollToLetter()">
-                <i class="fas fa-chevron-down"></i>
-            </div>
+            <div class="hero-content"><h1>Floral House</h1><p>Nhẹ nhàng chill cùng hương vị thiên nhiên trong làn không khí mát lành.</p><button class="btn-main" onclick="switchPage('menu')"><i class="fas fa-leaf" style="margin-right: 5px;"></i> Chill cùng hương vị tự nhiên <i class="fas fa-leaf" style="margin-left: 5px;"></i></button></div>
+            <div class="scroll-down" onclick="scrollToLetter()"><i class="fas fa-chevron-down"></i></div>
         </div>
         <div class="letter-section" id="letter-section">
             <div class="container">
@@ -526,146 +528,35 @@
         </div>
     </section>
 
-    <!-- 2. TRANG NHÂM NHI -->
     <section id="menu" class="page-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Thực Đơn Floral</h2>
-                <p>Tuyển tập những hương vị trà và cà phê tinh tế nhất</p>
-            </div>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Latte" class="menu-img">
-                    <div class="menu-info"><h3>Mint Matcha Latte</h3><p>Trà xanh Nhật Bản kết hợp bạc hà mát lạnh.</p><p class="price">55.000 VNĐ</p></div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Coffee" class="menu-img">
-                    <div class="menu-info"><h3>Floral Cold Brew</h3><p>Cà phê ủ lạnh hương hoa nhài và cam thảo.</p><p class="price">65.000 VNĐ</p></div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Tea" class="menu-img">
-                    <div class="menu-info"><h3>Trà Hoa Hồng Thảo Mộc</h3><p>Thanh lọc cơ thể với trà hoa hồng, kỷ tử.</p><p class="price">45.000 VNĐ</p></div>
-                </div>
-                <div class="menu-item">
-                    <img src="https://images.unsplash.com/photo-1461023058943-48dbf1399f98?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Smoothie" class="menu-img">
-                    <div class="menu-info"><h3>Bơ Sữa Dừa Đá Xay</h3><p>Vị béo ngậy của bơ sáp Dak Lak và cốt dừa.</p><p class="price">50.000 VNĐ</p></div>
-                </div>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Thực Đơn Floral</h2><p>Tuyển tập những hương vị trà và cà phê tinh tế nhất</p></div><div class="menu-grid"><div class="menu-item"><img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Latte" class="menu-img"><div class="menu-info"><h3>Mint Matcha Latte</h3><p>Trà xanh Nhật Bản kết hợp bạc hà mát lạnh.</p><p class="price">55.000 VNĐ</p></div></div><div class="menu-item"><img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Coffee" class="menu-img"><div class="menu-info"><h3>Floral Cold Brew</h3><p>Cà phê ủ lạnh hương hoa nhài và cam thảo.</p><p class="price">65.000 VNĐ</p></div></div><div class="menu-item"><img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Tea" class="menu-img"><div class="menu-info"><h3>Trà Hoa Hồng Thảo Mộc</h3><p>Thanh lọc cơ thể với trà hoa hồng, kỷ tử.</p><p class="price">45.000 VNĐ</p></div></div><div class="menu-item"><img src="https://images.unsplash.com/photo-1461023058943-48dbf1399f98?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" alt="Smoothie" class="menu-img"><div class="menu-info"><h3>Bơ Sữa Dừa Đá Xay</h3><p>Vị béo ngậy của bơ sáp Dak Lak và cốt dừa.</p><p class="price">50.000 VNĐ</p></div></div></div></div>
     </section>
 
-    <!-- 3. CẢNH SẮC -->
     <section id="venue" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Cảnh Sắc</h2><p>Không gian xanh mát, bình yên giữa lòng phố thị</p></div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Không gian ngập tràn ánh sáng</div></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Góc nhỏ đọc sách</div></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1497215842964-222b430dc0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Sân vườn thoáng đãng</div></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Decor tinh tế</div></div>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Cảnh Sắc</h2><p>Không gian xanh mát, bình yên giữa lòng phố thị</p></div><div class="gallery-grid"><div class="gallery-item"><img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Không gian ngập tràn ánh sáng</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Góc nhỏ đọc sách</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1497215842964-222b430dc0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Sân vườn thoáng đãng</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Decor tinh tế</div></div></div></div>
     </section>
 
-    <!-- 4. KHOẢNH KHẮC -->
     <section id="customer" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Khoảnh Khắc</h2><p>Những khoảnh khắc đáng yêu được lưu giữ tại Floral House</p></div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Nụ cười rạng rỡ</div></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507915977619-6ccfe8003ae6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Check-in cuối tuần</div></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Tụ tập cùng hội bạn</div></div>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Khoảnh Khắc</h2><p>Những khoảnh khắc đáng yêu được lưu giữ tại Floral House</p></div><div class="gallery-grid"><div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Nụ cười rạng rỡ</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1507915977619-6ccfe8003ae6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Check-in cuối tuần</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"><div class="gallery-caption">Tụ tập cùng hội bạn</div></div></div></div>
     </section>
 
-    <!-- 5. HÂN HOAN -->
     <section id="promotions" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Hân Hoan</h2><p>Săn deal hời - Thảnh thơi uống nước</p></div>
-            <div class="menu-grid">
-                <div class="promo-card">
-                    <div class="promo-badge">HOT</div><div class="promo-title">Mua 1 Tặng 1</div>
-                    <p>Mua 1 ly Cam Hibiscus hoặc 1 ly Dứa Hibiscus tặng ngay 1 bịch khoai lang mắm hành.</p>
-                    <p><strong>Áp dụng từ:</strong> Cuối tuần<br>(T7 & CN)</p>
-                    <div class="promo-code" onclick="alert('Đã lưu mã: WEEKEND')">Mã: WEEKEND</div>
-                </div>
-                <div class="promo-card">
-                    <div class="promo-badge">NEW</div><div class="promo-title">Check-in Giảm Giá</div>
-                    <p>Giảm ngay 10% tổng hóa đơn khi check-in tại Floral House trên Facebook.</p>
-                    <p><strong>Áp dụng từ:</strong> 07:00 - 11:00</p>
-                    <div class="promo-code" onclick="alert('Vui lòng đưa màn hình check-in cho nhân viên')">Tại Quầy</div>
-                </div>
-                <div class="promo-card">
-                    <div class="promo-badge">-20%</div><div class="promo-title">Sale Ngọt Ngào</div>
-                    <p style="margin-bottom: 10px;">Giảm 20% cho 3 món HOT:</p>
-                    <ul style="text-align: left; font-size: 0.95rem; margin-bottom: 15px; padding-left: 20px; list-style-type: circle;">
-                        <li>Trà Sữa lá Nếp – béo nhẹ, thơm dìu dịu</li><li>Trà Trái Cây Nhiệt Đới – mát lạnh, trái cây đầy ly</li><li>Trà Long Nhãn Hạt Chia – thanh mát, thơm lừng</li>
-                    </ul>
-                    <p><strong>Áp dụng từ:</strong> 12:00 - 15:00<br>(Thứ 2 - Thứ 6)</p>
-                    <div class="promo-code" onclick="alert('Ưu đãi tự động áp dụng khi order')">Tại Quầy</div>
-                </div>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Hân Hoan</h2><p>Săn deal hời - Thảnh thơi uống nước</p></div><div class="menu-grid"><div class="promo-card"><div class="promo-badge">HOT</div><div class="promo-title">Mua 1 Tặng 1</div><p>Mua 1 ly Cam Hibiscus hoặc 1 ly Dứa Hibiscus tặng ngay 1 bịch khoai lang mắm hành.</p><p><strong>Áp dụng từ:</strong> Cuối tuần<br>(T7 & CN)</p><div class="promo-code" onclick="alert('Đã lưu mã: WEEKEND')">Mã: WEEKEND</div></div><div class="promo-card"><div class="promo-badge">NEW</div><div class="promo-title">Check-in Giảm Giá</div><p>Giảm ngay 10% tổng hóa đơn khi check-in tại Floral House trên Facebook.</p><p><strong>Áp dụng từ:</strong> 07:00 - 11:00</p><div class="promo-code" onclick="alert('Vui lòng đưa màn hình check-in cho nhân viên')">Tại Quầy</div></div><div class="promo-card"><div class="promo-badge">-20%</div><div class="promo-title">Sale Ngọt Ngào</div><p style="margin-bottom: 10px;">Giảm 20% cho 3 món HOT:</p><ul style="text-align: left; font-size: 0.95rem; margin-bottom: 15px; padding-left: 20px; list-style-type: circle;"><li>Trà Sữa lá Nếp – béo nhẹ, thơm dìu dịu</li><li>Trà Trái Cây Nhiệt Đới – mát lạnh, trái cây đầy ly</li><li>Trà Long Nhãn Hạt Chia – thanh mát, thơm lừng</li></ul><p><strong>Áp dụng từ:</strong> 12:00 - 15:00<br>(Thứ 2 - Thứ 6)</p><div class="promo-code" onclick="alert('Ưu đãi tự động áp dụng khi order')">Tại Quầy</div></div></div></div>
     </section>
 
-    <!-- 6. SỰ KIỆN -->
     <section id="events" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Sự Kiện & Hoạt Động</h2><p>Kết nối cộng đồng yêu coffee và nghệ thuật</p></div>
-            <div class="event-card">
-                <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/557585908_1386138526853268_3343668527332078795_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vWlUWpeP5QkQ7kNvwFSh5LY&_nc_oc=Adnqz_-7dqjuxuJv2VExVrdzNzkV7j7bJ_GzT_4hssHSz5ihGt2vEXQqSOzPpwXspR5sHkY31b_TdsQLEc50lYPG&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfiXNph0Q9RbGpbpNF4RSXfuMdwkM_ODFCpIcg2mnQ2dVg&oe=692F88A7');"></div>
-                <div class="event-content">
-                    <div class="event-date-badge"><i class="far fa-calendar-alt"></i> Thứ 7, 04/10/2025</div>
-                    <h3><i class="fas fa-moon"></i> MID AUTUMN FESTIVAL <i class="fas fa-star"></i></h3>
-                    <p>Cả nhà cùng vui Trung Thu – đừng bỏ lỡ màn múa lân đặc sắc! Một đêm hội trăng rằm đầy màu sắc đang chờ đón bạn.</p>
-                    <div class="btn-disabled">Hẹn gặp lại bạn mùa trăng sau</div>
-                </div>
-            </div>
-            <div class="event-card">
-                <div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/534934363_1344849017648886_4726413088316607027_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=U9SzAh6LRzoQ7kNvwGOULSH&_nc_oc=Adm3SY6fnLDdgINtEgGUztbI1SKGFVBsa5RumyZdPXkvLiBJoz6nhFtmNl302WP2LpZcqhTWYOvjahS0sK7F9ANS&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfjLhEEk_TpSqh4tWNccQB2rFZFdWbN3hvvlrLrDJCSzfQ&oe=692F6D89');"></div>
-                <div class="event-content">
-                    <div class="event-date-badge"><i class="far fa-calendar-alt"></i> Thứ 3, 19/8/2025</div>
-                    <h3><i class="fas fa-music"></i> SHOW NHẠC TẠI FLORAL HOUSE</h3>
-                    <p>Với không gian ấm cúng, lãng mạn, đêm 19/8 sẽ mang đến những giai điệu ngọt ngào và đầy nội lực qua phần trình diễn của:<br><strong>The LD Band</strong><br><strong>Mây Band</strong><br>Cùng sự góp mặt của 3 ca sĩ khách mời:<br><strong>Minh Châu</strong><br><strong>Khánh Băng</strong><br><strong>Nam Nguyên</strong><br>Họ sẽ đưa bạn đi qua đủ cung bậc cảm xúc – từ sâu lắng, ngọt ngào cho đến bùng nổ, đầy năng lượng.</p>
-                    <div class="btn-disabled">Đợt đăng ký đã kết thúc</div>
-                </div>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Sự Kiện & Hoạt Động</h2><p>Kết nối cộng đồng yêu coffee và nghệ thuật</p></div><div class="event-card"><div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/557585908_1386138526853268_3343668527332078795_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=vWlUWpeP5QkQ7kNvwFSh5LY&_nc_oc=Adnqz_-7dqjuxuJv2VExVrdzNzkV7j7bJ_GzT_4hssHSz5ihGt2vEXQqSOzPpwXspR5sHkY31b_TdsQLEc50lYPG&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfiXNph0Q9RbGpbpNF4RSXfuMdwkM_ODFCpIcg2mnQ2dVg&oe=692F88A7');"></div><div class="event-content"><div class="event-date-badge"><i class="far fa-calendar-alt"></i> Thứ 7, 04/10/2025</div><h3><i class="fas fa-moon"></i> MID AUTUMN FESTIVAL <i class="fas fa-star"></i></h3><p>Cả nhà cùng vui Trung Thu – đừng bỏ lỡ màn múa lân đặc sắc! Một đêm hội trăng rằm đầy màu sắc đang chờ đón bạn.</p><div class="btn-disabled">Hẹn gặp lại bạn mùa trăng sau</div></div></div><div class="event-card"><div class="event-img" style="background-image: url('https://scontent.fbmv1-1.fna.fbcdn.net/v/t39.30808-6/534934363_1344849017648886_4726413088316607027_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=U9SzAh6LRzoQ7kNvwGOULSH&_nc_oc=Adm3SY6fnLDdgINtEgGUztbI1SKGFVBsa5RumyZdPXkvLiBJoz6nhFtmNl302WP2LpZcqhTWYOvjahS0sK7F9ANS&_nc_zt=23&_nc_ht=scontent.fbmv1-1.fna&_nc_gid=S0fWj152RI2i1H0RPWj_Tg&oh=00_AfjLhEEk_TpSqh4tWNccQB2rFZFdWbN3hvvlrLrDJCSzfQ&oe=692F6D89');"></div><div class="event-content"><div class="event-date-badge"><i class="far fa-calendar-alt"></i> Thứ 3, 19/8/2025</div><h3><i class="fas fa-music"></i> SHOW NHẠC TẠI FLORAL HOUSE</h3><p>Với không gian ấm cúng, lãng mạn, đêm 19/8 sẽ mang đến những giai điệu ngọt ngào và đầy nội lực qua phần trình diễn của:<br><strong>The LD Band</strong><br><strong>Mây Band</strong><br>Cùng sự góp mặt của 3 ca sĩ khách mời:<br><strong>Minh Châu</strong><br><strong>Khánh Băng</strong><br><strong>Nam Nguyên</strong><br>Họ sẽ đưa bạn đi qua đủ cung bậc cảm xúc – từ sâu lắng, ngọt ngào cho đến bùng nổ, đầy năng lượng.</p><div class="btn-disabled">Đợt đăng ký đã kết thúc</div></div></div></div>
     </section>
 
-    <!-- 7. KẾT NỐI -->
     <section id="contact" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Giữ Góc Nhỏ</h2><p>Gửi tin nhắn cho chúng tôi để được hỗ trợ tốt nhất</p></div>
-            <div class="contact-wrapper">
-                <form id="contact-form" action="https://formspree.io/f/mqavwlvy" method="POST" onsubmit="handleFormSubmit(event, 'contact-form')">
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên <span class="required-star">*</span></label><input type="text" id="c-name" name="name" placeholder="Nhập tên của bạn..." maxlength="20" required><span class="char-count" id="c-name-count">0/20</span><span class="error-message" id="c-name-error">Vui lòng nhập từ 3 đến 20 ký tự.</span></div>
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại <span class="required-star">*</span></label><input type="text" id="c-contact" name="contact" placeholder="Nhập thông tin liên hệ..." required><span class="char-count" id="c-contact-count">0/30</span><span class="error-message" id="c-contact-error">Vui lòng nhập từ 10 đến 30 ký tự (không tính dấu cách).</span></div>
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn <span class="required-star">*</span></label><textarea id="c-message" name="message" rows="5" maxlength="250" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?" required></textarea><span class="char-count" id="c-message-count">0/250</span><span class="error-message" id="c-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span></div>
-                    <button type="submit" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button>
-                </form>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Giữ Góc Nhỏ</h2><p>Gửi tin nhắn cho chúng tôi để được hỗ trợ tốt nhất</p></div><div class="contact-wrapper"><form id="contact-form" action="https://formspree.io/f/mqavwlvy" method="POST" onsubmit="handleFormSubmit(event, 'contact-form')"><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên <span class="required-star">*</span></label><input type="text" id="c-name" name="name" placeholder="Nhập tên của bạn..." maxlength="20" required><span class="char-count" id="c-name-count">0/20</span><span class="error-message" id="c-name-error">Vui lòng nhập từ 3 đến 20 ký tự.</span></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Email / Số điện thoại <span class="required-star">*</span></label><input type="text" id="c-contact" name="contact" placeholder="Nhập thông tin liên hệ..." required><span class="char-count" id="c-contact-count">0/30</span><span class="error-message" id="c-contact-error">Vui lòng nhập từ 10 đến 30 ký tự (không tính dấu cách).</span></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Lời nhắn <span class="required-star">*</span></label><textarea id="c-message" name="message" rows="5" maxlength="250" placeholder="Bạn muốn đặt bàn cho mấy người? Hoặc có câu hỏi gì không?" required></textarea><span class="char-count" id="c-message-count">0/250</span><span class="error-message" id="c-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span></div><button type="submit" class="btn-main" style="width: 100%;">Gửi Tin Nhắn</button></form></div></div>
     </section>
 
-    <!-- 8. NHẮN NHỦ -->
     <section id="feedback" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Góc Lắng Nghe</h2><p>Mọi ý kiến đóng góp của bạn giúp Floral House hoàn thiện hơn</p></div>
-            <div class="contact-wrapper">
-                <form id="feedback-form" action="https://formspree.io/f/mblvqkoa" method="POST" onsubmit="handleFormSubmit(event, 'feedback-form')">
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên (Không bắt buộc)</label><input type="text" name="name" placeholder="Bạn có thể ẩn danh nếu muốn..."></div>
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Vấn đề bạn muốn góp ý</label><select name="topic" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);"><option value="Chất lượng đồ uống">Chất lượng đồ uống</option><option value="Thái độ nhân viên">Thái độ nhân viên</option><option value="Không gian / Vệ sinh">Không gian / Vệ sinh</option><option value="Đề xuất món mới">Đề xuất món mới</option><option value="Khác">Khác</option></select></div>
-                    <div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh <span class="required-star">*</span></label><textarea id="f-message" name="message" rows="5" maxlength="250" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..." required></textarea><span class="char-count" id="f-message-count">0/250</span><span class="error-message" id="f-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span></div>
-                    <button type="submit" class="btn-main" style="width: 100%;">Gửi Góp Ý</button>
-                    <p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic; text-align: center; border-top: 1px dashed #ddd; padding-top: 15px;"><i class="fas fa-lightbulb" style="color: var(--accent-gold);"></i> Mách nhỏ: Để không phải chờ đợi lâu, bạn cứ gọi liền Hotline hoặc nhắn tin trực tiếp cho quán nhé.</p>
-                </form>
-            </div>
-        </div>
+        <div class="container"><div class="section-title"><h2>Góc Lắng Nghe</h2><p>Mọi ý kiến đóng góp của bạn giúp Floral House hoàn thiện hơn</p></div><div class="contact-wrapper"><form id="feedback-form" action="https://formspree.io/f/mblvqkoa" method="POST" onsubmit="handleFormSubmit(event, 'feedback-form')"><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên (Không bắt buộc)</label><input type="text" name="name" placeholder="Bạn có thể ẩn danh nếu muốn..."></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Vấn đề bạn muốn góp ý</label><select name="topic" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);"><option value="Chất lượng đồ uống">Chất lượng đồ uống</option><option value="Thái độ nhân viên">Thái độ nhân viên</option><option value="Không gian / Vệ sinh">Không gian / Vệ sinh</option><option value="Đề xuất món mới">Đề xuất món mới</option><option value="Khác">Khác</option></select></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh <span class="required-star">*</span></label><textarea id="f-message" name="message" rows="5" maxlength="250" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..." required></textarea><span class="char-count" id="f-message-count">0/250</span><span class="error-message" id="f-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span></div><button type="submit" class="btn-main" style="width: 100%;">Gửi Góp Ý</button><p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic; text-align: center; border-top: 1px dashed #ddd; padding-top: 15px;"><i class="fas fa-lightbulb" style="color: var(--accent-gold);"></i> Mách nhỏ: Để không phải chờ đợi lâu, bạn cứ gọi liền Hotline hoặc nhắn tin trực tiếp cho quán nhé.</p></form></div></div>
     </section>
 
-    <!-- 9. ĐÁNH GIÁ -->
+    <!-- 9. ĐÁNH GIÁ (GÓC YÊU THƯƠNG) -->
     <section id="reviews" class="page-section">
         <div class="container">
             <div class="section-title"><h2>Góc Yêu Thương</h2><p>Cảm ơn bạn đã ghé thăm. Hãy để lại đánh giá để Floral House phục vụ tốt hơn nhé!</p></div>
@@ -679,12 +570,9 @@
                     </div>
                 </div>
                 <div class="review-list-col">
-                    <div class="review-list-header"><h3>Cộng đồng Floral</h3><span class="avg-rating">158 đánh giá</span></div>
+                    <div class="review-list-header"><h3>Cộng đồng Floral</h3><span class="avg-rating" id="total-reviews-main">158 đánh giá</span></div>
                     <div class="reviews-list-scroll" id="reviews-list">
-                        <!-- Static reviews here, removed for brevity as we focus on All Reviews page generation -->
-                        <div class="review-item"><div class="review-header"><div class="review-user"><i class="fas fa-user-circle"></i> Nguyễn T. Lan</div><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div><div class="review-content">"Quán siêu xinh, trà sữa lá nếp rất thơm, không quá ngọt. Sẽ quay lại!"</div><div class="review-date">20/08/2025</div></div>
-                        <div class="review-item"><div class="review-header"><div class="review-user"><i class="fas fa-user-circle"></i> Tran Minh</div><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div></div><div class="review-content">"Không gian yên tĩnh, thích hợp để làm việc. Nhạc nhẹ nhàng, chill phết."</div><div class="review-date">18/08/2025</div></div>
-                        <div class="review-item"><div class="review-header"><div class="review-user"><i class="fas fa-user-circle"></i> An Nhiên</div><div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div><div class="review-content">"Nhân viên dễ thương, nhiệt tình. Món khoai lang mắm hành tặng kèm ăn cuốn lắm nha :))"</div><div class="review-date">15/08/2025</div></div>
+                        <!-- Featured reviews will be rendered here by JS -->
                     </div>
                     <button class="btn-see-all" onclick="switchPage('all-reviews')">Xem tất cả nhận xét &rarr;</button>
                 </div>
@@ -698,105 +586,92 @@
             <div class="section-title"><h2>Tất Cả Đánh Giá</h2><p>Lắng nghe những lời yêu thương từ khách hàng của Floral House</p></div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
                 <button class="btn-main" onclick="switchPage('reviews')" style="padding: 8px 20px; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Quay lại Góc Yêu Thương</button>
-                <div style="font-weight: bold; color: var(--dark-green); font-size: 1.1rem;">Tổng số: <span style="color: var(--accent-gold);">158</span> đánh giá <i class="fas fa-star" style="color: var(--accent-gold);"></i></div>
+                <div style="font-weight: bold; color: var(--dark-green); font-size: 1.1rem;">Tổng số: <span style="color: var(--accent-gold);" id="total-reviews-all">158</span> đánh giá <i class="fas fa-star" style="color: var(--accent-gold);"></i></div>
             </div>
-            
-            <!-- Bộ lọc sao có thể bấm được -->
             <div class="rating-breakdown" id="rating-filter-container">
-                <span class="rating-tag" onclick="filterReviews('all', this)">Tất cả</span>
-                <span class="rating-tag" onclick="filterReviews(5, this)">5 <i class="fas fa-star"></i> (120)</span>
-                <span class="rating-tag" onclick="filterReviews(4, this)">4 <i class="fas fa-star"></i> (25)</span>
-                <span class="rating-tag" onclick="filterReviews(3, this)">3 <i class="fas fa-star"></i> (8)</span>
-                <span class="rating-tag" onclick="filterReviews(2, this)">2 <i class="fas fa-star"></i> (3)</span>
-                <span class="rating-tag" onclick="filterReviews(1, this)">1 <i class="fas fa-star"></i> (2)</span>
+                <span class="rating-tag active" onclick="filterReviews('all', this)">Tất cả</span>
+                <span class="rating-tag" onclick="filterReviews(5, this)">5 <i class="fas fa-star"></i></span>
+                <span class="rating-tag" onclick="filterReviews(4, this)">4 <i class="fas fa-star"></i></span>
+                <span class="rating-tag" onclick="filterReviews(3, this)">3 <i class="fas fa-star"></i></span>
+                <span class="rating-tag" onclick="filterReviews(2, this)">2 <i class="fas fa-star"></i></span>
+                <span class="rating-tag" onclick="filterReviews(1, this)">1 <i class="fas fa-star"></i></span>
             </div>
-
-            <!-- Grid hiển thị review được sinh ra bởi JS -->
             <div class="gallery-grid" id="all-reviews-container">
-                <!-- Content will be injected by JS -->
+                <!-- Reviews will be rendered here by JS -->
             </div>
         </div>
     </section>
 
-    <!-- FIREWORKS NOTIFICATION -->
+    <!-- Notification -->
     <div id="notification-overlay">
         <div class="notification-content"><h3>Cảm ơn bạn!</h3><p id="notification-message">Floral House đã nhận được tin nhắn của bạn.</p><button class="close-notif-btn" onclick="closeNotification()">Đóng</button></div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
         <div class="container footer-container">
-            <div class="footer-col">
-                <!-- Đã thêm LOGO hình ảnh vào Footer -->
-                <div class="logo" style="font-size: 2.2rem; color: var(--white); display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;" onclick="switchPage('home')">
-                    <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white);">
-                    <span>Floral <span>House</span></span>
-                </div>
-                <p style="margin-top: 0;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p>
-                <p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p>
-            </div>
-            <div class="footer-col">
-                <h4>Kết nối với Floral House</h4>
-                <p><i class="fas fa-phone-alt"></i> Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a></p>
-                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a></p>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-            <div class="footer-col dev-info">
-                <h4>Thiết kế & Phát triển</h4>
-                <ul>
-                    <li><i class="fas fa-user-circle"></i> <span style="font-weight: bold;">Thái Hoàng Bảo</span></li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a></li>
-                    <li><i class="fas fa-phone"></i> <a href="tel:0935956884">0935956884</a></li>
-                    <li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a></li>
-                </ul>
-            </div>
+            <div class="footer-col"><div class="logo" style="font-size: 2.2rem; color: var(--white);" onclick="switchPage('home')"><img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" class="logo-img" style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white);"><span>Floral <span>House</span></span></div><p style="margin-top: 15px;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p><p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p></div>
+            <div class="footer-col"><h4>Kết nối với Floral House</h4><p><i class="fas fa-phone-alt"></i> Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a></p><p><i class="fas fa-envelope"></i> Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a></p><div class="social-links"><a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a><a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a></div></div>
+            <div class="footer-col dev-info"><h4>Thiết kế & Phát triển</h4><ul><li><i class="fas fa-user-circle"></i> <span style="font-weight: bold;">Thái Hoàng Bảo</span></li><li><i class="fas fa-envelope"></i> <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a></li><li><i class="fas fa-phone"></i> <a href="tel:0935956884">0935956884</a></li><li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a></li></ul></div>
         </div>
         <div class="copyright">&copy; 2025 Floral House. Developed by <strong>Thái Hoàng Bảo</strong>.</div>
     </footer>
 
-    <!-- JAVASCRIPT -->
     <script>
         // --- XỬ LÝ THEME TOGGLE ---
         function toggleTheme() {
             const body = document.body;
             const btnIcon = document.querySelector('#theme-toggle i');
+            
             if (body.getAttribute('data-theme') === 'dark') {
                 body.removeAttribute('data-theme');
-                btnIcon.classList.remove('fa-sun'); btnIcon.classList.add('fa-moon');
+                btnIcon.classList.remove('fa-sun');
+                btnIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             } else {
                 body.setAttribute('data-theme', 'dark');
-                btnIcon.classList.remove('fa-moon'); btnIcon.classList.add('fa-sun');
+                btnIcon.classList.remove('fa-moon');
+                btnIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             }
         }
+
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const btnIcon = document.querySelector('#theme-toggle i');
+            
             if (savedTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
-                btnIcon.classList.remove('fa-moon'); btnIcon.classList.add('fa-sun');
+                btnIcon.classList.remove('fa-moon');
+                btnIcon.classList.add('fa-sun');
             }
-            // Khởi tạo review khi load trang
-            initReviews();
+            initReviews(); // Initialize reviews
+            checkLoginStatus(); // Check User
         });
 
-        // CHUYỂN TRANG
+        // Navigation
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById(pageId);
             if (targetPage) targetPage.classList.add('active');
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active-link'));
+            let activeLink;
+            if (pageId === 'venue' || pageId === 'customer') {
+                activeLink = document.querySelector('.nav-item.dropdown .nav-link');
+            } else {
+                activeLink = document.querySelector(`.nav-link[onclick*="'${pageId}'"]`);
+            }
+            if (activeLink) { activeLink.classList.add('active-link'); }
+
             closeMobileMenu();
             window.scrollTo(0, 0);
         }
         function scrollToLetter() { const letterSection = document.getElementById('letter-section'); if(letterSection) letterSection.scrollIntoView({ behavior: 'smooth' }); }
 
-        // HERO BACKGROUND SLIDESHOW
+        // Hero Slider
         const heroImages = [
             'https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
             'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
@@ -830,8 +705,80 @@
         }
         setInterval(nextSlide, 5000);
 
-        // --- LOGIC SINH DỮ LIỆU & LỌC ĐÁNH GIÁ (MỚI) ---
+        // --- LOGIC AUTHENTICATION (MỚI) ---
+        let currentUser = null;
+
+        function checkLoginStatus() {
+            const storedUser = localStorage.getItem('floral_user');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateAuthUI();
+            }
+        }
+
+        function updateAuthUI() {
+            const loginBtn = document.getElementById('nav-login');
+            const registerBtn = document.getElementById('nav-register');
+            const userNav = document.getElementById('nav-user');
+            const logoutBtn = document.getElementById('nav-logout');
+            const userNameDisplay = document.getElementById('user-name-display');
+
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                userNav.style.display = 'block';
+                logoutBtn.style.display = 'block';
+                userNameDisplay.textContent = currentUser.name;
+            } else {
+                loginBtn.style.display = 'block';
+                registerBtn.style.display = 'block';
+                userNav.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            if (username) {
+                currentUser = { name: username };
+                localStorage.setItem('floral_user', JSON.stringify(currentUser));
+                updateAuthUI();
+                closeModal('modal-login');
+                alert("Đăng nhập thành công! Chào mừng " + username + " đến với Floral House.");
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('reg-username').value;
+            if (username) {
+                currentUser = { name: username };
+                localStorage.setItem('floral_user', JSON.stringify(currentUser));
+                updateAuthUI();
+                closeModal('modal-register');
+                alert("Đăng ký thành công! Chào mừng " + username + ".");
+            }
+        }
+
+        function logoutUser() {
+            if(confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+                localStorage.removeItem('floral_user');
+                currentUser = null;
+                updateAuthUI();
+                alert("Đã đăng xuất thành công.");
+            }
+        }
+
+        // Helper switch Auth Modal
+        function switchAuthModal(current, target) {
+            closeModal(current);
+            openModal(target);
+        }
+
+        // --- LOGIC REVIEWS (CẬP NHẬT LOGIC AUTH) ---
         let allReviews = [];
+        let totalReviewCount = 158;
 
         function generateRandomDate(start, end) {
             return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
@@ -856,7 +803,7 @@
             };
 
             const startDate = new Date('2025-05-01');
-            const endDate = new Date(); // Hôm nay (Nov 2025)
+            const endDate = new Date();
 
             for (let star = 5; star >= 1; star--) {
                 const count = reviewCounts[star];
@@ -874,63 +821,73 @@
                     });
                 }
             }
-
-            // Sắp xếp theo ngày mới nhất
-            allReviews.sort((a, b) => b.date - a.date);
             
-            // Mặc định hiển thị tất cả
+            allReviews.sort((a, b) => b.date - a.date);
+            renderApp();
+        }
+
+        function renderApp() {
+            document.getElementById('total-reviews-main').textContent = `${totalReviewCount} đánh giá`;
+            document.getElementById('total-reviews-all').textContent = totalReviewCount;
+
+            const featuredReviews = allReviews.filter(r => r.star >= 4).slice(0, 5);
+            const featuredContainer = document.getElementById('reviews-list');
+            if(featuredContainer) {
+                featuredContainer.innerHTML = '';
+                featuredReviews.forEach(review => {
+                    featuredContainer.appendChild(createReviewElement(review));
+                });
+            }
+
             renderReviews('all');
+        }
+
+        function createReviewElement(review) {
+            let starHTML = '';
+            for(let i=0; i<5; i++) {
+                if(i < review.star) starHTML += '<i class="fas fa-star"></i>';
+                else starHTML += '<i class="far fa-star" style="color:#ddd"></i>';
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'review-item';
+            div.style.backgroundColor = 'var(--review-item-bg)';
+            div.innerHTML = `
+                <div class="review-header">
+                    <div class="review-user"><i class="fas fa-user-circle"></i> ${review.name}</div>
+                    <div class="review-stars">${starHTML}</div>
+                </div>
+                <div class="review-content">"${review.content}"</div>
+                <div class="review-date">${review.dateStr}</div>
+            `;
+            return div;
         }
 
         function renderReviews(filter) {
             const container = document.getElementById('all-reviews-container');
-            container.innerHTML = ''; // Clear current
+            if(!container) return;
+            container.innerHTML = ''; 
 
             const filteredReviews = filter === 'all' 
                 ? allReviews 
                 : allReviews.filter(r => r.star === filter);
 
             filteredReviews.forEach(review => {
-                let starHTML = '';
-                for(let i=0; i<5; i++) {
-                    if(i < review.star) starHTML += '<i class="fas fa-star"></i>';
-                    else starHTML += '<i class="far fa-star" style="color:#ddd"></i>';
-                }
-
-                const div = document.createElement('div');
-                div.className = 'review-item';
-                div.style.backgroundColor = 'var(--white)';
-                div.style.height = 'auto';
-                div.innerHTML = `
-                    <div class="review-header">
-                        <div class="review-user"><i class="fas fa-user-circle"></i> ${review.name}</div>
-                        <div class="review-stars">${starHTML}</div>
-                    </div>
-                    <div class="review-content">"${review.content}"</div>
-                    <div class="review-date">${review.dateStr}</div>
-                `;
-                container.appendChild(div);
+                const el = createReviewElement(review);
+                el.style.height = 'auto';
+                el.style.backgroundColor = 'var(--white)';
+                container.appendChild(el);
             });
         }
 
         function filterReviews(star, element) {
             renderReviews(star);
-            
-            // Update active class
             const tags = document.querySelectorAll('.rating-tag');
             tags.forEach(tag => tag.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // --- CÁC FUNCTION KHÁC ---
-        // Submit Review (Đã có trong mã cũ, giữ nguyên)
-        // Validation (Giữ nguyên)
-        // Form Submit (Giữ nguyên)
-        // Fireworks (Giữ nguyên)
-        // Mobile Menu (Giữ nguyên)
-        // ...
-
-        // XỬ LÝ ĐÁNH GIÁ SAO
+        // --- REVIEW SUBMISSION LOGIC ---
         const stars = document.querySelectorAll('.rating-stars i');
         let currentRating = 0;
         stars.forEach(star => {
@@ -944,104 +901,76 @@
                 else { star.classList.remove('active'); star.style.color = '#ddd'; }
             });
         }
+
         function submitReview() {
+            // Check Authentication FIRST
+            if (!currentUser) {
+                alert("Vui lòng đăng nhập để gửi đánh giá của bạn!");
+                openModal('modal-login');
+                return;
+            }
+
             if(currentRating == 0) { alert("Bạn hãy chọn số sao muốn đánh giá nhé!"); return; }
+            
+            const content = document.getElementById('review-text').value;
+            const date = new Date();
+            
+            const newReview = {
+                name: currentUser.name + " (Mới)",
+                star: parseInt(currentRating),
+                content: content ? content : "Đã gửi đánh giá.",
+                date: date,
+                dateStr: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+            };
+
+            allReviews.unshift(newReview); 
+            totalReviewCount++;
+
+            renderApp();
+
             document.getElementById('review-text').value = "";
             currentRating = 0; highlightStars(0);
             showFloralFireworks("Cảm ơn bạn đã dành tặng những ngôi sao lấp lánh cho Floral House! ❤️");
         }
 
-        // VALIDATION & FORM Handlers... (Giữ nguyên logic cũ)
+        // VALIDATION LOGIC
         function validateName(value) { return value.length >= 3 && value.length <= 20; }
         function validateContact(value) { const cleanLength = value.replace(/\s/g, '').length; return cleanLength >= 10 && cleanLength <= 30; }
         function validateMessage(value) { return value.length >= 5 && value.length <= 250; }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Init validation listeners...
             const nameInput = document.getElementById('c-name');
             const contactInput = document.getElementById('c-contact');
             const messageInput = document.getElementById('c-message');
             const feedbackMessageInput = document.getElementById('f-message');
 
-            if(nameInput) {
-                nameInput.addEventListener('input', function() {
-                    const len = this.value.length;
-                    document.getElementById('c-name-count').textContent = `${len}/20`;
-                    const isValid = validateName(this.value);
-                    const errorEl = document.getElementById('c-name-error');
-                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
-                });
-            }
-            if(contactInput) {
-                contactInput.addEventListener('input', function() {
-                    const val = this.value;
-                    const cleanLen = val.replace(/\s/g, '').length;
-                    if (cleanLen > 30) {
-                         let count = 0; let cutIndex = 0;
-                         for(let i=0; i<val.length; i++) { if(val[i] !== ' ') count++; if(count > 30) { cutIndex = i; break; } }
-                         if(count > 30) { this.value = val.substring(0, cutIndex); }
-                    }
-                    const currentCleanLen = this.value.replace(/\s/g, '').length;
-                    document.getElementById('c-contact-count').textContent = `${currentCleanLen}/30`;
-                    const isValid = validateContact(this.value);
-                    const errorEl = document.getElementById('c-contact-error');
-                    if (!isValid && this.value.length > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
-                });
-            }
-            if(messageInput) {
-                messageInput.addEventListener('input', function() {
-                    const len = this.value.length;
-                    document.getElementById('c-message-count').textContent = `${len}/250`;
-                    const isValid = validateMessage(this.value);
-                    const errorEl = document.getElementById('c-message-error');
-                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
-                });
-            }
-            if(feedbackMessageInput) {
-                feedbackMessageInput.addEventListener('input', function() {
-                    const len = this.value.length;
-                    document.getElementById('f-message-count').textContent = `${len}/250`;
-                    const isValid = validateMessage(this.value);
-                    const errorEl = document.getElementById('f-message-error');
-                    if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; }
-                });
-            }
+            if(nameInput) { nameInput.addEventListener('input', function() { const len = this.value.length; document.getElementById('c-name-count').textContent = `${len}/20`; const isValid = validateName(this.value); const errorEl = document.getElementById('c-name-error'); if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; } }); }
+            if(contactInput) { contactInput.addEventListener('input', function() { const val = this.value; const cleanLen = val.replace(/\s/g, '').length; if (cleanLen > 30) { let count = 0; let cutIndex = 0; for(let i=0; i<val.length; i++) { if(val[i] !== ' ') count++; if(count > 30) { cutIndex = i; break; } } if(count > 30) { this.value = val.substring(0, cutIndex); } } const currentCleanLen = this.value.replace(/\s/g, '').length; document.getElementById('c-contact-count').textContent = `${currentCleanLen}/30`; const isValid = validateContact(this.value); const errorEl = document.getElementById('c-contact-error'); if (!isValid && this.value.length > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; } }); }
+            if(messageInput) { messageInput.addEventListener('input', function() { const len = this.value.length; document.getElementById('c-message-count').textContent = `${len}/250`; const isValid = validateMessage(this.value); const errorEl = document.getElementById('c-message-error'); if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; } }); }
+            if(feedbackMessageInput) { feedbackMessageInput.addEventListener('input', function() { const len = this.value.length; document.getElementById('f-message-count').textContent = `${len}/250`; const isValid = validateMessage(this.value); const errorEl = document.getElementById('f-message-error'); if (!isValid && len > 0) { this.classList.add('invalid'); errorEl.style.display = 'block'; } else { this.classList.remove('invalid'); errorEl.style.display = 'none'; } }); }
         });
 
         async function handleFormSubmit(event, formId) {
             event.preventDefault();
             if (formId === 'contact-form') {
-                const name = document.getElementById('c-name').value;
-                const contact = document.getElementById('c-contact').value;
-                const message = document.getElementById('c-message').value;
-                let isValid = true;
+                const name = document.getElementById('c-name').value; const contact = document.getElementById('c-contact').value; const message = document.getElementById('c-message').value; let isValid = true;
                 if (!validateName(name)) { document.getElementById('c-name').classList.add('invalid'); document.getElementById('c-name-error').style.display = 'block'; isValid = false; }
                 if (!validateContact(contact)) { document.getElementById('c-contact').classList.add('invalid'); document.getElementById('c-contact-error').style.display = 'block'; isValid = false; }
                 if (!validateMessage(message)) { document.getElementById('c-message').classList.add('invalid'); document.getElementById('c-message-error').style.display = 'block'; isValid = false; }
                 if (!isValid) { alert("Vui lòng kiểm tra lại thông tin nhập liệu!"); return; }
             }
             if (formId === 'feedback-form') {
-                const message = document.getElementById('f-message').value;
-                let isValid = true;
+                const message = document.getElementById('f-message').value; let isValid = true;
                 if (!validateMessage(message)) { document.getElementById('f-message').classList.add('invalid'); document.getElementById('f-message-error').style.display = 'block'; isValid = false; }
                 if (!isValid) { alert("Vui lòng nhập nội dung phản ánh hợp lệ!"); return; }
             }
-
-            const form = document.getElementById(formId);
-            const formData = new FormData(form);
-            const action = form.getAttribute('action');
-
+            const form = document.getElementById(formId); const formData = new FormData(form); const action = form.getAttribute('action');
             try {
                 const response = await fetch(action, { method: form.method, body: formData, headers: { 'Accept': 'application/json' } });
                 if (response.ok) {
                     form.reset();
-                    if (formId === 'contact-form') {
-                        document.getElementById('c-name-count').textContent = '0/20';
-                        document.getElementById('c-contact-count').textContent = '0/30';
-                        document.getElementById('c-message-count').textContent = '0/250';
-                    }
+                    if (formId === 'contact-form') { document.getElementById('c-name-count').textContent = '0/20'; document.getElementById('c-contact-count').textContent = '0/30'; document.getElementById('c-message-count').textContent = '0/250'; }
                     if (formId === 'feedback-form') { document.getElementById('f-message-count').textContent = '0/250'; }
-
                     let message = "";
                     if (formId === 'contact-form') { message = "Cảm ơn bạn đã gõ cửa Floral House. Tụi mình đã nhận tin và sẽ kết nối lại ngay."; } 
                     else if (formId === 'feedback-form') { message = "Floral House đã ghi nhận thông tin và sẽ hỗ trợ bạn sớm nhất về vấn đề này"; }
@@ -1050,67 +979,36 @@
             } catch (error) { alert("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng!"); }
         }
 
-        function showFloralFireworks(customMessage) {
-            const overlay = document.getElementById('notification-overlay');
-            const messageElement = document.getElementById('notification-message');
-            if (customMessage) messageElement.textContent = customMessage;
-            overlay.style.display = 'flex';
-            for(let i=0; i<30; i++) { createParticle(overlay); }
-        }
-
+        // FIREWORKS
+        function showFloralFireworks(customMessage) { const overlay = document.getElementById('notification-overlay'); const messageElement = document.getElementById('notification-message'); if (customMessage) messageElement.textContent = customMessage; overlay.style.display = 'flex'; for(let i=0; i<30; i++) { createParticle(overlay); } }
         function createParticle(container) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            const icons = ['fa-leaf', 'fa-seedling', 'fa-spa', 'fa-lemon', 'fa-tree'];
-            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            const particle = document.createElement('div'); particle.classList.add('particle');
+            const icons = ['fa-leaf', 'fa-seedling', 'fa-spa', 'fa-lemon', 'fa-tree']; const randomIcon = icons[Math.floor(Math.random() * icons.length)];
             particle.innerHTML = `<i class="fas ${randomIcon}"></i>`;
-            const colors = ['#A0D6B4', '#D4AF37', '#ffffff', '#90EE90'];
-            particle.style.color = colors[Math.floor(Math.random() * colors.length)];
-            const startX = window.innerWidth / 2;
-            const startY = window.innerHeight / 2;
-            particle.style.left = startX + 'px';
-            particle.style.top = startY + 'px';
-            container.appendChild(particle);
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 5 + Math.random() * 5;
-            const tx = Math.cos(angle) * (200 + Math.random() * 200);
-            const ty = Math.sin(angle) * (200 + Math.random() * 200);
+            const colors = ['#A0D6B4', '#D4AF37', '#ffffff', '#90EE90']; particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+            const startX = window.innerWidth / 2; const startY = window.innerHeight / 2;
+            particle.style.left = startX + 'px'; particle.style.top = startY + 'px'; container.appendChild(particle);
+            const angle = Math.random() * Math.PI * 2; const velocity = 5 + Math.random() * 5;
+            const tx = Math.cos(angle) * (200 + Math.random() * 200); const ty = Math.sin(angle) * (200 + Math.random() * 200);
             particle.animate([ { transform: 'translate(0, 0) scale(0)', opacity: 1 }, { transform: `translate(${tx}px, ${ty}px) scale(1.5) rotate(${Math.random()*360}deg)`, opacity: 0 } ], { duration: 1000 + Math.random() * 1000, easing: 'cubic-bezier(0, .9, .57, 1)', fill: 'forwards' });
             setTimeout(() => { particle.remove(); }, 2000);
         }
+        function closeNotification() { document.getElementById('notification-overlay').style.display = 'none'; }
 
-        function closeNotification() {
-            document.getElementById('notification-overlay').style.display = 'none';
-        }
+        // MODAL
+        function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; } if(window.innerWidth <= 768) closeMobileMenu(); }
+        function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('active'); document.body.style.overflow = 'auto'; } }
+        window.onclick = function(event) { if (event.target.classList.contains('modal')) { event.target.classList.remove('active'); document.body.style.overflow = 'auto'; } }
 
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-
-        function closeMobileMenu() {
-            if (navMenu.classList.contains('active')) {
-                hamburger.classList.remove("active");
-                navMenu.classList.remove("active");
-                document.body.classList.remove("menu-open");
-            }
-        }
-
-        function toggleMobileMenu(e) {
-            if(e) e.stopPropagation(); 
-            const isActive = navMenu.classList.contains("active");
-            if (isActive) { closeMobileMenu(); } else { hamburger.classList.add("active"); navMenu.classList.add("active"); document.body.classList.add("menu-open"); }
-        }
-
+        // MENU MOBILE
+        const hamburger = document.querySelector(".hamburger"); const navMenu = document.querySelector(".nav-menu");
+        function closeMobileMenu() { if (navMenu.classList.contains('active')) { hamburger.classList.remove("active"); navMenu.classList.remove("active"); document.body.classList.remove("menu-open"); } }
+        function toggleMobileMenu(e) { if(e) e.stopPropagation(); const isActive = navMenu.classList.contains("active"); if (isActive) { closeMobileMenu(); } else { hamburger.classList.add("active"); navMenu.classList.add("active"); document.body.classList.add("menu-open"); } }
         hamburger.addEventListener("click", toggleMobileMenu);
         document.addEventListener('click', (e) => { if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) { closeMobileMenu(); } });
         document.addEventListener('touchstart', (e) => { if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) { closeMobileMenu(); } }, {passive: true});
-
         const dropdown = document.querySelector('.dropdown');
-        if(dropdown) { 
-            dropdown.addEventListener('click', function(e) { 
-                if (!e.target.closest('.sub-link')) { this.classList.toggle('active'); }
-            }); 
-        }
-        
+        if(dropdown) { dropdown.addEventListener('click', function(e) { if (!e.target.closest('.sub-link')) { this.classList.toggle('active'); } }); }
         window.addEventListener('scroll', () => { const header = document.querySelector('header'); header.style.boxShadow = window.scrollY > 50 ? "0 2px 10px rgba(0,0,0,0.1)" : "none"; });
     </script>
 </body>
