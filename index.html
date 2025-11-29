@@ -89,6 +89,11 @@
             transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu mượt */
         }
 
+        /* Khi menu mở, body sẽ bị khóa cuộn */
+        body.menu-open {
+            overflow: hidden !important;
+        }
+
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -387,6 +392,7 @@
                 gap: 20px;
                 
                 overflow-y: auto;
+                overscroll-behavior: contain; /* Ngăn cuộn lan ra body */
                 border-left: 1px solid var(--mobile-menu-border);
             }
             
@@ -920,8 +926,7 @@
             const hamburger = document.querySelector(".hamburger");
             const navMenu = document.querySelector(".nav-menu");
             if (navMenu.classList.contains('active')) {
-                hamburger.classList.remove("active");
-                navMenu.classList.remove("active");
+                toggleMobileMenu();
             }
             window.scrollTo(0, 0);
         }
@@ -1149,31 +1154,35 @@
             document.getElementById('notification-overlay').style.display = 'none';
         }
 
-        // MOBILE MENU
+        // MOBILE MENU TOGGLE FUNCTION
+        function toggleMobileMenu() {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+            
+            // Khóa/mở khóa cuộn body khi menu mở/đóng
+            if (navMenu.classList.contains("active")) {
+                document.body.classList.add("menu-open");
+            } else {
+                document.body.classList.remove("menu-open");
+            }
+        }
+
+        // MOBILE MENU LISTENER
         const hamburger = document.querySelector(".hamburger");
         const navMenu = document.querySelector(".nav-menu");
-        hamburger.addEventListener("click", () => { hamburger.classList.toggle("active"); navMenu.classList.toggle("active"); });
+        hamburger.addEventListener("click", toggleMobileMenu);
         
-        // Đóng menu khi click hoặc chạm ra ngoài (trên mobile)
+        // Đóng menu khi click ra ngoài (trên mobile)
         document.addEventListener('click', (e) => {
             if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                hamburger.classList.remove("active");
-                navMenu.classList.remove("active");
+                toggleMobileMenu();
             }
         });
-
-        document.addEventListener('touchstart', (e) => {
-             if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                hamburger.classList.remove("active");
-                navMenu.classList.remove("active");
-            }
-        }, {passive: true});
 
         // DROPDOWN MOBILE
         const dropdown = document.querySelector('.dropdown');
         if(dropdown) { 
             dropdown.addEventListener('click', function(e) { 
-                // Chỉ toggle khi click vào tiêu đề dropdown, không phải item con
                 if (!e.target.closest('.sub-link')) {
                     this.classList.toggle('active'); 
                 }
