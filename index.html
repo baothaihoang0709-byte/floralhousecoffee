@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Floral House - Coffee & Tea</title>
     
+    <!-- Đã thêm: Favicon (Logo trên tab trình duyệt) -->
+    <link rel="icon" href="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" type="image/jpg">
+
     <!-- Import Font chữ (Google Fonts) -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
     
@@ -34,8 +37,8 @@
             --header-bg: rgba(255, 255, 255, 0.98);
             --header-text: #2E5A48;
             
-            /* Mobile Menu Background */
-            --mobile-menu-bg: rgba(255, 255, 255, 0.75);
+            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
+            --mobile-menu-bg: rgba(255, 255, 255, 0.75); /* Tăng độ trong suốt */
             --mobile-menu-border: rgba(255, 255, 255, 0.3);
             
             /* Input form */
@@ -67,7 +70,7 @@
             --header-bg: rgba(30, 30, 30, 0.98);
             --header-text: #e8f5e9;
             
-            /* Mobile Menu */
+            /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
             --mobile-menu-bg: rgba(20, 20, 20, 0.8);
             --mobile-menu-border: rgba(255, 255, 255, 0.1);
             
@@ -92,11 +95,13 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden; 
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu mượt */
         }
 
         /* Khi menu mở, body sẽ bị khóa cuộn */
-        body.menu-open { overflow: hidden !important; }
+        body.menu-open {
+            overflow: hidden !important;
+        }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
@@ -119,48 +124,98 @@
         .logo {
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
-            color: var(--header-text);
+            color: var(--header-text); /* Sử dụng biến màu header */
             font-weight: bold;
             cursor: pointer;
+            /* Căn chỉnh logo ảnh và chữ */
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .logo span { color: var(--primary-mint); }
+        .logo span span { color: var(--primary-mint); }
+
+        /* Style cho ảnh logo trong header */
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-mint);
+        }
 
         .nav-menu { display: flex; gap: 15px; align-items: center; }
         
         .nav-link { 
             font-weight: 700; 
-            color: var(--header-text);
+            color: var(--header-text); /* Sử dụng biến màu header */
             position: relative; 
             font-size: 0.95rem; 
             cursor: pointer;
             white-space: nowrap;
         }
         
-        .nav-link:hover, .nav-link.active-link { color: var(--primary-mint); }
+        .nav-link:hover, .nav-link.active-link { 
+            color: var(--primary-mint); 
+        }
+        
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
             background-color: var(--primary-mint); transition: width 0.3s;
         }
+        
         .nav-link:hover::after, .nav-link.active-link::after { width: 100%; }
 
-        /* Theme Toggle */
+        /* --- THEME TOGGLE BUTTON --- */
         .theme-toggle-btn {
-            background: none; border: 2px solid var(--header-text); color: var(--header-text);
-            width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; cursor: pointer; font-size: 1.1rem; transition: all 0.3s ease; margin-left: 10px;
+            background: none;
+            border: 2px solid var(--header-text);
+            color: var(--header-text);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-left: 10px;
         }
-        .theme-toggle-btn:hover { background-color: var(--primary-mint); border-color: var(--primary-mint); color: #fff; transform: rotate(30deg); }
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-mint);
+            border-color: var(--primary-mint);
+            color: #fff;
+            transform: rotate(30deg);
+        }
 
-        /* Dropdown */
+        /* --- DROPDOWN MENU STYLE --- */
         .dropdown { position: relative; display: inline-block; }
+        
         .dropdown-content {
-            display: none; position: absolute; background-color: var(--white);
-            min-width: 180px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
-            z-index: 1001; border-radius: 10px; top: 100%; left: 50%;
-            transform: translateX(-50%); padding: 10px 0; border: 1px solid rgba(0,0,0,0.05);
+            display: none; 
+            position: absolute; 
+            background-color: var(--white); /* Nền theo theme */
+            min-width: 180px; 
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+            z-index: 1001; 
+            border-radius: 10px; 
+            top: 100%; 
+            left: 50%;
+            transform: translateX(-50%); 
+            padding: 10px 0; 
+            border: 1px solid rgba(0,0,0,0.05);
         }
-        @media (min-width: 769px) { .dropdown:hover .dropdown-content { display: block; animation: fadeInDropdown 0.3s; } }
+
+        /* Chỉ hover trên desktop */
+        @media (min-width: 769px) {
+            .dropdown:hover .dropdown-content { 
+                display: block; 
+                animation: fadeInDropdown 0.3s; 
+            }
+        }
+
         @keyframes fadeInDropdown { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        
         .sub-link {
             color: var(--text-gray); padding: 10px 20px; text-decoration: none;
             display: block; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
@@ -172,15 +227,25 @@
 
         /* --- 4. PAGE SECTIONS & BACKGROUNDS --- */
         .page-section {
-            display: none; padding-top: 100px; padding-bottom: 60px; min-height: 100vh;
-            animation: fadeIn 0.5s ease-in-out; background-size: cover; background-position: center;
-            background-attachment: fixed; transition: background-image 0.3s;
+            display: none;
+            padding-top: 100px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.3s;
         }
+
         .page-section.active { display: block; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- BACKGROUND IMAGES --- */
         #home.page-section { padding-top: 0; display: none; background: none; }
         #home.page-section.active { display: block; }
+
         #menu { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #venue { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #customer { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
@@ -190,32 +255,60 @@
         #feedback { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
         #reviews, #all-reviews { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); }
 
-        /* Hero Styles */
-        .hero { height: 100vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: #FFFFFF; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)); z-index: 1; pointer-events: none; }
+        /* --- 5. HERO SECTION --- */
+        .hero {
+            height: 100vh; width: 100%; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #FFFFFF; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4));
+            z-index: 1; pointer-events: none;
+        }
         .hero-content { position: relative; z-index: 2; }
         #hero-slideshow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2.5s ease-in-out; }
+        .hero-slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; opacity: 0; 
+            transition: opacity 2.5s ease-in-out;
+        }
         .hero-slide.active { opacity: 1; }
-        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: #FFFFFF; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; z-index: 10; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);} 40% {transform: translateX(-50%) translateY(-10px);} 60% {transform: translateX(-50%) translateY(-5px);} }
+        .scroll-down {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            color: #FFFFFF; font-size: 2rem; animation: bounce 2s infinite;
+            cursor: pointer; z-index: 10; text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
         .hero-content h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; }
-        .btn-main { padding: 12px 30px; background-color: var(--primary-mint); color: #2E5A48; border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint); display: inline-block; cursor: pointer; transition: all 0.3s ease; }
+        .btn-main {
+            padding: 12px 30px; background-color: var(--primary-mint); color: #2E5A48;
+            border-radius: 30px; font-weight: bold; text-transform: uppercase; border: 2px solid var(--primary-mint);
+            display: inline-block; cursor: pointer; transition: all 0.3s ease;
+        }
         .btn-main:hover { background-color: transparent; color: inherit; border-color: inherit; }
         .page-section:not(#home) .btn-main:hover { color: var(--dark-green); border-color: var(--dark-green); }
         #home .btn-main:hover { color: #fff; border-color: #fff; }
 
-        /* Letter Section */
+        /* --- TÂM THƯ --- */
         .letter-section { background-color: var(--paper-bg); padding: 80px 20px; text-align: center; position: relative; transition: background-color 0.3s;}
-        .letter-container { max-width: 800px; margin: 0 auto; border: 1px solid rgba(160, 214, 180, 0.3); padding: 40px; position: relative; background-color: var(--white); box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: background-color 0.3s; }
+        .letter-container {
+            max-width: 800px; margin: 0 auto; border: 1px solid rgba(160, 214, 180, 0.3);
+            padding: 40px; position: relative; background-color: var(--white);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05); transition: background-color 0.3s;
+        }
         .letter-icon { font-size: 2rem; color: var(--primary-mint); margin-bottom: 20px; }
         .letter-title { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--dark-green); margin-bottom: 30px; }
         .letter-content { font-size: 1.1rem; color: var(--text-gray); line-height: 1.8; margin-bottom: 30px; font-style: italic; text-align: justify; }
         .letter-content p { margin-bottom: 15px; }
         .letter-signature { font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--accent-gold); text-align: right; margin-top: 20px; }
 
-        /* Common Styles */
+        /* --- STYLES KHÁC --- */
         .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.5rem; color: var(--dark-green); position: relative; display: inline-block; margin-bottom: 10px;}
         .section-title h2::after { content: ''; width: 50px; height: 3px; background-color: var(--primary-mint); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
@@ -256,14 +349,16 @@
         .char-count { display: block; text-align: right; font-size: 0.8rem; color: #888; margin-top: 5px; }
         .error-message { color: var(--error-red); font-size: 0.85rem; display: none; margin-top: 2px; }
         .required-star { color: var(--error-red); }
-
-        /* Reviews Styles */
+        
+        /* --- REVIEW SECTION STYLES --- */
         .rating-container { text-align: center; background-color: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto; }
         .rating-score { font-size: 4rem; font-weight: bold; color: var(--dark-green); font-family: 'Dancing Script', cursive; }
         .rating-stars { font-size: 2rem; color: #ddd; margin: 10px 0 30px 0; cursor: pointer; }
         .rating-stars i { transition: 0.2s; padding: 0 5px; }
         .rating-stars i:hover, .rating-stars i.active { color: var(--accent-gold); }
         .rating-text { margin-bottom: 20px; font-size: 1.1rem; }
+        
+        /* Review Layout */
         .reviews-layout { display: flex; gap: 40px; align-items: flex-start; }
         .review-form-col { flex: 1; }
         .review-list-col { flex: 1.3; background-color: var(--white); padding: 30px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); height: 500px; display: flex; flex-direction: column; }
@@ -352,7 +447,10 @@
     <!-- Header -->
     <header>
         <div class="container nav-container">
-            <div class="logo" onclick="switchPage('home')">Floral <span>House</span></div>
+            <div class="logo" onclick="switchPage('home')" style="display: flex; align-items: center; gap: 10px;">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-mint);">
+                <span>Floral <span>House</span></span>
+            </div>
             
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -628,17 +726,40 @@
     <!-- FOOTER -->
     <footer>
         <div class="container footer-container">
-            <div class="footer-col"><div class="logo" style="font-size: 2.2rem; color: var(--white);" onclick="switchPage('home')">Floral <span>House</span></div><p style="margin-top: 15px;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p><p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p></div>
-            <div class="footer-col"><h4>Kết nối với Floral House</h4><p><i class="fas fa-phone-alt"></i> Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a></p><p><i class="fas fa-envelope"></i> Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a></p><div class="social-links"><a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a><a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a><a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a></div></div>
-            <div class="footer-col dev-info"><h4>Thiết kế & Phát triển</h4><ul><li><i class="fas fa-user-circle"></i> <span style="font-weight: bold;">Thái Hoàng Bảo</span></li><li><i class="fas fa-envelope"></i> <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a></li><li><i class="fas fa-phone"></i> <a href="tel:0935956884">0935956884</a></li><li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a></li></ul></div>
+            <div class="footer-col">
+                <!-- Đã thêm LOGO hình ảnh vào Footer -->
+                <div class="logo" style="font-size: 2.2rem; color: var(--white); display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;" onclick="switchPage('home')">
+                    <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/488911455_1224001189733670_18342580669773743_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=0wdJ27xtHRUQ7kNvwEvEtIS&_nc_oc=Adk6W5Bg40Q2SKQz0EQmILD8PnKUiVbnFHpPtu7tVNMOcFC2euQidpzztD4rn2Lx-LE&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=r38hxyLuJK9ois5HxAeM0Q&oh=00_AfjCzvdwVUqMoYdeuZADhqOS13DHMiwIhUrO7s9VpSR9UA&oe=69307250" alt="Floral House Logo" style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white);">
+                    <span>Floral <span>House</span></span>
+                </div>
+                <p style="margin-top: 0;">Điểm đến lý tưởng cho những tâm hồn yêu thiên nhiên và tìm kiếm sự bình yên.</p>
+                <p><i class="fas fa-map-marker-alt"></i> 62 Nguyễn Lâm, Phường Buôn Ma Thuột, Tỉnh Đăk Lăk</p>
+            </div>
+            <div class="footer-col">
+                <h4>Kết nối với Floral House</h4>
+                <p><i class="fas fa-phone-alt"></i> Hotline: <a href="tel:0984193038" style="font-weight: bold; color: var(--primary-mint); font-size: 1.1rem;">098 419 30 38</a></p>
+                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:toi.nguyen.bmt@gmail.com" style="color: var(--white);">toi.nguyen.bmt@gmail.com</a></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/manhousecoffe" target="_blank" class="social-icon fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/floral.coffee1893/" target="_blank" class="social-icon ins"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@floralhouse62?lang=vi-VN" target="_blank" class="social-icon tik"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col dev-info">
+                <h4>Thiết kế & Phát triển</h4>
+                <ul>
+                    <li><i class="fas fa-user-circle"></i> <span style="font-weight: bold;">Thái Hoàng Bảo</span></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:baothpk04482@gmail.com">baothpk04482@gmail.com</a></li>
+                    <li><i class="fas fa-phone"></i> <a href="tel:0935956884">0935956884</a></li>
+                    <li><i class="fab fa-facebook-square"></i> <a href="https://www.facebook.com/hoang.bao.769497" target="_blank">Liên hệ Facebook</a></li>
+                </ul>
+            </div>
         </div>
         <div class="copyright">&copy; 2025 Floral House. Developed by <strong>Thái Hoàng Bảo</strong>.</div>
     </footer>
 
     <!-- JAVASCRIPT -->
     <script>
-        // ... (Giữ nguyên các function cũ: toggleTheme, switchPage, mobile menu logic, validation...) ...
-        
         // --- XỬ LÝ THEME TOGGLE ---
         function toggleTheme() {
             const body = document.body;
