@@ -346,22 +346,43 @@
 
         /* RESPONSIVE (MOBILE) */
         @media (max-width: 768px) {
-            .hamburger { display: block; }
+            .hamburger { 
+                display: block; 
+                z-index: 1003; /* Đảm bảo nút hamburger nằm trên menu để bấm đóng được */
+                position: relative;
+            }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
             .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
             
             .nav-menu { 
-                position: fixed; left: -100%; top: 70px; gap: 0; 
-                flex-direction: column; background-color: var(--white); width: 100%; 
-                text-align: center; transition: 0.3s; 
-                box-shadow: 0 5px 5px rgba(0,0,0,0.1); padding: 20px 0; 
+                position: fixed; 
+                top: 0; 
+                right: -100%; /* Ẩn sang bên phải */
+                left: auto; /* Hủy bỏ thuộc tính left cũ */
+                width: 70%; /* Chỉ chiếm 70% màn hình */
+                max-width: 300px; /* Không quá rộng trên màn hình lớn */
+                height: 100vh; /* Full chiều cao */
+                
+                flex-direction: column; 
+                background-color: var(--white); 
+                text-align: center; 
+                transition: right 0.4s ease-in-out; /* Hiệu ứng trượt mượt mà */
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1); /* Bóng đổ sang trái */
+                padding: 80px 0 40px 0; /* Padding top lớn để tránh đè lên nút close */
+                gap: 20px;
+                
                 /* Đảm bảo menu cuộn được nếu quá dài */
-                max-height: calc(100vh - 70px);
                 overflow-y: auto;
+                justify-content: flex-start; /* Căn nội dung từ trên xuống */
             }
-            .nav-menu.active { left: 0; }
-            .nav-item { margin: 16px 0; width: 100%; }
+            
+            .nav-menu.active { 
+                right: 0; /* Trượt ra sát mép phải */
+                left: auto; 
+            }
+            
+            .nav-item { margin: 10px 0; width: 100%; }
             
             /* --- SỬA LỖI DROPDOWN MOBILE --- */
             .dropdown {
