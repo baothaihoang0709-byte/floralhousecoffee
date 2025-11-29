@@ -35,7 +35,7 @@
             --header-text: #2E5A48;
             
             /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
-            --mobile-menu-bg: rgba(255, 255, 255, 0.65);
+            --mobile-menu-bg: rgba(255, 255, 255, 0.75); /* Tăng độ trong suốt */
             --mobile-menu-border: rgba(255, 255, 255, 0.3);
             
             /* Input form */
@@ -65,7 +65,7 @@
             --header-text: #e8f5e9;
             
             /* Mobile Menu Background (Transparent for Blur) - Đã chỉnh trong hơn */
-            --mobile-menu-bg: rgba(20, 20, 20, 0.7);
+            --mobile-menu-bg: rgba(20, 20, 20, 0.8);
             --mobile-menu-border: rgba(255, 255, 255, 0.1);
             
             /* Input form */
@@ -352,11 +352,11 @@
         .dev-info a:hover { color: var(--primary-mint); text-decoration: underline; }
         .copyright { text-align: center; padding: 20px 0; font-size: 0.85rem; background-color: #153026; color: rgba(255,255,255,0.5); }
 
-        /* RESPONSIVE (MOBILE) - UPDATED FOR SIDE MENU */
+        /* RESPONSIVE (MOBILE) - FIXED SIDE MENU */
         @media (max-width: 768px) {
             .hamburger { 
                 display: block; 
-                z-index: 1003; /* Đảm bảo nút hamburger nằm trên menu để bấm đóng được */
+                z-index: 1003; 
                 position: relative;
             }
             .hamburger.active .bar:nth-child(2) { opacity: 0; }
@@ -366,49 +366,59 @@
             .nav-menu { 
                 position: fixed; 
                 top: 0; 
-                right: -100%; /* Ẩn sang bên phải */
+                right: -100%; /* Bắt đầu ẩn bên phải */
                 left: auto; 
-                width: 50%; /* Menu chỉ chiếm 50% màn hình */
-                max-width: 300px; /* Giới hạn độ rộng tối đa */
-                height: 100vh; /* Full chiều cao */
+                width: 45%; /* Menu chiếm khoảng 40-45% chiều rộng */
+                min-width: 200px; /* Đảm bảo không quá nhỏ */
+                max-width: 300px;
+                height: 100vh; /* Full chiều cao màn hình */
                 
                 flex-direction: column; 
-                background-color: var(--mobile-menu-bg); /* Nền kính mờ */
-                backdrop-filter: blur(25px); /* Hiệu ứng mờ mạnh hơn */
-                -webkit-backdrop-filter: blur(25px);
+                background-color: var(--mobile-menu-bg); /* Nền mờ */
+                backdrop-filter: blur(15px); /* Hiệu ứng kính */
+                -webkit-backdrop-filter: blur(15px);
                 
-                align-items: flex-end; /* Căn lề phải */
-                justify-content: flex-start; /* Bắt đầu từ trên xuống */
+                align-items: center; /* Căn giữa nội dung menu */
+                justify-content: flex-start; 
                 
-                transition: right 0.4s ease-in-out; /* Hiệu ứng trượt mượt mà */
-                box-shadow: -5px 0 20px rgba(0,0,0,0.15); /* Bóng đổ sang trái */
-                padding: 80px 25px 40px 0; /* Padding phải để nội dung cách lề 1 chút */
+                transition: right 0.4s ease-in-out; /* Trượt mượt mà */
+                box-shadow: -5px 0 20px rgba(0,0,0,0.15); 
+                padding: 80px 0 40px 0; /* Padding trên để tránh đè nút hamburger */
                 gap: 20px;
                 
                 overflow-y: auto;
-                border-left: 1px solid var(--mobile-menu-border); /* Viền mờ tinh tế */
+                border-left: 1px solid var(--mobile-menu-border);
             }
             
             .nav-menu.active { 
-                right: 0; /* Trượt ra sát mép phải */
+                right: 0; /* Trượt ra */
             }
             
             .nav-item { 
-                margin: 10px 0; 
+                margin: 5px 0; 
                 width: 100%; 
-                text-align: right; /* Chữ căn phải */
+                text-align: center; /* Chữ căn giữa */
+            }
+
+            /* Container cho nút chuyển sáng tối - Căn phải */
+            .nav-item:last-child {
+                display: flex;
+                justify-content: flex-end; /* Căn phải */
+                padding-right: 20px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
-            /* --- SỬA LỖI DROPDOWN MOBILE --- */
+            /* --- DROPDOWN MOBILE --- */
             .dropdown {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                align-items: flex-end; /* Căn phải cho dropdown */
+                align-items: center; /* Căn giữa dropdown */
             }
             
             .dropdown-content { 
-                position: relative; /* Quan trọng: Đẩy nội dung xuống */
+                position: relative; 
                 width: 100%; 
                 box-shadow: inset 0 5px 10px rgba(0,0,0,0.05); 
                 border: none; 
@@ -416,12 +426,11 @@
                 top: auto; 
                 left: auto; 
                 transform: none; 
-                display: none; /* Mặc định ẩn */
+                display: none; 
                 padding: 0;
-                text-align: right; /* Nội dung con cũng căn phải */
+                text-align: center; /* Nội dung dropdown cũng căn giữa */
             }
             
-            /* Class active để mở dropdown */
             .dropdown.active .dropdown-content { 
                 display: block; 
                 animation: slideDownMobile 0.3s ease-out;
@@ -433,17 +442,15 @@
             }
 
             .dropdown-content .sub-link {
-                padding: 10px 0; /* Bỏ padding ngang, chỉ giữ dọc */
+                padding: 10px 0; 
                 border-bottom: 1px solid rgba(0,0,0,0.05);
             }
 
-            /* Xoay icon mũi tên khi mở */
             .dropdown.active .nav-link i {
                 transform: rotate(180deg);
                 transition: transform 0.3s;
             }
 
-            /* Nút theme toggle cũng căn phải */
             .theme-toggle-btn {
                 margin-left: 0;
                 margin-top: 10px;
@@ -472,7 +479,6 @@
                 </li>
                 
                 <!-- GÓC THƠ DROPDOWN -->
-                <!-- Thêm id để xử lý JS -->
                 <li class="nav-item dropdown" id="dropdown-mobile">
                     <div class="nav-link">Góc Thơ <i class="fas fa-caret-down"></i></div>
                     <div class="dropdown-content">
