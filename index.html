@@ -22,6 +22,7 @@
             --text-gray: #555555;
             --accent-gold: #D4AF37;
             --error-red: #e74c3c;
+            --paper-bg: #fdfbf7; /* Màu nền giấy cho tâm thư */
             color-scheme: light;
         }
 
@@ -65,7 +66,7 @@
         }
         .logo span { color: var(--primary-mint); }
 
-        .nav-menu { display: flex; gap: 15px; align-items: center; } /* Giảm gap một chút để vừa menu mới */
+        .nav-menu { display: flex; gap: 15px; align-items: center; }
         
         .nav-link { 
             font-weight: 700; 
@@ -111,80 +112,120 @@
             display: none;
             padding-top: 100px;
             padding-bottom: 60px;
-            min-height: 100vh; /* Full height để thấy background */
+            min-height: 100vh;
             animation: fadeIn 0.5s ease-in-out;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Tạo hiệu ứng Parallax nhẹ */
+            background-attachment: fixed;
         }
 
         .page-section.active { display: block; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- BACKGROUND IMAGES FOR EACH PAGE --- */
-        
-        /* Home: Giữ nguyên (đã có class .hero riêng) */
-        #home.page-section { padding-top: 0; display: none; }
-        #home.page-section.active { display: flex; }
+        /* --- BACKGROUND IMAGES --- */
+        #home.page-section { padding-top: 0; display: none; background: none; }
+        #home.page-section.active { display: block; }
 
-        /* Menu: Nền hạt cà phê/lá trà nhẹ nhàng */
         #menu {
             background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)),
             url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Cảnh Sắc: Nền không gian xanh mướt */
         #venue {
             background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
             url('https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Khoảnh Khắc: Nền ánh sáng ấm cúng */
         #customer {
             background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
             url('https://images.unsplash.com/photo-1542181961-9590d0c79dab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Hân Hoan: Nền tươi vui, nhiều màu sắc nhẹ */
         #promotions {
             background-image: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.93)),
             url('https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Sự Kiện: Nền sân khấu/nhạc cụ */
         #events {
-            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
             url('https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Kết Nối: Nền giấy viết thư/bàn làm việc */
         #contact {
             background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
             url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Nhắn Nhủ: Nền yên tĩnh, suy tư */
         #feedback {
             background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
             url('https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
-
-        /* Đánh Giá (MỚI): Nền ngôi sao/ánh sáng */
         #reviews {
             background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
             url('https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
         }
 
-        /* --- 5. HERO SECTION STYLES --- */
+        /* --- 5. HERO SECTION STYLES (CẬP NHẬT HIỆU ỨNG MƯỢT) --- */
         .hero {
-            height: 100vh; width: 100%;
-            background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4)), 
-                        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; color: var(--white);
+            height: 100vh; 
+            width: 100%;
+            position: relative;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center; 
+            color: var(--white);
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(46, 90, 72, 0.4), rgba(46, 90, 72, 0.4));
+            z-index: 1; 
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        #hero-slideshow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0; 
+            transition: opacity 2.5s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        /* --- MŨI TÊN ĐỘNG CHỈ XUỐNG --- */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--white);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
         .hero-content h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         .hero-content p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; }
         
@@ -194,6 +235,52 @@
             display: inline-block; cursor: pointer; transition: all 0.3s ease;
         }
         .btn-main:hover { background-color: transparent; color: var(--white); border-color: var(--white); }
+
+        /* --- 5.1. TÂM THƯ SECTION --- */
+        .letter-section {
+            background-color: var(--paper-bg);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(46, 90, 72, 0.2);
+            padding: 40px;
+            position: relative;
+            background-color: #fff;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+        .letter-icon {
+            font-size: 2rem;
+            color: var(--primary-mint);
+            margin-bottom: 20px;
+        }
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--dark-green);
+            margin-bottom: 30px;
+        }
+        .letter-content {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-style: italic;
+            text-align: justify;
+        }
+        .letter-content p {
+            margin-bottom: 15px;
+        }
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            text-align: right;
+            margin-top: 20px;
+        }
 
         /* --- 6. COMMON STYLES --- */
         .section-title { text-align: center; margin-bottom: 50px; }
@@ -222,7 +309,7 @@
 
         /* PROMOTIONS */
         .promo-card {
-            background-color: rgba(255, 255, 255, 0.95); /* Tăng độ mờ nền card */
+            background-color: rgba(255, 255, 255, 0.95);
             border: 2px dashed var(--primary-mint); border-radius: 15px; padding: 30px; 
             text-align: center; position: relative; margin-bottom: 30px; transition: 0.3s;
         }
@@ -247,7 +334,7 @@
 
         /* CONTACT & FEEDBACK FORMS */
         .contact-wrapper {
-            background-color: rgba(255, 255, 255, 0.95); /* Nền trắng mờ để nổi bật trên ảnh */
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 40px; border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto;
         }
@@ -259,28 +346,13 @@
         .error-message { color: var(--error-red); font-size: 0.85rem; display: none; margin-top: 2px; }
         .required-star { color: var(--error-red); }
 
-        /* --- REVIEW SECTION STYLES (MỚI) --- */
+        /* REVIEWS */
         .rating-container {
-            text-align: center;
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            max-width: 600px;
-            margin: 0 auto;
+            text-align: center; background-color: var(--white); padding: 40px; border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto;
         }
-        .rating-score {
-            font-size: 4rem;
-            font-weight: bold;
-            color: var(--dark-green);
-            font-family: 'Dancing Script', cursive;
-        }
-        .rating-stars {
-            font-size: 2rem;
-            color: #ddd;
-            margin: 10px 0 30px 0;
-            cursor: pointer;
-        }
+        .rating-score { font-size: 4rem; font-weight: bold; color: var(--dark-green); font-family: 'Dancing Script', cursive; }
+        .rating-stars { font-size: 2rem; color: #ddd; margin: 10px 0 30px 0; cursor: pointer; }
         .rating-stars i { transition: 0.2s; padding: 0 5px; }
         .rating-stars i:hover, .rating-stars i.active { color: var(--accent-gold); }
         .rating-text { margin-bottom: 20px; font-size: 1.1rem; }
@@ -363,7 +435,6 @@
                 <li class="nav-item">
                     <div class="nav-link" onclick="switchPage('feedback')">Nhắn Nhủ</div>
                 </li>
-                <!-- Mục mới: Đánh Giá -->
                 <li class="nav-item">
                     <div class="nav-link" onclick="switchPage('reviews')">Đánh Giá</div>
                 </li>
@@ -377,13 +448,39 @@
 
     <!-- 1. TRANG CHỦ -->
     <section id="home" class="page-section active">
+        <!-- Phần 1: Hero Slider -->
         <div class="hero">
+            <div id="hero-slideshow"></div>
             <div class="hero-content">
                 <h1>Floral House</h1>
                 <p>Nhẹ nhàng chill cùng hương vị thiên nhiên trong làn không khí mát lành.</p>
                 <button class="btn-main" onclick="switchPage('menu')">
                     <i class="fas fa-leaf" style="margin-right: 5px;"></i> Chill cùng hương vị tự nhiên <i class="fas fa-leaf" style="margin-left: 5px;"></i>
                 </button>
+            </div>
+            <!-- Mũi tên động -->
+            <div class="scroll-down" onclick="scrollToLetter()">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- Phần 2: Tâm Thư (Mới) -->
+        <div class="letter-section" id="letter-section">
+            <div class="container">
+                <div class="letter-container">
+                    <div class="letter-icon"><i class="fas fa-feather-alt"></i></div>
+                    <h2 class="letter-title">Tâm thư gửi Bạn từ Floral House</h2>
+                    <div class="letter-content">
+                        <p>Chào bạn, người thương mến!</p>
+                        <p>Giữa những bộn bề hối hả của cuộc sống ngoài kia, cảm ơn bạn đã chọn dừng chân một chút tại Floral House. Chúng mình không chỉ muốn mang đến một tách cà phê thơm hay một ly trà mát, mà hơn hết là một khoảng trời bình yên để tâm hồn bạn được "nghỉ ngơi".</p>
+                        <p>Tại Floral House, mỗi nhành cây, ngọn cỏ đều được tụi mình chăm chút tỉ mỉ, mỗi món nước đều được pha chế bằng cả tấm lòng. Mong rằng, mỗi khi bạn ghé thăm, bạn sẽ tìm thấy một chút an nhiên, một chút niềm vui nho nhỏ để tiếp thêm năng lượng cho hành trình phía trước.</p>
+                        <p>Hãy cứ thong thả, hít thở thật sâu và tận hưởng không gian này nhé. Floral House luôn ở đây, lắng nghe và chào đón bạn như người thân trong gia đình.</p>
+                    </div>
+                    <div class="letter-signature">
+                        Thân mến,<br>
+                        Đội ngũ Floral House
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -641,7 +738,7 @@
         </div>
     </section>
 
-    <!-- 9. MỤC MỚI: ĐÁNH GIÁ (REVIEWS) -->
+    <!-- 9. ĐÁNH GIÁ -->
     <section id="reviews" class="page-section">
         <div class="container">
             <div class="section-title">
@@ -728,6 +825,54 @@
             }
             window.scrollTo(0, 0);
         }
+        
+        // Scroll to Letter
+        function scrollToLetter() {
+            const letterSection = document.getElementById('letter-section');
+            if(letterSection) {
+                letterSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // HERO BACKGROUND SLIDESHOW (CROSS-FADE LOGIC)
+        const heroImages = [
+            'https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1541167760496-1628856ab772?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1497215842964-222b430dc0a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1507914464562-6ff4ac29692f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+            'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'
+        ];
+
+        let currentHeroIndex = 0;
+        const heroSlideshow = document.getElementById('hero-slideshow');
+
+        // Init Slides
+        if (heroSlideshow) {
+            heroImages.forEach((url, index) => {
+                const slide = document.createElement('div');
+                slide.classList.add('hero-slide');
+                if (index === 0) slide.classList.add('active');
+                slide.style.backgroundImage = `url('${url}')`;
+                heroSlideshow.appendChild(slide);
+            });
+        }
+
+        // Change Slide Function
+        function nextSlide() {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (slides.length > 0) {
+                slides[currentHeroIndex].classList.remove('active');
+                currentHeroIndex = (currentHeroIndex + 1) % slides.length;
+                slides[currentHeroIndex].classList.add('active');
+            }
+        }
+
+        setInterval(nextSlide, 5000); // 5 seconds
 
         // XỬ LÝ ĐÁNH GIÁ SAO
         const stars = document.querySelectorAll('.rating-stars i');
