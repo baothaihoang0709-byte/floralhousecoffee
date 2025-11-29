@@ -915,19 +915,61 @@
             }
         });
 
-        // CHUYỂN TRANG
+        // --- 3. XỬ LÝ MENU MOBILE (ĐÃ CẬP NHẬT) ---
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        // Hàm đóng menu chuẩn, đảm bảo gỡ bỏ class khóa cuộn
+        function closeMobileMenu() {
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                document.body.classList.remove("menu-open");
+            }
+        }
+
+        // Hàm toggle menu
+        function toggleMobileMenu(e) {
+            if(e) e.stopPropagation(); // Ngăn sự kiện lan ra document
+            
+            const isActive = navMenu.classList.contains("active");
+            
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                hamburger.classList.add("active");
+                navMenu.classList.add("active");
+                document.body.classList.add("menu-open");
+            }
+        }
+
+        // Sự kiện click vào nút hamburger
+        hamburger.addEventListener("click", toggleMobileMenu);
+        
+        // Đóng menu khi click ra ngoài (trên mobile)
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Đóng menu khi vuốt/chạm ra ngoài (touchstart giúp phản hồi nhanh hơn click trên mobile)
+        document.addEventListener('touchstart', (e) => {
+             if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                closeMobileMenu();
+            }
+        }, {passive: true});
+
+        // CHUYỂN TRANG (Cập nhật sử dụng closeMobileMenu)
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active'));
             const targetPage = document.getElementById(pageId);
             if (targetPage) targetPage.classList.add('active');
             
-            // Xử lý menu mobile
-            const hamburger = document.querySelector(".hamburger");
-            const navMenu = document.querySelector(".nav-menu");
-            if (navMenu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
+            // Đóng menu mobile nếu đang mở
+            closeMobileMenu();
+            
             window.scrollTo(0, 0);
         }
         
@@ -1153,31 +1195,6 @@
         function closeNotification() {
             document.getElementById('notification-overlay').style.display = 'none';
         }
-
-        // MOBILE MENU TOGGLE FUNCTION
-        function toggleMobileMenu() {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-            
-            // Khóa/mở khóa cuộn body khi menu mở/đóng
-            if (navMenu.classList.contains("active")) {
-                document.body.classList.add("menu-open");
-            } else {
-                document.body.classList.remove("menu-open");
-            }
-        }
-
-        // MOBILE MENU LISTENER
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-menu");
-        hamburger.addEventListener("click", toggleMobileMenu);
-        
-        // Đóng menu khi click ra ngoài (trên mobile)
-        document.addEventListener('click', (e) => {
-            if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                toggleMobileMenu();
-            }
-        });
 
         // DROPDOWN MOBILE
         const dropdown = document.querySelector('.dropdown');
