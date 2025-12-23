@@ -225,10 +225,11 @@
         #home.page-section { padding-top: 0; display: none; background: none; }
         #home.page-section.active { display: block; }
 
-        /* Backgrounds - Updated with images from Venue and Customer sections as requested */
+        /* Backgrounds */
         #menu { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg'); }
         #venue { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg'); }
         #customer { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg'); }
+        #reels { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg'); }
         #events { background-image: linear-gradient(rgba(var(--overlay-rgb), 0.85), rgba(var(--overlay-rgb), 0.85)), url('https://i.postimg.cc/Zq4YHssk/499435069-1264680502332405-3611031519090959969-n.jpg'); }
         #contact { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg'); }
         #feedback { background-image: linear-gradient(rgba(var(--overlay-rgb), var(--overlay-opacity)), rgba(var(--overlay-rgb), var(--overlay-opacity))), url('https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg'); }
@@ -249,6 +250,64 @@
         .btn-main:hover { background-color: transparent; color: inherit; border-color: inherit; }
         .page-section:not(#home) .btn-main:hover { color: var(--dark-green); border-color: var(--dark-green); }
         #home .btn-main:hover { color: #fff; border-color: #fff; }
+
+        /* Reels Specific Styles */
+        .reels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .reel-item {
+            position: relative;
+            height: 450px; /* Vertical aspect ratio */
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .reel-item:hover { transform: translateY(-5px); }
+        .reel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .reel-item:hover img { transform: scale(1.05); }
+        .reel-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .reel-play-btn {
+            font-size: 3rem;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.6);
+            transition: 0.3s;
+        }
+        .reel-item:hover .reel-play-btn {
+            background: var(--primary-mint);
+            border-color: var(--primary-mint);
+            transform: scale(1.1);
+        }
+        .reel-caption {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
 
         /* Letter */
         .letter-section { background-color: var(--paper-bg); padding: 80px 20px; text-align: center; position: relative; transition: background-color 0.3s;}
@@ -503,6 +562,7 @@
                         <div class="dropdown-content">
                             <div class="sub-link" onclick="switchPage('venue')">Cảnh Sắc</div>
                             <div class="sub-link" onclick="switchPage('customer')">Khoảnh Khắc</div>
+                            <div class="sub-link" onclick="switchPage('reels')">Reels</div>
                         </div>
                     </li>
 
@@ -618,57 +678,32 @@
             <div class="menu-item"><img src="https://i.postimg.cc/Y9T4qf82/unnamed-(1).jpg" alt="Trà Trái Cây Nhiệt Đới" class="menu-img"><div class="menu-info"><h3>Trà Trái Cây Nhiệt Đới</h3><p>Hương vị tươi mát từ các loại trái cây nhiệt đới.</p><p class="price">40.000 VNĐ</p></div></div></div></div>
     </section>
 
+    <!-- SECTION: CẢNH SẮC (Được render bằng JS) -->
     <section id="venue" class="page-section">
         <div class="container">
             <div class="section-title"><h2>Cảnh Sắc</h2><p>Không gian xanh mát, bình yên giữa lòng phố thị</p></div>
-            <div class="gallery-grid">
-                <!-- Keep only 6 items -->
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg" alt="Góc nhỏ bình yên">
-                    <div class="gallery-caption">Góc nhỏ bình yên</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg" alt="Nắng sớm mai">
-                    <div class="gallery-caption">Nắng sớm mai</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg" alt="Hoa nở trong vườn">
-                    <div class="gallery-caption">Hoa nở trong vườn</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg" alt="Khoảng trời riêng">
-                    <div class="gallery-caption">Khoảng trời riêng</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/Zq4YHssk/499435069-1264680502332405-3611031519090959969-n.jpg" alt="Tĩnh lặng">
-                    <div class="gallery-caption">Tĩnh lặng</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg" alt="Hương sắc tự nhiên">
-                    <div class="gallery-caption">Hương sắc tự nhiên</div>
-                </div>
+            <div class="gallery-grid" id="venue-grid">
+                <!-- Javascript sẽ tự động chèn ảnh vào đây -->
             </div>
         </div>
     </section>
 
-    <!-- NEW SECTION: CUSTOMER MOMENTS (REPLACED PLACEHOLDER WITH NEW IMAGES) -->
+    <!-- SECTION: KHOẢNH KHẮC (Được render bằng JS) -->
     <section id="customer" class="page-section">
         <div class="container">
             <div class="section-title"><h2>Khoảnh Khắc</h2><p>Những khoảnh khắc đáng yêu được lưu giữ tại Floral House</p></div>
-            <div class="gallery-grid">
-                <!-- Updated with 3 new user images -->
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg" alt="Khoảnh khắc 1">
-                    <div class="gallery-caption">Hương vị hạnh phúc</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg" alt="Khoảnh khắc 2">
-                    <div class="gallery-caption">Thanh xuân rực rỡ</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg" alt="Khoảnh khắc 3">
-                    <div class="gallery-caption">Hẹn hò ngày xanh</div>
-                </div>
+            <div class="gallery-grid" id="customer-grid">
+                <!-- Javascript sẽ tự động chèn ảnh vào đây -->
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: REELS (Được render bằng JS) -->
+    <section id="reels" class="page-section">
+        <div class="container">
+            <div class="section-title"><h2>Floral Reels</h2><p>Những thước phim ngắn ghi lại cảm xúc tại Floral House</p></div>
+            <div class="reels-grid" id="reels-grid">
+                <!-- Javascript sẽ tự động chèn reels vào đây -->
             </div>
         </div>
     </section>
@@ -849,6 +884,11 @@
             // App initialization
             initReviews(); // Initialize reviews
             checkLoginStatus(); // Check User
+            
+            // Render Dynamic Galleries (Smart Render - Infinite Scroll on Mobile)
+            renderGrid('venue-grid', venueImages, createImageElement);
+            renderGrid('customer-grid', customerImages, createImageElement);
+            renderGrid('reels-grid', reelsData, createReelElement);
         });
 
         // Navigation
@@ -861,7 +901,8 @@
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active-link'));
             let activeLink;
-            if (pageId === 'venue' || pageId === 'customer') {
+            // Updated to remove 'library' from Dropdown active logic
+            if (pageId === 'venue' || pageId === 'customer' || pageId === 'reels') {
                 activeLink = document.querySelector('.nav-item.dropdown .nav-link');
             } else {
                 activeLink = document.querySelector(`.nav-link[onclick*="'${pageId}'"]`);
@@ -875,6 +916,7 @@
 
         // Hero Slider - UPDATED WITH ALL IMAGES FROM VENUE AND CUSTOMER SECTIONS
         const heroImages = [
+            'https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg', // Added new image to slideshow
             'https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg',
             'https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg',
             'https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg',
@@ -1314,6 +1356,8 @@
 
         // Add click event to all gallery images (both Venue and Customer sections)
         function initLightbox() {
+            // Note: This now only handles static images not rendered by the dynamic gallery function
+            // The dynamic gallery function adds its own click listeners
             const galleryImages = document.querySelectorAll('.gallery-item img');
             galleryImages.forEach(img => {
                 img.addEventListener('click', function() {
@@ -1352,6 +1396,174 @@
                 }
             });
         }
+
+        // ==========================================
+        //  KHO CHỨA LINK ẢNH (DYNAMIC GALLERIES)
+        // ==========================================
+        
+        // 1. Dữ liệu: Mảng chứa link ảnh cho từng mục
+        const venueImages = [
+            "https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg",
+            "https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg",
+            "https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg",
+            "https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg",
+            "https://i.postimg.cc/Zq4YHssk/499435069-1264680502332405-3611031519090959969-n.jpg",
+            "https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg"
+        ];
+
+        const customerImages = [
+            "https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg",
+            "https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg",
+            "https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg"
+        ];
+
+        // Dữ liệu giả lập cho Reels (bạn có thể thay thế sau)
+        const reelsData = [
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+1", caption: "Pha chế cùng Floral" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+2", caption: "Một ngày nắng đẹp" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+3", caption: "Góc chill cuối tuần" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+4", caption: "Không gian xanh" },
+            // Thêm nhiều reels giả để test scroll
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+5", caption: "Chiều hoàng hôn" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+6", caption: "Nhạc chill" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+7", caption: "Góc học tập" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+8", caption: "Bạn bè tụ tập" },
+            { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+9", caption: "Món mới" }
+        ];
+
+        // 2. Dữ liệu: Mảng Caption mẫu để xoay vòng
+        const captions = [
+            "Góc nhỏ bình yên",
+            "Nắng sớm mai",
+            "Hoa nở trong vườn",
+            "Khoảng trời riêng",
+            "Tĩnh lặng",
+            "Hương sắc tự nhiên",
+            "Góc chill cuối tuần",
+            "Thanh xuân rực rỡ",
+            "Hạnh phúc giản đơn"
+        ];
+
+        // Helper: Tạo phần tử HTML cho Ảnh thường
+        function createImageElement(url, index) {
+            if (!url || url.trim() === "") return null;
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            
+            const img = document.createElement('img');
+            img.src = url.trim();
+            img.alt = "Floral House Image " + (index + 1);
+            img.loading = "lazy";
+            
+            img.onclick = function() {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const captionEl = document.getElementById('caption');
+                lightbox.style.display = "flex";
+                lightboxImg.src = this.src;
+                const siblingCaption = this.nextElementSibling;
+                captionEl.innerHTML = siblingCaption ? siblingCaption.innerHTML : "Floral House Moment";
+                document.body.style.overflow = 'hidden';
+            };
+
+            const captionDiv = document.createElement('div');
+            captionDiv.className = 'gallery-caption';
+            captionDiv.innerText = captions[index % captions.length];
+
+            item.appendChild(img);
+            item.appendChild(captionDiv);
+            return item;
+        }
+
+        // Helper: Tạo phần tử HTML cho Reel
+        function createReelElement(data, index) {
+            const item = document.createElement('div');
+            item.className = 'reel-item';
+            
+            const img = document.createElement('img');
+            img.src = data.img;
+            img.alt = "Reel Thumbnail " + (index + 1);
+            img.loading = "lazy";
+
+            const overlay = document.createElement('div');
+            overlay.className = 'reel-overlay';
+            overlay.innerHTML = '<div class="reel-play-btn"><i class="fas fa-play"></i></div>';
+
+            const caption = document.createElement('div');
+            caption.className = 'reel-caption';
+            caption.innerText = data.caption;
+
+            item.appendChild(img);
+            item.appendChild(overlay);
+            item.appendChild(caption);
+            return item;
+        }
+
+        // 3. Hàm Render Động Thông Minh (Smart Grid Render)
+        // Hỗ trợ Infinite Scroll trên Mobile
+        function renderGrid(containerId, items, createItemFn) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = ''; // Clear cũ
+
+            const isMobile = window.innerWidth <= 768;
+            
+            // Nếu là Desktop hoặc số lượng ít -> Render hết luôn
+            if (!isMobile || items.length <= 8) {
+                items.forEach((item, index) => {
+                    const el = createItemFn(item, index);
+                    if(el) container.appendChild(el);
+                });
+                return;
+            }
+
+            // Mobile & Danh sách dài -> Infinite Scroll
+            let renderedCount = 0;
+            const batchSize = 8; // Số lượng ảnh mỗi lần load
+
+            const renderBatch = () => {
+                const frag = document.createDocumentFragment();
+                const end = Math.min(renderedCount + batchSize, items.length);
+                
+                for (let i = renderedCount; i < end; i++) {
+                    const el = createItemFn(items[i], i);
+                    if(el) frag.appendChild(el);
+                }
+                container.appendChild(frag);
+                renderedCount = end;
+            };
+
+            // Load đợt đầu tiên
+            renderBatch();
+
+            // Tạo "người gác cổng" (Sentinel) để kích hoạt load thêm
+            const sentinel = document.createElement('div');
+            sentinel.style.width = '100%';
+            sentinel.style.height = '20px'; // Chiều cao ảo để bắt sự kiện scroll
+            sentinel.style.gridColumn = '1 / -1'; // Chiếm hết chiều ngang grid
+            container.appendChild(sentinel);
+
+            // Logic quan sát khi cuộn tới sentinel
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    if (renderedCount < items.length) {
+                        // Tạm gỡ sentinel để chèn ảnh mới
+                        sentinel.remove();
+                        renderBatch();
+                        // Nếu vẫn còn ảnh chưa load, gắn lại sentinel xuống cuối
+                        if (renderedCount < items.length) {
+                            container.appendChild(sentinel);
+                        }
+                    } else {
+                        // Đã load hết sạch ảnh
+                        sentinel.remove();
+                    }
+                }
+            }, { rootMargin: '200px' }); // Load sớm trước khi cuộn tới đáy 200px
+
+            observer.observe(sentinel);
+        }
+
     </script>
 </body>
 </html>
