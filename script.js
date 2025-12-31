@@ -95,7 +95,7 @@
 
         // Hero Slider - UPDATED WITH ALL IMAGES FROM VENUE AND CUSTOMER SECTIONS
         const heroImages = [
-            'https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg', // Added new image to slideshow
+            'img/canhsac1.jpg', // Added new image to slideshow
             'https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg',
             'https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg',
             'https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg',
