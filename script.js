@@ -95,7 +95,7 @@
 
         // Hero Slider - UPDATED WITH ALL IMAGES FROM VENUE AND CUSTOMER SECTIONS
         const heroImages = [
-            'img/image1.jpg', // Added new image to slideshow
+            'https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg', // Added new image to slideshow
             'https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg',
             'https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg',
             'https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg',
@@ -103,7 +103,8 @@
             'https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg',
             'https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg',
             'https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg',
-            'https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg'
+            'https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg',
+                '../img/image1.jpg'
         ];
         let currentHeroIndex = 0;
         const heroSlideshow = document.getElementById('hero-slideshow');
