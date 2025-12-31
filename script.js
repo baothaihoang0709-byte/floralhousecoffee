@@ -103,8 +103,8 @@
             'https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg',
             'https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg',
             'https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg',
-            'https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg',
-                '../img/image1.jpg'
+            'https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg'
+                
         ];
         let currentHeroIndex = 0;
         const heroSlideshow = document.getElementById('hero-slideshow');
@@ -588,7 +588,8 @@
             "https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg",
             "https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg",
             "https://i.postimg.cc/Zq4YHssk/499435069-1264680502332405-3611031519090959969-n.jpg",
-            "https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg"
+            "https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg",
+                "img/image1.jpg"
         ];
 
         const customerImages = [
