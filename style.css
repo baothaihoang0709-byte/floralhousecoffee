@@ -1,4 +1,4 @@
-<style>
+
         /* --- 1. BIẾN MÀU SẮC & THEME --- */
         :root {
             /* --- Chế độ Sáng (Mặc định) --- */
@@ -521,4 +521,4 @@
             .reviews-layout { flex-direction: column; }
             .review-list-col { height: 400px; }
         }
-    </style>
+
