@@ -588,8 +588,8 @@
             "https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg",
             "https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg",
             "https://i.postimg.cc/Zq4YHssk/499435069-1264680502332405-3611031519090959969-n.jpg",
-            "https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg",
-                "img/image1.jpg"
+            "https://i.postimg.cc/bJFzzyyy/499550909-1264680565665732-1749112946200219501-n.jpg"
+                
         ];
 
         const customerImages = [
