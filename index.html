@@ -14,7 +14,7 @@
     <!-- Favicon -->
     <link rel="icon" href="https://i.postimg.cc/L85xrmqv/488911455-1224001189733670-18342580669773743-n.jpg" type="image/jpg">
 
-   <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Header -->
@@ -46,7 +46,7 @@
                     <li class="nav-item"><div class="nav-link" onclick="switchPage('events')">Sự kiện</div></li>
                     <li class="nav-item"><div class="nav-link" onclick="switchPage('contact')">Kết Nối</div></li>
                     <li class="nav-item"><div class="nav-link" onclick="switchPage('feedback')">Nhắn Nhủ</div></li>
-                    <li class="nav-item"><div class="nav-link" onclick="switchPage('reviews')">Đánh Giá</div></li>
+                    <!-- Đã xóa mục Đánh Giá ở đây -->
                 </ul>
 
                 <!-- Right Controls (Auth + Theme) -->
@@ -219,52 +219,6 @@
 
     <section id="feedback" class="page-section">
         <div class="container"><div class="section-title"><h2>Góc Lắng Nghe</h2><p>Mọi ý kiến đóng góp của bạn giúp Floral House hoàn thiện hơn</p></div><div class="contact-wrapper"><form id="feedback-form" action="https://formspree.io/f/mblvqkoa" method="POST" onsubmit="handleFormSubmit(event, 'feedback-form')"><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Họ và Tên (Không bắt buộc)</label><input type="text" name="name" placeholder="Bạn có thể ẩn danh nếu muốn..."></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Vấn đề bạn muốn góp ý</label><select name="topic" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 1rem; color: var(--text-gray);"><option value="Chất lượng đồ uống">Chất lượng đồ uống</option><option value="Thái độ nhân viên">Thái độ nhân viên</option><option value="Không gian / Vệ sinh">Không gian / Vệ sinh</option><option value="Đề xuất món mới">Đề xuất món mới</option><option value="Khác">Khác</option></select></div><div class="form-group"><label style="font-weight: bold; color: var(--dark-green); margin-bottom: 5px; display: block;">Chi tiết phản ánh <span class="required-star">*</span></label><textarea id="f-message" name="message" rows="5" maxlength="250" placeholder="Hãy chia sẻ trải nghiệm của bạn để chúng mình phục vụ tốt hơn nhé..." required></textarea><span class="char-count" id="f-message-count">0/250</span><span class="error-message" id="f-message-error">Vui lòng nhập từ 5 đến 250 ký tự.</span></div><button type="submit" class="btn-main" style="width: 100%;">Gửi Góp Ý</button><p style="margin-top: 20px; font-size: 0.9rem; color: #666; font-style: italic; text-align: center; border-top: 1px dashed #ddd; padding-top: 15px;"><i class="fas fa-lightbulb" style="color: var(--accent-gold);"></i> Mách nhỏ: Để không phải chờ đợi lâu, bạn cứ gọi liền Hotline hoặc nhắn tin trực tiếp cho quán nhé.</p></form></div></div>
-    </section>
-
-    <!-- 9. ĐÁNH GIÁ (GÓC YÊU THƯƠNG) -->
-    <section id="reviews" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Góc Yêu Thương</h2><p>Cảm ơn bạn đã ghé thăm. Hãy để lại đánh giá để Floral House phục vụ tốt hơn nhé!</p></div>
-            <div class="reviews-layout">
-                <div class="review-form-col">
-                    <div class="rating-container" style="max-width: 100%;">
-                        <div class="rating-score">4.9/5</div><p style="color: #888;">(Điểm trung bình)</p>
-                        <div class="rating-stars" id="star-container"><i class="fas fa-star" data-value="1"></i><i class="fas fa-star" data-value="2"></i><i class="fas fa-star" data-value="3"></i><i class="fas fa-star" data-value="4"></i><i class="fas fa-star" data-value="5"></i></div>
-                        <div class="form-group"><textarea id="review-text" rows="4" placeholder="Chia sẻ cảm nhận của bạn về không gian, đồ uống..." style="margin-bottom: 15px;"></textarea></div>
-                        <button class="btn-main" onclick="submitReview()" style="width: 100%;">Gửi Đánh Giá</button>
-                    </div>
-                </div>
-                <div class="review-list-col">
-                    <div class="review-list-header"><h3>Cộng đồng Floral</h3><span class="avg-rating" id="total-reviews-main">158 đánh giá</span></div>
-                    <div class="reviews-list-scroll" id="reviews-list">
-                        <!-- Featured reviews will be rendered here by JS -->
-                    </div>
-                    <button class="btn-see-all" onclick="switchPage('all-reviews')">Xem tất cả nhận xét &rarr;</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. TRANG TẤT CẢ ĐÁNH GIÁ -->
-    <section id="all-reviews" class="page-section">
-        <div class="container">
-            <div class="section-title"><h2>Tất Cả Đánh Giá</h2><p>Lắng nghe những lời yêu thương từ khách hàng của Floral House</p></div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
-                <button class="btn-main" onclick="switchPage('reviews')" style="padding: 8px 20px; font-size: 0.9rem;"><i class="fas fa-arrow-left"></i> Quay lại Góc Yêu Thương</button>
-                <div style="font-weight: bold; color: var(--dark-green); font-size: 1.1rem;">Tổng số: <span style="color: var(--accent-gold);" id="total-reviews-all">158</span> đánh giá <i class="fas fa-star" style="color: var(--accent-gold);"></i></div>
-            </div>
-            <div class="rating-breakdown" id="rating-filter-container">
-                <span class="rating-tag active" onclick="filterReviews('all', this)">Tất cả</span>
-                <span class="rating-tag" onclick="filterReviews(5, this)">5 <i class="fas fa-star"></i></span>
-                <span class="rating-tag" onclick="filterReviews(4, this)">4 <i class="fas fa-star"></i></span>
-                <span class="rating-tag" onclick="filterReviews(3, this)">3 <i class="fas fa-star"></i></span>
-                <span class="rating-tag" onclick="filterReviews(2, this)">2 <i class="fas fa-star"></i></span>
-                <span class="rating-tag" onclick="filterReviews(1, this)">1 <i class="fas fa-star"></i></span>
-            </div>
-            <div class="gallery-grid" id="all-reviews-container">
-                <!-- Reviews will be rendered here by JS -->
-            </div>
-        </div>
     </section>
 
     <!-- Notification -->
