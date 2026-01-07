@@ -46,7 +46,112 @@ function toggleTheme() {
     }
 }
 
+// --- HÀM THÊM STYLE CHO KHUNG ĐIỆN THOẠI & LAPTOP (MỚI) ---
+function injectMockupStyles() {
+    const styleId = 'mockup-styles';
+    if (!document.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.innerHTML = `
+            /* Phone Mockup Style */
+            .phone-mockup {
+                border: 8px solid #333;
+                border-radius: 20px;
+                overflow: hidden;
+                position: relative;
+                background: #000;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                margin: 0 auto 15px auto;
+                max-width: 280px; /* Giới hạn chiều rộng giống điện thoại */
+                transition: transform 0.3s ease;
+            }
+            .phone-mockup:hover { transform: translateY(-5px); }
+            .phone-mockup img {
+                display: block;
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+                object-fit: cover;
+            }
+            /* Camera notch giả cho điện thoại */
+            .phone-mockup::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 50%;
+                transform: translateX(-50%);
+                width: 40%; height: 15px;
+                background: #333;
+                border-radius: 0 0 10px 10px;
+                z-index: 2;
+            }
+
+            /* Laptop Mockup Style */
+            .laptop-mockup {
+                margin: 0 auto 15px auto;
+                max-width: 100%;
+                transition: transform 0.3s ease;
+            }
+            .laptop-mockup:hover { transform: translateY(-5px); }
+            .laptop-screen {
+                background: #000;
+                border: 8px solid #333;
+                border-radius: 10px 10px 0 0;
+                overflow: hidden;
+                position: relative;
+                box-shadow: 0 0 0 1px #555; /* Viền màn hình */
+            }
+            /* Camera dot giả cho laptop */
+            .laptop-screen::before {
+                content: '';
+                position: absolute;
+                top: 5px; left: 50%;
+                transform: translateX(-50%);
+                width: 6px; height: 6px;
+                background: #555;
+                border-radius: 50%;
+                z-index: 2;
+            }
+            .laptop-screen img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            .laptop-base {
+                height: 12px;
+                background: #e0e0e0; /* Màu bạc của macbook */
+                border-radius: 0 0 10px 10px;
+                position: relative;
+                border: 1px solid #ccc;
+                background: linear-gradient(to bottom, #dedede 0%, #c5c5c5 100%);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            /* Khe mở laptop */
+            .laptop-base::after {
+                content: '';
+                position: absolute;
+                top: 0; left: 50%;
+                transform: translateX(-50%);
+                width: 60px; height: 4px;
+                background: #a0a0a0;
+                border-radius: 0 0 4px 4px;
+            }
+            
+            /* Caption fix */
+            .gallery-caption {
+                text-align: center;
+                font-family: 'Dancing Script', cursive;
+                font-size: 1.2rem;
+                color: var(--dark-green);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Inject CSS styles for mockups
+    injectMockupStyles();
+
     // Theme initialization
     const savedTheme = safeStorage.getItem('theme');
     const btnIcon = document.querySelector('#theme-toggle i');
@@ -63,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus(); // Check User
     
     // === QUAN TRỌNG: Render Ảnh Cảnh Sắc & Khoảnh Khắc ===
-    // (Đoạn này trước đây không chạy được do lỗi ở phần Đánh Giá phía trên)
     renderGrid('venue-grid', venueImages, createImageElement);
     renderGrid('customer-grid', customerImages, createImageElement);
     renderGrid('reels-grid', reelsData, createReelElement);
@@ -90,7 +194,6 @@ function switchPage(pageId) {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => link.classList.remove('active-link'));
     let activeLink;
-    // Updated to remove 'library' from Dropdown active logic
     if (pageId === 'venue' || pageId === 'customer' || pageId === 'reels') {
         activeLink = document.querySelector('.nav-item.dropdown .nav-link');
     } else {
@@ -103,9 +206,9 @@ function switchPage(pageId) {
 }
 function scrollToLetter() { const letterSection = document.getElementById('letter-section'); if(letterSection) letterSection.scrollIntoView({ behavior: 'smooth' }); }
 
-// Hero Slider - UPDATED WITH ALL IMAGES FROM VENUE AND CUSTOMER SECTIONS
+// Hero Slider
 const heroImages = [
-    'https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg', // Added new image to slideshow
+    'https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg', 
     'https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg',
     'https://i.postimg.cc/Wzh1rDWC/498652886-1264680568999065-611903234758446464-n.jpg',
     'https://i.postimg.cc/FFBRvZ14/499133961-1263538372446618-6327013886961987301-n.jpg',
@@ -114,7 +217,6 @@ const heroImages = [
     'https://i.postimg.cc/xT34HsmH/576476835-1422400803227040-4241813530490748244-n.jpg',
     'https://i.postimg.cc/Znhwv3KG/590293946-1441080991359021-3284284012678839203-n.jpg',
     'https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg'
-        
 ];
 let currentHeroIndex = 0;
 const heroSlideshow = document.getElementById('hero-slideshow');
@@ -137,7 +239,7 @@ function nextSlide() {
 }
 setInterval(nextSlide, 5000);
 
-// --- LOGIC AUTHENTICATION (MỚI) ---
+// --- LOGIC AUTHENTICATION ---
 let currentUser = null;
 
 function checkLoginStatus() {
@@ -173,7 +275,6 @@ function updateAuthUI() {
     }
 }
 
-// --- XỬ LÝ ĐĂNG NHẬP THỰC TẾ ---
 function handleLogin(e) {
     e.preventDefault();
     const username = document.getElementById('login-username').value.trim();
@@ -184,38 +285,28 @@ function handleLogin(e) {
         return;
     }
 
-    // Lấy danh sách người dùng đã đăng ký từ localStorage
     let users = [];
     const storedUsersDB = safeStorage.getItem('floral_users_db');
     if (storedUsersDB) {
-        try {
-            users = JSON.parse(storedUsersDB);
-        } catch (err) {
-            users = [];
-        }
+        try { users = JSON.parse(storedUsersDB); } catch (err) { users = []; }
     }
 
-    // Tìm người dùng khớp username và password
     const validUser = users.find(u => u.username === username && u.password === password);
 
     if (validUser) {
-        // Đăng nhập thành công
         currentUser = { name: validUser.username, email: validUser.email };
         safeStorage.setItem('floral_user', JSON.stringify(currentUser));
         updateAuthUI();
         closeModal('modal-login');
         showFloralFireworks("Đăng nhập thành công! Chào mừng " + username + " đến với Floral House.", "Xin chào!");
         
-        // Reset form
         document.getElementById('login-username').value = '';
         document.getElementById('login-password').value = '';
     } else {
-        // Đăng nhập thất bại
         showFloralFireworks("Tên đăng nhập hoặc mật khẩu không đúng, hoặc bạn chưa đăng ký tài khoản!", "Rất tiếc!");
     }
 }
 
-// --- XỬ LÝ ĐĂNG KÝ THỰC TẾ ---
 function handleRegister(e) {
     e.preventDefault();
     const username = document.getElementById('reg-username').value.trim();
@@ -233,42 +324,31 @@ function handleRegister(e) {
         return;
     }
 
-    // Validation check
-    // Mật khẩu mạnh: 8+ ký tự, chữ cái, số, ký tự đặc biệt
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         showFloralFireworks("Mật khẩu không đủ mạnh! Vui lòng nhập ít nhất 8 ký tự, bao gồm chữ cái, số và ký tự đặc biệt.", "Mật khẩu yếu");
         return;
     }
 
-    // Lấy danh sách người dùng hiện có
     let users = [];
     const storedUsersDB = safeStorage.getItem('floral_users_db');
     if (storedUsersDB) {
-        try {
-            users = JSON.parse(storedUsersDB);
-        } catch (err) {
-            users = [];
-        }
+        try { users = JSON.parse(storedUsersDB); } catch (err) { users = []; }
     }
 
-    // Kiểm tra xem tên đăng nhập đã tồn tại chưa
     const userExists = users.some(u => u.username === username);
     if (userExists) {
         showFloralFireworks("Tên đăng nhập '" + username + "' đã được sử dụng. Vui lòng chọn tên khác.", "Trùng tên");
         return;
     }
 
-    // Tạo người dùng mới
     const newUser = { username, email, password }; 
     users.push(newUser);
     
-    // Lưu lại vào localStorage
     safeStorage.setItem('floral_users_db', JSON.stringify(users));
 
     showFloralFireworks("Đăng ký tài khoản thành công! Vui lòng đăng nhập.", "Chúc mừng!");
     
-    // Reset form và chuyển sang modal đăng nhập
     document.getElementById('reg-username').value = '';
     document.getElementById('reg-email').value = '';
     document.getElementById('reg-password').value = '';
@@ -286,7 +366,6 @@ function logoutUser() {
     }
 }
 
-// Helper switch Auth Modal
 function switchAuthModal(current, target) {
     closeModal(current);
     openModal(target);
@@ -326,7 +405,6 @@ async function handleFormSubmit(event, formId) {
     } catch (error) { showFloralFireworks("Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại mạng!", "Lỗi kết nối"); }
 }
 
-// FIREWORKS - MODIFIED TO ACCEPT TITLE
 function showFloralFireworks(customMessage, customTitle) { 
     const overlay = document.getElementById('notification-overlay'); 
     const messageElement = document.getElementById('notification-message'); 
@@ -334,7 +412,7 @@ function showFloralFireworks(customMessage, customTitle) {
     
     if (customMessage) messageElement.textContent = customMessage; 
     if (customTitle && titleElement) titleElement.textContent = customTitle;
-    else if (titleElement) titleElement.textContent = "Thông báo"; // Default title
+    else if (titleElement) titleElement.textContent = "Thông báo"; 
 
     overlay.style.display = 'flex'; 
     for(let i=0; i<30; i++) { createParticle(overlay); } 
@@ -353,12 +431,10 @@ function createParticle(container) {
 }
 function closeNotification() { document.getElementById('notification-overlay').style.display = 'none'; }
 
-// MODAL
 function openModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; } if(window.innerWidth <= 768) closeMobileMenu(); }
 function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('active'); document.body.style.overflow = 'auto'; } }
 window.onclick = function(event) { if (event.target.classList.contains('modal')) { event.target.classList.remove('active'); document.body.style.overflow = 'auto'; } }
 
-// MENU MOBILE
 const hamburger = document.querySelector(".hamburger"); const navMenu = document.querySelector(".nav-menu");
 function closeMobileMenu() { if (navMenu.classList.contains('active')) { hamburger.classList.remove("active"); navMenu.classList.remove("active"); document.body.classList.remove("menu-open"); } }
 function toggleMobileMenu(e) { if(e) e.stopPropagation(); const isActive = navMenu.classList.contains("active"); if (isActive) { closeMobileMenu(); } else { hamburger.classList.add("active"); navMenu.classList.add("active"); document.body.classList.add("menu-open"); } }
@@ -375,33 +451,21 @@ const lightboxImg = document.getElementById('lightbox-img');
 const captionText = document.getElementById('caption');
 const closeLightbox = document.querySelector('.lightbox-close');
 
-// Add click event to all gallery images (both Venue and Customer sections)
 function initLightbox() {
-    // Note: This now only handles static images not rendered by the dynamic gallery function
-    // The dynamic gallery function adds its own click listeners
     const galleryImages = document.querySelectorAll('.gallery-item img');
     galleryImages.forEach(img => {
         img.addEventListener('click', function() {
             lightbox.style.display = "flex";
             lightboxImg.src = this.src;
-            
-            // Try to get caption from sibling element
-            const captionEl = this.nextElementSibling;
-            if(captionEl && captionEl.classList.contains('gallery-caption')) {
-                captionText.innerHTML = captionEl.innerHTML;
-            } else {
-                captionText.innerHTML = "Floral House Moment";
-            }
-            
-            document.body.style.overflow = 'hidden'; // Disable scroll when lightbox is open
+            const captionEl = this.closest('.gallery-item').querySelector('.gallery-caption');
+            captionText.innerHTML = captionEl ? captionEl.innerHTML : "Floral House Moment";
+            document.body.style.overflow = 'hidden';
         });
     });
 }
 
-// Initialize Lightbox on load
 initLightbox();
 
-// Close logic
 if(closeLightbox) {
     closeLightbox.addEventListener('click', () => {
         lightbox.style.display = "none";
@@ -422,7 +486,6 @@ if(lightbox) {
 //  KHO CHỨA LINK ẢNH (DYNAMIC GALLERIES)
 // ==========================================
 
-// 1. Dữ liệu: Mảng chứa link ảnh cho từng mục
 const venueImages = [
     "https://i.postimg.cc/c4vvtzP0/497867622-1263538389113283-4720495622930196313-n.jpg",
     "https://i.postimg.cc/02yc2Kps/498538104-1261921889274933-6001674160814610449-n.jpg",
@@ -438,13 +501,11 @@ const customerImages = [
     "https://i.postimg.cc/7YwBxgR1/595435546-1446772444123209-4023446344088621073-n.jpg"
 ];
 
-// Dữ liệu giả lập cho Reels (bạn có thể thay thế sau)
 const reelsData = [
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+1", caption: "Pha chế cùng Floral" },
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+2", caption: "Một ngày nắng đẹp" },
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+3", caption: "Góc chill cuối tuần" },
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+4", caption: "Không gian xanh" },
-    // Thêm nhiều reels giả để test scroll
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+5", caption: "Chiều hoàng hôn" },
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+6", caption: "Nhạc chill" },
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+7", caption: "Góc học tập" },
@@ -452,7 +513,6 @@ const reelsData = [
     { img: "https://placehold.co/400x711/e8f5e9/2E5A48?text=Reel+9", caption: "Món mới" }
 ];
 
-// 2. Dữ liệu: Mảng Caption mẫu để xoay vòng
 const captions = [
     "Góc nhỏ bình yên",
     "Nắng sớm mai",
@@ -465,38 +525,74 @@ const captions = [
     "Hạnh phúc giản đơn"
 ];
 
-// Helper: Tạo phần tử HTML cho Ảnh thường
+// --- CẬP NHẬT HÀM TẠO ẢNH: TỰ ĐỘNG CHỌN KHUNG ĐIỆN THOẠI/LAPTOP ---
 function createImageElement(url, index) {
     if (!url || url.trim() === "") return null;
     const item = document.createElement('div');
     item.className = 'gallery-item';
     
-    const img = document.createElement('img');
+    // Tạo ảnh trước để kiểm tra kích thước
+    const img = new Image();
     img.src = url.trim();
     img.alt = "Floral House Image " + (index + 1);
     img.loading = "lazy";
     
+    // Gắn sự kiện click mở lightbox (như cũ)
     img.onclick = function() {
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const captionEl = document.getElementById('caption');
         lightbox.style.display = "flex";
         lightboxImg.src = this.src;
-        const siblingCaption = this.nextElementSibling;
+        // Lấy caption từ container cha
+        const wrapper = this.closest('.gallery-item');
+        const siblingCaption = wrapper ? wrapper.querySelector('.gallery-caption') : null;
         captionEl.innerHTML = siblingCaption ? siblingCaption.innerHTML : "Floral House Moment";
         document.body.style.overflow = 'hidden';
     };
 
-    const captionDiv = document.createElement('div');
-    captionDiv.className = 'gallery-caption';
-    captionDiv.innerText = captions[index % captions.length];
+    // Khi ảnh tải xong -> Kiểm tra kích thước -> Chọn khung
+    img.onload = function() {
+        const isPortrait = this.naturalHeight > this.naturalWidth;
+        // Xóa nội dung loading (nếu có)
+        item.innerHTML = ''; 
 
-    item.appendChild(img);
-    item.appendChild(captionDiv);
+        if (isPortrait) {
+            // --- ẢNH DỌC: KHUNG ĐIỆN THOẠI ---
+            const phoneFrame = document.createElement('div');
+            phoneFrame.className = 'phone-mockup';
+            // Chèn ảnh vào khung điện thoại
+            phoneFrame.appendChild(this); 
+            item.appendChild(phoneFrame);
+        } else {
+            // --- ẢNH NGANG: KHUNG LAPTOP ---
+            const laptopFrame = document.createElement('div');
+            laptopFrame.className = 'laptop-mockup';
+            
+            // Màn hình
+            const screen = document.createElement('div');
+            screen.className = 'laptop-screen';
+            screen.appendChild(this); // Chèn ảnh vào màn hình
+            laptopFrame.appendChild(screen);
+            
+            // Bàn phím/Đế
+            const base = document.createElement('div');
+            base.className = 'laptop-base';
+            laptopFrame.appendChild(base);
+
+            item.appendChild(laptopFrame);
+        }
+
+        // Thêm Caption vào cuối cùng
+        const captionDiv = document.createElement('div');
+        captionDiv.className = 'gallery-caption';
+        captionDiv.innerText = captions[index % captions.length];
+        item.appendChild(captionDiv);
+    };
+
     return item;
 }
 
-// Helper: Tạo phần tử HTML cho Reel
 function createReelElement(data, index) {
     const item = document.createElement('div');
     item.className = 'reel-item';
@@ -520,16 +616,13 @@ function createReelElement(data, index) {
     return item;
 }
 
-// 3. Hàm Render Động Thông Minh (Smart Grid Render)
-// Hỗ trợ Infinite Scroll trên Mobile
 function renderGrid(containerId, items, createItemFn) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    container.innerHTML = ''; // Clear cũ
+    container.innerHTML = ''; 
 
     const isMobile = window.innerWidth <= 768;
     
-    // Nếu là Desktop hoặc số lượng ít -> Render hết luôn
     if (!isMobile || items.length <= 8) {
         items.forEach((item, index) => {
             const el = createItemFn(item, index);
@@ -538,9 +631,8 @@ function renderGrid(containerId, items, createItemFn) {
         return;
     }
 
-    // Mobile & Danh sách dài -> Infinite Scroll
     let renderedCount = 0;
-    const batchSize = 8; // Số lượng ảnh mỗi lần load
+    const batchSize = 8; 
 
     const renderBatch = () => {
         const frag = document.createDocumentFragment();
@@ -554,33 +646,27 @@ function renderGrid(containerId, items, createItemFn) {
         renderedCount = end;
     };
 
-    // Load đợt đầu tiên
     renderBatch();
 
-    // Tạo "người gác cổng" (Sentinel) để kích hoạt load thêm
     const sentinel = document.createElement('div');
     sentinel.style.width = '100%';
-    sentinel.style.height = '20px'; // Chiều cao ảo để bắt sự kiện scroll
-    sentinel.style.gridColumn = '1 / -1'; // Chiếm hết chiều ngang grid
+    sentinel.style.height = '20px'; 
+    sentinel.style.gridColumn = '1 / -1'; 
     container.appendChild(sentinel);
 
-    // Logic quan sát khi cuộn tới sentinel
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
             if (renderedCount < items.length) {
-                // Tạm gỡ sentinel để chèn ảnh mới
                 sentinel.remove();
                 renderBatch();
-                // Nếu vẫn còn ảnh chưa load, gắn lại sentinel xuống cuối
                 if (renderedCount < items.length) {
                     container.appendChild(sentinel);
                 }
             } else {
-                // Đã load hết sạch ảnh
                 sentinel.remove();
             }
         }
-    }, { rootMargin: '200px' }); // Load sớm trước khi cuộn tới đáy 200px
+    }, { rootMargin: '200px' }); 
 
     observer.observe(sentinel);
 }
